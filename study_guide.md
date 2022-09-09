@@ -177,39 +177,76 @@ Separation created between protocols at different layers. A protocol at one laye
 
    **What is a switch and what is it used for?**
 
-6. **What is a hub and what is it used for?**
+   ​	A switch is a piece of hardware to which you connext devices to create a network.  Unlike a hub, a switch uses the destination address in order to direct a frame only to the device it is intended for. A switch keeps and updates a record of MAC addresses of the devices connected to it on a MAC Address Table, and assiciates each address with the Ethernet port to which the device is connected on the switch.
 
-7. **What is a modem and what it is used for?**
+| Switch Port | MAC Address       |
+| :---------- | :---------------- |
+| 1           | 00:40:96:9d:68:0a |
+| 2           | 00:A0:C9:14:C8:29 |
+| 3           | D8:D3:85:EB:12:E3 |
+| 4           | 00:1B:44:11:3A:B7 |
 
-8. **What is a router and what is it used for?**
 
-9. **What is the difference between a switch, hub, modem, and router?**
 
-10. **How does the Internet works?**
+1. **What is a hub and what is it used for?**
 
-11. **What is a MAC address and what is its role in network communication?**
+   A basic piece of network hardware that replicates a message and forwards it to all the devices on the network.
 
-12. **Give an overview of the Link/Data Layer**
+   This is fine if you want to send a particular message and forward it to the entire network, but usually you want to specify which specific device the message is intended for.
 
-    In the OSI model, the Data Link Layer is Layer 2 and comes in between the Physical Layer(1) and the Network Layer(3).  In the Internet Protocol Suite, the Link Layer is 1.	
+2. **What is a modem and what it is used for?**
 
-     * The layer is an interface between the workings of the physical network and the more logical layers above.
+3. **What is a router and what is it used for?**
 
-     * The most commonly used protocol at this later is the `Ethernet` protocol
+   1. All routers on a network store a local routing table.  When an IP packet is recieved by a router, the router examines the destination IP address and matches it with a list of network addresses in its routing table.  These network addresses define a range of addresses within a particular subnet.  The matching network address will determine where in the network hierachy the subnet exists.  This will then be used to select the best route for the IP packet to travel.
 
-       * Ethernet cables connect devices on the network such as computers, switches, and routers.
+4. **How does the Internet works?**
 
-       * The technical specification of these cables is governed by the same [IEEE standards](https://standards.ieee.org/standard/802_3-2018.html) that include the Ethernet communication protocols that operate at this layer of the network.
+   - The internet is a vast *network of networks*. It is comprised of both the *network infrastructure* itself (devices, routers, switches, cables, etc) and the *protocols* that enable that infrastructure to function.
+   - Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
 
-         Two of the most important aspects of Ethernet are *framing and addressing.*
+5. **What is a MAC address and what is its role in network communication?**
 
-13. **What is included in an Ethernet frame?**
+   MAC = Media Access Control Device 
 
-    ​		- DATA PAYLOAD field is used as an encapsulation mechanism for the layer 
+   Every Network-Enabled-Device has a NIC (network interface card) and is assigned a specific MAC address (physical or burned in address) when manufactured.
+
+   Ex/ `00:40:96:9d:68:0a`
+
+   - In our hub scenario, each receiving device would check its MAC Address against the Destination MAC Address in the Frame to check if it was the intended recipient. If it wasn't, then it would just ignore the frame. Hubs are inefficient bc you're sending the frame to every computer, so switch's are used.
+   - We cant scale the use of MAC addresses to a huge scale:
+     - They are physical rather than logical. Each MAC Address is tied (burned in) to a specific physical device
+     - They are flat rather than hierarchical. The entire address is a single sequence of values and can't be broken down into sub-divisions.
+     - THE IP is the set of rules that makes this scalable 
+
+   
+
+6. **Give an overview of the Link/Data Layer**
+
+   In the OSI model, the Data Link Layer is Layer 2 and comes in between the Physical Layer(1) and the Network Layer(3).  In the Internet Protocol Suite, the Link Layer is 1.	
+
+    * The layer is an interface between the workings of the physical network and the more logical layers above.
+
+    * The most commonly used protocol at this later is the `Ethernet` protocol
+
+      * Ethernet cables connect devices on the network such as computers, switches, and routers.
+
+      * The technical specification of these cables is governed by the same [IEEE standards](https://standards.ieee.org/standard/802_3-2018.html) that include the Ethernet communication protocols that operate at this layer of the network.
+
+        Two of the most important aspects of Ethernet are `*framing and addressing.*`
+
+7. **What is included in an Ethernet frame?**
+
+   		- DATA PAYLOAD field is used as an encapsulation mechanism for the layer 
+   		- An Ethernet Frame is structured data. 
+   		- Important parts are Destination MAC address, Source MAC address and Data Payload 
+   		- Interframe Gaps (IFG)- brief pause between transmission of each frame, which permits the reciever to prepare for the next frame. Contributes to the latency Transmission Delay
+   		- IEEE 802.3 Ethernet Standard- describes structure of frame 
+   		- The main elements to focus on are the Data Payload field being used as an encapsulation mechanism for the layer above, and the MAC Address fields being used to direct the frame between network devices. These particular fields exist across all the different Ethernet standards.
 
 ![Graphic showing structure of an Ethernet Frame](https://da77jsbdz4r05.cloudfront.net/images/ls170/data-link-layer-frame-structure.png)
 
-Ethernet frames are a Protocol Data Unit, and encapsulate data from the Internet/ Netwrok layer above. This is the lowest level of encapsulation.Ethernet Frame adds logical structure to the physical binary data. Data in this frame are still in bits, but the structure defines shich bits are actually the data payload, which are the metadata to be used in the process of transporting the frame. An ethernet- compliant network device is able to identify the different parts of the frame due to the fact that different 'fields' of data have specific lengths in bytes and appear in a set order.
+Ethernet frames are a Protocol Data Unit, and encapsulate data from the Internet/ Network layer above. This is the lowest level of encapsulation.Ethernet Frame adds logical structure to the physical binary data. Data in this frame are still in bits, but the structure defines shich bits are actually the data payload, which are the metadata to be used in the process of transporting the frame. An ethernet- compliant network device is able to identify the different parts of the frame due to the fact that different 'fields' of data have specific lengths in bytes and appear in a set order.
 
 - **Preamble and SFD:** The Preamble and Start of Frame Delimiter (SFD/ SOF) generally aren't considered part of the actual frame but are sent just prior to the frame as a synchronization measure which notifies the receiving device to expect frame data and then identify the start point of that data. The preamble is seven bytes (56 bits) long and the SFD is one byte (eight bits). Both use a repeated pattern that can be recognised by the receiving device, which then knows that the data following after is the frame data.
 - **Source and Destination MAC address:** The next two fields, each six bytes (48 bits) long, are the source and destination MAC addresses. The source address is the address of the device which created the frame (as we'll see later on in this assignment, this can change at various points along the data's journey). The destination MAC address is the address of the device for which the data is ultimately intended. MAC Addresses are a key part of the Ethernet protocol; we'll look at them in more detail shortly.
@@ -219,93 +256,178 @@ Ethernet frames are a Protocol Data Unit, and encapsulate data from the Internet
 - **Frame Check Sequence (FCS):** The final four bytes (32 bits) of an Ethernet Frame is the Frame Check Sequence. This is a checksum generated by the device which creates the frame. It is calculated from the frame data using an algorithm such as a cyclic redundancy check. The receiving device uses the same algorithm to generate a FCS and then compares this to the FCS in the sent frame. If the two don't match, then the frame is dropped. Ethernet doesn't implement any kind of retransmission functionality for dropped frames; it is the responsibility of higher level protocols to manage retransmission of lost data if this is a requirement of the protocol.
 
 1. **Give an overview of the Internet/Network Layer and it's role.**
+
+   OSI- network layer 3 between Data Link and Transport 
+
+   TCP/ IP- Internet later is 2 between Link and Transport- PREDOMINANTLY used 
+
+   - primary function of protocols at this layer is to facilitate communication between hosts (e.g. computers) on different networks.- internetwork comm.
+
 2. **What is IP?**
-3. **What is IP address?**
-4. **What are the components of IP addresses?**
-5. **What is a packet in computer networking?**
-6. **Why do we need both MAC addresses and IP addresses?**
-7. **What is DNS and how does it work?**
-8. **How do port numbers and IP addresses work together?**
-9. **What is a checksum and what is it used for? How is it used?**
-10. **Give an overview of the Transport Layer.**
-11. **What are the fundamental elements of reliable protocol?**
-12. **What is pipe-lining protocols? What are the benefits of it?**
-13. **What is a network port?**
-14. **What is a port number?**
-15. **What is a network socket?**
-16. **Is TCP connectionless? Why?**
-17. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
-18. **What are sockets on implementation and on a theoretical level?**
-19. **What does it mean that the protocol is connection-oriented?**
-20. **What is a three-way handshake? What is it used for?**
-21. **What are the advantages and disadvantages of a Three-way handshake?**
-22. **What are multiplexing and demultiplexing?**
-23. **How does TCP facilitate efficient data transfer?**
-24. **What is flow control? How does it work and why do we need it?**
-25. **How TCP prevents from receiver's buffer to get overloaded with data?**
-26. **What is congestion avoidance?**
-27. **What is network congestion?**
-28. **How do transport layer protocols enable communication between processes?**
-29. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
-30. **What does it mean that network reliability is engineered?**
-31. **Give an overview of the Application Layer.**
-32. **What is HTML?**
-33. **What is a URL and what components does it have?**
-34. **What is a Query string? What it is used for?**
-35. **What URL encoding is and when it might be used for?**
-36. **Which characters have to be encoded in the URL? Why?**
-37. **What is www in the URL?**
-38. **What is URI?**
-39. **What is the difference between scheme and protocol in URL?**
-40. **What is HTTP?**
-41. **What is the role of HTTP?**
-42. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
-43. **What are HTTP requests and responses? What are the components of each?**
-44. **Describe the HTTP request/response cycle.**
-45. **What is a** s**tate in the context of the 'web'?**
-46. **What is** s**tatelessness?**
-47. **What is a stateful Web Application?**
-48. **How can we mimic a stateful application?**
-49. **What is the difference between stateful and stateless applications?**
-50. **What does it mean that HTTP is a 'stateless protocol?**
-51. **Why HTTP makes it difficult to build a stateful application?**
-52. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
-53. **What is a `GET` request and how does it work?**
-54. **How is `GET` request initiated?**
-55. **What is the HTTP response body and what do we use it for?**
-56. **What are the obligatory components of HTTP requests?**
-57. **What are the obligatory components of HTTP response?**
-58. **Which HTTP method would you use to send sensitive information to a server? Why?**
-59. **Compare `GET` and `POST` methods.**
-60. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
-61. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
-62. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
-63. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
-64. **How do modern web applications 'remember' state for each client?**
-65. **What role does AJAX play in displaying dynamic content in web applications?**
-66. **Describe some of the security threats and what can be done to minimize them?**
-67. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
-68. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
-69. **What is the relationship between a scheme and a protocol in the context of a URL?**
-70. **In what ways can we pass information to the application server via the URL?**
-71. **How insecure HTTP message transfer looks like?**
-72. **What services does HTTP provide and what are the particular problems each of them aims to address?**
-73. **What is TLS Handshake?**
-74. **What is symmetric key encryption? What is it used for?**
-75. **What is asymmetric key encryption? What is it used for?**
-76. **Describe SSL/TLS encryption process.**
-77. **Describe the pros and cons of TLS Handshake**
-78. **Why do we need digital TLS/SSL certificates?**
-79. **What is it CA hierarchy and what is its role in providing secure message transfer?**
-80. **What is Cipher Suites and what do we need it for?**
-81. **How does TLS add a security layer to HTTP?**
-82. **Compare HTTP and HTTPS.**
-83. **Does HTTPS use other protocols?**
-84. **How do you know a website uses HTTPS?**
-85. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
-86. **What is server-side infrastructure? What are its basic components?**
-87. **What is a server? What is its role?**
-88. **What are optimizations that developers can do in order to improve performance and minimize latency?**
+
+   Internet Protocol is the predominant protocol used for Internet/Network Layer.
+
+   Two versions - 
+
+    	1) *IPv4*, IPv6
+        	1) Routing capabilities via IP addressing 
+        	2) Encapsulation of data into packets
+        	3) PDU within the IP protocol is a `packet`- comprised of a data payload and a header. Data payload is the PDU from Transport. Data is in bits like in Ethernet frame. Logical separation is determined by the set size of each field in bits and the order within the packet. 
+
+We won't describe every field in the header, but some of the more important ones to be aware of are:
+
+- **Version:** this indicates the version of the Internet Protocol used, e.g. IPv4
+
+- **ID, Flags, Fragment Offset:** these fields are related to fragmentation. If the Transport layer PDU is too large to be sent as a single packet, it can be fragmented, sent as multiple packets, and then reassembled by the recipient.
+
+- **TTL:** every packet has a Time to Live (TTL) value. This is to ensure that any packets which don't reach their destination for some reason aren't left to endlessly bounce around the network. The TTL indicates the maximum number of network 'hops' a packet can take before being dropped. At each hop, the router which processes and forwards the packet will decrement the TTL value by one.
+
+- **Protocol:** this indicates the protocol used for the Data Payload, e.g. TCP, UDP, etc.
+
+- **Checksum:** this is an error checking value generated via an algorithm. The destination device generates a value using the same algorithm and if it doesn't match, it drops the packet. IP doesn't manage retransmission of dropped packets. This is left to the layers above to implement.
+
+- **Source Address:** the 32-bit IP address of the source (sender) of the packet
+
+- **Destination Address:** the 32-bit IP address of the destination (intended recipient) of the packet
+
+  
+
+1. **What is IP address?**
+
+   1. Unlike MAC addresses, IP addresses are logical- they are not tied to a specific device, but can be assigned as required to devices as they join a network.
+   2. The IP address that the device is assigned must fall within a range of addresses available to the local network that the device is connected to.
+      1. Range is defined by a network hierarchy- the overall network is split into logical subnetworks, with each defined by the range of IP addresses available to it 
+
+2. **What are the components of IP addresses?**
+
+   32 bits adn divided into 4 sections of eight bits each.  
+
+3. **Why do we need both MAC addresses and IP addresses?**
+
+   MAC addresses - Who you are (physical)- Who lives there?- DATA LINK 
+
+   IP- Where you are (logical)- like a home address- changes each time- NETWORK
+
+   Need both working in different ways.
+
+   	1) MAC used to identify a device while IP is used to locate a device
+   	1) MAC is resposible for local identification, IP for global
+
+   The routers send out ARP broadcast to get MAC address of next router. IP address lets you know final address.
+
+4. **What is DNS and how does it work?**
+
+   1. DOMAIN SPECIFIC
+
+5. **How do port numbers and IP addresses work together?**
+
+6. **What is a checksum and what is it used for? How is it used?**
+
+   An error checking value generated via an algorithm. The destination device generates a value using the same algorithm and if it doesn't match, it drops the packet. IP doesn't manage retransmission of dropped packets. This is left to the layers above to implement.
+
+
+
+***LESSON 1 SUMMARY***
+
+#  Summary
+
+- The internet is a vast *network of networks*. It is comprised of both the *network infrastructure* itself (devices, routers, switches, cables, etc) and the *protocols* that enable that infrastructure to function.
+- Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
+- Different types of protocol are concerned with different aspects of network communication. It can be useful to think of these different protocols as operating at particular 'layers' of the network.
+- *Encapsulation* is a means by which protocols at different network layers can work together.
+- Encapsulation is implemented through the use of *Protocol Data Units* (PDUs). The PDU of a protocol at one layer, becomes the data payload of the PDU of a protocol at a lower layer.
+- The *physical network* is the tangible infrastructure that transmits the electrical signals, light, and radio waves which carry network communications.
+- *Latency is a measure of delay*. It indicates the amount of time it takes for data to travel from one point to another.
+- *Bandwidth is a measure of capacity*. It indicates the amount of data that can be transmitted in a set period of time.
+- *Ethernet* is a set of standards and protocols that enables *communication between devices on a local network*.
+- Ethernet uses a Protocol Data Unit called a Frame.
+- Ethernet uses *MAC addressing* to identify devices connected to the local network.
+- The *Internet Protocol* (IP) is the predominant protocol used for *inter-network communication*.
+- There are two versions of IP currently in use: IPv4 and IPv6.
+- The *Internet Protocol* uses a system of addressing (IP Addressing) to *direct data between one device and another across networks*.
+- IP uses a Protocol Data Unit called a Packet.
+
+
+
+1. **Give an overview of the Transport Layer.**
+2. **What are the fundamental elements of reliable protocol?**
+3. **What is pipe-lining protocols? What are the benefits of it?**
+4. **What is a network port?**
+5. **What is a port number?**
+6. **What is a network socket?**
+7. **Is TCP connectionless? Why?**
+8. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
+9. **What are sockets on implementation and on a theoretical level?**
+10. **What does it mean that the protocol is connection-oriented?**
+11. **What is a three-way handshake? What is it used for?**
+12. **What are the advantages and disadvantages of a Three-way handshake?**
+13. **What are multiplexing and demultiplexing?**
+14. **How does TCP facilitate efficient data transfer?**
+15. **What is flow control? How does it work and why do we need it?**
+16. **How TCP prevents from receiver's buffer to get overloaded with data?**
+17. **What is congestion avoidance?**
+18. **What is network congestion?**
+19. **How do transport layer protocols enable communication between processes?**
+20. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
+21. **What does it mean that network reliability is engineered?**
+22. **Give an overview of the Application Layer.**
+23. **What is HTML?**
+24. **What is a URL and what components does it have?**
+25. **What is a Query string? What it is used for?**
+26. **What URL encoding is and when it might be used for?**
+27. **Which characters have to be encoded in the URL? Why?**
+28. **What is www in the URL?**
+29. **What is URI?**
+30. **What is the difference between scheme and protocol in URL?**
+31. **What is HTTP?**
+32. **What is the role of HTTP?**
+33. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
+34. **What are HTTP requests and responses? What are the components of each?**
+35. **Describe the HTTP request/response cycle.**
+36. **What is a** s**tate in the context of the 'web'?**
+37. **What is** s**tatelessness?**
+38. **What is a stateful Web Application?**
+39. **How can we mimic a stateful application?**
+40. **What is the difference between stateful and stateless applications?**
+41. **What does it mean that HTTP is a 'stateless protocol?**
+42. **Why HTTP makes it difficult to build a stateful application?**
+43. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
+44. **What is a `GET` request and how does it work?**
+45. **How is `GET` request initiated?**
+46. **What is the HTTP response body and what do we use it for?**
+47. **What are the obligatory components of HTTP requests?**
+48. **What are the obligatory components of HTTP response?**
+49. **Which HTTP method would you use to send sensitive information to a server? Why?**
+50. **Compare `GET` and `POST` methods.**
+51. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
+52. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
+53. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
+54. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
+55. **How do modern web applications 'remember' state for each client?**
+56. **What role does AJAX play in displaying dynamic content in web applications?**
+57. **Describe some of the security threats and what can be done to minimize them?**
+58. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
+59. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
+60. **What is the relationship between a scheme and a protocol in the context of a URL?**
+61. **In what ways can we pass information to the application server via the URL?**
+62. **How insecure HTTP message transfer looks like?**
+63. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+64. **What is TLS Handshake?**
+65. **What is symmetric key encryption? What is it used for?**
+66. **What is asymmetric key encryption? What is it used for?**
+67. **Describe SSL/TLS encryption process.**
+68. **Describe the pros and cons of TLS Handshake**
+69. **Why do we need digital TLS/SSL certificates?**
+70. **What is it CA hierarchy and what is its role in providing secure message transfer?**
+71. **What is Cipher Suites and what do we need it for?**
+72. **How does TLS add a security layer to HTTP?**
+73. **Compare HTTP and HTTPS.**
+74. **Does HTTPS use other protocols?**
+75. **How do you know a website uses HTTPS?**
+76. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
+77. **What is server-side infrastructure? What are its basic components?**
+78. **What is a server? What is its role?**
+79. **What are optimizations that developers can do in order to improve performance and minimize latency?**
 
 
 
