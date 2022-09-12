@@ -350,84 +350,214 @@ We won't describe every field in the header, but some of the more important ones
 
 
 1. **Give an overview of the Transport Layer.**
-2. **What are the fundamental elements of reliable protocol?**
-3. **What is pipe-lining protocols? What are the benefits of it?**
-4. **What is a network port?**
-5. **What is a port number?**
-6. **What is a network socket?**
-7. **Is TCP connectionless? Why?**
-8. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
-9. **What are sockets on implementation and on a theoretical level?**
-10. **What does it mean that the protocol is connection-oriented?**
-11. **What is a three-way handshake? What is it used for?**
-12. **What are the advantages and disadvantages of a Three-way handshake?**
-13. **What are multiplexing and demultiplexing?**
-14. **How does TCP facilitate efficient data transfer?**
-15. **What is flow control? How does it work and why do we need it?**
-16. **How TCP prevents from receiver's buffer to get overloaded with data?**
-17. **What is congestion avoidance?**
-18. **What is network congestion?**
-19. **How do transport layer protocols enable communication between processes?**
-20. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
-21. **What does it mean that network reliability is engineered?**
-22. **Give an overview of the Application Layer.**
-23. **What is HTML?**
-24. **What is a URL and what components does it have?**
-25. **What is a Query string? What it is used for?**
-26. **What URL encoding is and when it might be used for?**
-27. **Which characters have to be encoded in the URL? Why?**
-28. **What is www in the URL?**
-29. **What is URI?**
-30. **What is the difference between scheme and protocol in URL?**
-31. **What is HTTP?**
-32. **What is the role of HTTP?**
-33. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
-34. **What are HTTP requests and responses? What are the components of each?**
-35. **Describe the HTTP request/response cycle.**
-36. **What is a** s**tate in the context of the 'web'?**
-37. **What is** s**tatelessness?**
-38. **What is a stateful Web Application?**
-39. **How can we mimic a stateful application?**
-40. **What is the difference between stateful and stateless applications?**
-41. **What does it mean that HTTP is a 'stateless protocol?**
-42. **Why HTTP makes it difficult to build a stateful application?**
-43. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
-44. **What is a `GET` request and how does it work?**
-45. **How is `GET` request initiated?**
-46. **What is the HTTP response body and what do we use it for?**
-47. **What are the obligatory components of HTTP requests?**
-48. **What are the obligatory components of HTTP response?**
-49. **Which HTTP method would you use to send sensitive information to a server? Why?**
-50. **Compare `GET` and `POST` methods.**
-51. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
-52. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
-53. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
-54. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
-55. **How do modern web applications 'remember' state for each client?**
-56. **What role does AJAX play in displaying dynamic content in web applications?**
-57. **Describe some of the security threats and what can be done to minimize them?**
-58. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
-59. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
-60. **What is the relationship between a scheme and a protocol in the context of a URL?**
-61. **In what ways can we pass information to the application server via the URL?**
-62. **How insecure HTTP message transfer looks like?**
-63. **What services does HTTP provide and what are the particular problems each of them aims to address?**
-64. **What is TLS Handshake?**
-65. **What is symmetric key encryption? What is it used for?**
-66. **What is asymmetric key encryption? What is it used for?**
-67. **Describe SSL/TLS encryption process.**
-68. **Describe the pros and cons of TLS Handshake**
-69. **Why do we need digital TLS/SSL certificates?**
-70. **What is it CA hierarchy and what is its role in providing secure message transfer?**
-71. **What is Cipher Suites and what do we need it for?**
-72. **How does TLS add a security layer to HTTP?**
-73. **Compare HTTP and HTTPS.**
-74. **Does HTTPS use other protocols?**
-75. **How do you know a website uses HTTPS?**
-76. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
-77. **What is server-side infrastructure? What are its basic components?**
-78. **What is a server? What is its role?**
-79. **What are optimizations that developers can do in order to improve performance and minimize latency?**
+
+   running multiple apps at once- We can perhaps think of these different applications or processes as distinct *channels* for communication on a host machine.
+
+   So, although we have multiple communication channels *on* a host, with IP addresses we only have a single channel *between*hosts. What we need is a way to transmit these multiple data inputs over this single host-to-host channel and then somehow separate them out at the other end.
+
+   Getting data from Application layer and breaking it into packets, and attaching meta-info (source dest. ports) 
+
+   Destination port numbers are included in the PDU (Protocol Data Unit) for the Transport Layer.  The name, and exact structure, of these PDUs varies according to the Transport Protocol used, but what they have in common is that they include these two pieces of information.
+
+![Simple graphic of a transport layer PDU showing source and destination ports](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-comms-between-processes-simple-pdu.png)
+
+* Data from the application layer is encapsulated as the data payload in this PDU, and the source and destination port numbers within the PDU can be used to direct that data to specfic processes on a host. The entire PDU is then encapsulated as the data payload in an IP packet.
+*  The IP address and the port number *together* are what enables end-to-end communication between specific applications on different machines. The combination of IP address and port number information can be thought of as defining a *communication end-point*. This communication end-point is generally referred to as a *socket*.
+
+
+
+1. **What are the fundamental elements of reliable protocol?**
+
+2. **What is pipe-lining protocols? What are the benefits of it?**
+
+3. **What is a network port?**
+
+   A port is an identifier for a specific process running on a host. This identifier is an integer in the range 0-65535. 
+
+   A port is NOT a physical connection. Its a logical connection thats used by programs and services to exchange info.
+
+   Its specifically determines which program or service on a computer or server that is going to be used.
+
+   Always associated with an IP address- work together to exchange data on a network 
+
+4. **What is a port number?**
+
+   - Unique number that identifies them. 
+
+   1. 0-1023 are well-known ports. These are assigned to processes that provide commonly used network services. For example HTTP is port 80, FTP is port 20 and 21, SMTP is port 25, and so on.
+   2. 1024-49151 are registered ports. They are assigned as requested by private entities. For example, companies such as Microsoft, IBM, and Cisco have ports assigned that they use to provide specific services. On some operating systems, ports in this range are also used for allocation as *ephemeral ports* on the client side.
+   3. 49152-65535 are dynamic ports (sometimes known as private ports). Ports in this range cannot be registered for a specific use. They can be used for customized services or for allocation as *ephemeral ports*.
+
+5. **What is a network socket?**
+
+   The IP address and the port number together are what enables end-to-end communication between specific applications on different machines.  The combination of IP address and port number info can be thought of as defining a `communication end-point`- generally referred to as the socket. Ex/ 216.3.128.12:8080
+
+   - An abstraction for an endpoint used for inter-process communication
+   - At an implementation level, it can be used to refer to different specific things:
+     - UNIX socket: a mechanism for communication between local processes running on the same machine.
+     - Internet sockets (such as a TCP/IP socket): a mechanism for inter-process communication between networked processes (usually on different machines).
+     - There *is* a distinction between the concept of a network socket and its implementation in code.
+
+6. **Is TCP connectionless? Why?**
+
+   Transmission Control Protocol- Connection Oritented Protocol
+
+   Establishes connection with server after the data is broken down into packets from the application layer.
+
+   - Check connections by running `netstat -ap TCP` in terminal
+
+7. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
+
+8. **What are sockets on implementation and on a theoretical level?**
+
+9. **What does it mean that the protocol is connection-oriented?**
+
+10. **What is a three-way handshake? What is it used for?**
+
+    In the TCP (Transmission Control Protocol) protocol. Establishing a connection with the server. 
+
+    1) Client sends SYN (synchronized) packet to the server - 'Hey server I want to establish a connection with you'. 
+    2) Server recieves it and sends back SYN ACK (synchronized acknowledgement)- "hey I'm ready to accept the connection"
+    3) Client recieves and sends back ACK (acknowledgement)- connection established! 
+       1) Packet Transmission can start
+
+11. **What are the advantages and disadvantages of a Three-way handshake?**
+
+12. **What are multiplexing and demultiplexing?**
+
+    In the context of a communication network, this idea of transmitting multiple signals over a single channel is known as multiplexing, with demultiplexing being the reverse process. Takes place through the use of network ports.
+
+13. **How does TCP facilitate efficient data transfer?**
+
+14. **What is flow control? How does it work and why do we need it?**
+
+15. **How TCP prevents from receiver's buffer to get overloaded with data?**
+
+16. **What is congestion avoidance?**
+
+17. **What is network congestion?**
+
+18. **How do transport layer protocols enable communication between processes?**
+
+19. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
+
+20. **What does it mean that network reliability is engineered?**
+
+21. **Give an overview of the Application Layer.**
+
+22. **What is HTML?**
+
+23. **What is a URL and what components does it have?**
+
+24. **What is a Query string? What it is used for?**
+
+25. **What URL encoding is and when it might be used for?**
+
+26. **Which characters have to be encoded in the URL? Why?**
+
+27. **What is www in the URL?**
+
+28. **What is URI?**
+
+29. **What is the difference between scheme and protocol in URL?**
+
+30. **What is HTTP?**
+
+31. **What is the role of HTTP?**
+
+32. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
+
+33. **What are HTTP requests and responses? What are the components of each?**
+
+34. **Describe the HTTP request/response cycle.**
+
+35. **What is a** s**tate in the context of the 'web'?**
+
+36. **What is** s**tatelessness?**
+
+37. **What is a stateful Web Application?**
+
+38. **How can we mimic a stateful application?**
+
+39. **What is the difference between stateful and stateless applications?**
+
+40. **What does it mean that HTTP is a 'stateless protocol?**
+
+41. **Why HTTP makes it difficult to build a stateful application?**
+
+42. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
+
+43. **What is a `GET` request and how does it work?**
+
+44. **How is `GET` request initiated?**
+
+45. **What is the HTTP response body and what do we use it for?**
+
+46. **What are the obligatory components of HTTP requests?**
+
+47. **What are the obligatory components of HTTP response?**
+
+48. **Which HTTP method would you use to send sensitive information to a server? Why?**
+
+49. **Compare `GET` and `POST` methods.**
+
+50. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
+
+51. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
+
+52. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
+
+53. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
+
+54. **How do modern web applications 'remember' state for each client?**
+
+55. **What role does AJAX play in displaying dynamic content in web applications?**
+
+56. **Describe some of the security threats and what can be done to minimize them?**
+
+57. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
+
+58. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
+
+59. **What is the relationship between a scheme and a protocol in the context of a URL?**
+
+60. **In what ways can we pass information to the application server via the URL?**
+
+61. **How insecure HTTP message transfer looks like?**
+
+62. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+
+63. **What is TLS Handshake?**
+
+64. **What is symmetric key encryption? What is it used for?**
+
+65. **What is asymmetric key encryption? What is it used for?**
+
+66. **Describe SSL/TLS encryption process.**
+
+67. **Describe the pros and cons of TLS Handshake**
+
+68. **Why do we need digital TLS/SSL certificates?**
+
+69. **What is it CA hierarchy and what is its role in providing secure message transfer?**
+
+70. **What is Cipher Suites and what do we need it for?**
+
+71. **How does TLS add a security layer to HTTP?**
+
+72. **Compare HTTP and HTTPS.**
+
+73. **Does HTTPS use other protocols?**
+
+74. **How do you know a website uses HTTPS?**
+
+75. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
+
+76. **What is server-side infrastructure? What are its basic components?**
+
+77. **What is a server? What is its role?**
+
+78. **What are optimizations that developers can do in order to improve performance and minimize latency?**
 
 
 
