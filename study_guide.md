@@ -353,7 +353,7 @@ We won't describe every field in the header, but some of the more important ones
 
    running multiple apps at once- We can perhaps think of these different applications or processes as distinct *channels* for communication on a host machine.
 
-   So, although we have multiple communication channels *on* a host, with IP addresses we only have a single channel *between*hosts. What we need is a way to transmit these multiple data inputs over this single host-to-host channel and then somehow separate them out at the other end.
+   So, although we have multiple communication channels *on* a host, with IP addresses we only have a single channel *between* hosts. What we need is a way to transmit these multiple data inputs over this single host-to-host channel and then somehow separate them out at the other end.
 
    Getting data from Application layer and breaking it into packets, and attaching meta-info (source dest. ports) 
 
@@ -363,14 +363,86 @@ We won't describe every field in the header, but some of the more important ones
 
 * Data from the application layer is encapsulated as the data payload in this PDU, and the source and destination port numbers within the PDU can be used to direct that data to specfic processes on a host. The entire PDU is then encapsulated as the data payload in an IP packet.
 *  The IP address and the port number *together* are what enables end-to-end communication between specific applications on different machines. The combination of IP address and port number information can be thought of as defining a *communication end-point*. This communication end-point is generally referred to as a *socket*.
+* **TCP protocol** - 
+
+  * The Transmission Control Protocol (TCP) is one of the corner-stones of the Internet. One of the key characteristics of this protocol is the fact that it provides reliable data transfer. In fact, reliability is listed as a key element of TCP operation as defined in [RFC793](https://www.ietf.org/rfc/rfc793.txt).
+
+  > The TCP must recover from data that is damaged, lost, duplicated, or delivered out of order by the internet communication system.
+
+  - What TCP essentially provides is the abstraction of reliable network communication on top of an unreliable channel. What this abstraction does is to hide much of the complexity of reliable network communication from the application layer: data integrity, de-duplication, in-order delivery, and retransmission of lost data.
+  - Reliability isn't the only thing that TCP provides. It also provides data encapsulation and multiplexing through the use of TCP Segments.
 
 
 
 1. **What are the fundamental elements of reliable protocol?**
 
+   * The possibility of losing data and it not being replaced means that the network up to and including the Internet Protocol is effectively an *unreliable communication channel*.  What we need to do is develop a system of rules, or a protocol, to ensure that all the data that is sent is received at the other end and in the correct order. What would such a system of rules look like?
+
+   * Problem: Messages can become corrupt or lost, how do you ensure the message has been successfully received?
+
+      * Solution: Use an acknowledgement message
+        * Rules:
+          - Sender sends one message at a time
+          - If message received, receiver sends an acknowledgement
+          - When acknowledgement is received, sender sends next message
+        * This seems like a pretty good solution, but there's a major flaw with it. There are certain situations in which the sender will never receive an acknowledgement:
+          - The recipient never receives the message and so doesn't send an acknowledgement
+          - The recipient receives the message and sends an acknowledgement, but the acknowledgement becomes corrupt or lost
+
+   * Problem: what if the acknowledgement is not received?
+
+      * Solution: re-send the message if acknowledgement not received within a certain time-frame.
+        * Rules:
+          - Sender sends one message at a time, and sets a timeout
+          - If message received, receiver sends an acknowledgement
+          - When acknowledgement is received, sender sends next message
+          - If acknowledgement not received before the timeout expires, sender assumes either the message or the acknowledgement went missing and sends the same message again
+        * Solving this problem has however introduced a separate problem into our system: duplication. Imagine the following scenarios:
+          - The receiver receives the message and sends an acknowledgement, but the acknowledgement becomes corrupt or lost
+          - The receiver receives the message and sends an acknowledgement, but the acknowledgement is delayed and the sender doesn't receive it before the timeout expires
+
+   * Problem: the message is received but acknowledgement is not received (or not in time), resulting in a duplicate message.
+
+      * Solution: add sequence numbers to the messages.
+
+        * Rules:
+          - Sender sends one message at a time, with a sequence number, and sets a timeout
+          - If message received, receiver sends an acknowledgement which uses the sequence number of the message to indicate which message was received
+          - When acknowledgement is received, sender sends next message in the sequence
+          - If acknowledgement is not received before the timeout expires, sender assumes either the message or the acknowledgement went missing and sends the same message again with the same sequence number
+          - If the recipient receives a message with a duplicate sequence number it assumes the sender never received the acknowledgement and so sends another acknowledgement for that sequence number and discards the duplicate
+
+      * In order delivery: data is received in the order that it was sent
+
+     * Error detection: corrupt data is identified using a checksum
+
+     * Handling data loss: missing data is retransmitted based on acknowledgements and timeouts
+
+     * Handling duplication: duplicate data is eliminated through the use of sequence numbers
+
+       **Our protocol as it stands is reliable. Unfortunately, it's not very efficient. ** It's a "stop and wait" system and is not an efficient use of bandwidth.
+
+       
+
 2. **What is pipe-lining protocols? What are the benefits of it?**
 
-3. **What is a network port?**
+   In computer networking, pipelining is the method of sending multiple data units without waiting for an acknowledgment for the first frame sent. Pipelining ensures better utilization of network resources and also increases the speed of delivery, particularly in situations where a large number of data units make up a message to be sent.
+
+   - To improve the throughput of our protocol, we send multiple messages on after the other without waiting for acknowledgements.Reliability is still there bc we are still recieving these acknowledgments, we are just sending multiple messages at one time. 
+
+![transport-reliability-stop-and-wait-vs-pipelining](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-reliability-stop-and-wait-vs-pipelining.png)
+
+Both Go-back-N and Selective Repeat both use a 'window' which is the max number of messages that can be in the pipeline at any one time, and once it recieves all the acknowledgments, it moves to the next window.
+
+![transport-reliability-windowing](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-reliability-windowing.png)
+
+BENEFITS - The advantage of this pipelined approach is its more efficient use of available bandwidth. Instead of wasting lots of time just waiting for acknowledgements, more time is spent actually transmitting data.
+
+Finding a balance between reliability and performance is a major part of the implementation of the Transmission Control Protocol (TCP). We'll look at this protocol in more detail in the next assignment.
+
+
+
+1. **What is a network port?**
 
    A port is an identifier for a specific process running on a host. This identifier is an integer in the range 0-65535. 
 
@@ -380,7 +452,7 @@ We won't describe every field in the header, but some of the more important ones
 
    Always associated with an IP address- work together to exchange data on a network 
 
-4. **What is a port number?**
+2. **What is a port number?**
 
    - Unique number that identifies them. 
 
@@ -388,7 +460,7 @@ We won't describe every field in the header, but some of the more important ones
    2. 1024-49151 are registered ports. They are assigned as requested by private entities. For example, companies such as Microsoft, IBM, and Cisco have ports assigned that they use to provide specific services. On some operating systems, ports in this range are also used for allocation as *ephemeral ports* on the client side.
    3. 49152-65535 are dynamic ports (sometimes known as private ports). Ports in this range cannot be registered for a specific use. They can be used for customized services or for allocation as *ephemeral ports*.
 
-5. **What is a network socket?**
+3. **What is a network socket?**
 
    The IP address and the port number together are what enables end-to-end communication between specific applications on different machines.  The combination of IP address and port number info can be thought of as defining a `communication end-point`- generally referred to as the socket. Ex/ 216.3.128.12:8080
 
@@ -398,166 +470,139 @@ We won't describe every field in the header, but some of the more important ones
      - Internet sockets (such as a TCP/IP socket): a mechanism for inter-process communication between networked processes (usually on different machines).
      - There *is* a distinction between the concept of a network socket and its implementation in code.
 
-6. **Is TCP connectionless? Why?**
+4. **Is TCP connectionless? Why?**
 
    Transmission Control Protocol- Connection Oritented Protocol
 
    Establishes connection with server after the data is broken down into packets from the application layer.
 
    - Check connections by running `netstat -ap TCP` in terminal
+   - `TCP is an example of a connection-oriented protocol`. It requires a logical connection to be established between the two processes before data is exchanged. The connection must be maintained during the entire time that communication is taking place, then released afterwards.
 
-7. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
+5. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
 
-8. **What are sockets on implementation and on a theoretical level?**
+   -In socket programming or network programming terms though, the implementation of this concept involves instantiating *socket objects*. While implementations vary, many follow the Berkeley sockets API model. Implementations which follow this model define specific functions such as `bind()`, `listen()`, `accept()`, and `connect()`, among others.
 
-9. **What does it mean that the protocol is connection-oriented?**
+   -The reason for this is that having a mental model of sockets being implemented as objects helps to understand how they can be used to create *connections* between applications. Some understanding of connections is necessary to comprehend the difference between connection-oriented communication and connectionless communication. 
 
-10. **What is a three-way handshake? What is it used for?**
+   -By instantiating multiple socket objects, we can implement connection-oriented network communication between applications.
 
-    In the TCP (Transmission Control Protocol) protocol. Establishing a connection with the server. 
+   ![transport-comms-between-processes-connectionless](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-comms-between-processes-connectionless.png)
 
-    1) Client sends SYN (synchronized) packet to the server - 'Hey server I want to establish a connection with you'. 
-    2) Server recieves it and sends back SYN ACK (synchronized acknowledgement)- "hey I'm ready to accept the connection"
-    3) Client recieves and sends back ACK (acknowledgement)- connection established! 
-       1) Packet Transmission can start
+   * Connectionless - In a connectionless system we could have one socket object defined by the IP address of the host machine and the port assigned to a particular process running on that machine. That object could call a `listen()` method which would allow it to wait for incoming messages directed to that particular IP/port pair. Such messages could potentially come from any source, at any time, and in any order, but that isn't a concern in a connectionless system -- it would simply process any incoming messages as they arrived and send any responses as necessary.
 
-11. **What are the advantages and disadvantages of a Three-way handshake?**
+   
 
-12. **What are multiplexing and demultiplexing?**
+   ![transport-comms-between-processes-connection-oriented](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-comms-between-processes-connection-oriented.png)
 
-    In the context of a communication network, this idea of transmitting multiple signals over a single channel is known as multiplexing, with demultiplexing being the reverse process. Takes place through the use of network ports.
+   * Connection- Oriented - A connection-oriented system would work differently. You could have a socket object defined by the host IP and process port, just as in the connectionless system, also using a `listen()` method to wait for incoming messages; the difference in implementation would be in what happens when a message arrives. At this point we could instantiate a *new* socket object; this new socket object wouldn't just be defined by the local IP and port number, but also by the IP and port of the process/host which sent the message. This new socket object would then listen specifically for messages where all four pieces of information matched (source port, source IP, destination port, destination IP). The combination of these four pieces of information is commonly referred to as a four-tuple.  Any messages not matching this four-tuple would still be picked up by the original socket, which would then instantiate another socket object for the new connection.
+     * Implementing communication in this way effectively creates a dedicated virtual connection for communication between a specific process running on one host and a specific process running on another host. The advantage of having a dedicated connection like this is that it more easily allows you to put in place rules for managing the communication such as the order of messages, acknowledgements that messages had been received, retransmission of messages that weren't received, and so on. The purpose of these types of additional communication rules is to add more reliability to the communication.
 
-13. **How does TCP facilitate efficient data transfer?**
+   
 
-14. **What is flow control? How does it work and why do we need it?**
+6. **What is a three-way handshake? What is it used for?**
 
-15. **How TCP prevents from receiver's buffer to get overloaded with data?**
+   In the TCP (Transmission Control Protocol) protocol. Establishing a connection with the server. 
 
-16. **What is congestion avoidance?**
+   1) Client sends SYN (synchronized) packet to the server - 'Hey server I want to establish a connection with you'. 
+   2) Server recieves it and sends back SYN ACK (synchronized acknowledgement)- "hey I'm ready to accept the connection"
+   3) Client recieves and sends back ACK (acknowledgement)- connection established! 
+      1) Packet Transmission can start
 
-17. **What is network congestion?**
+   
 
-18. **How do transport layer protocols enable communication between processes?**
+7. **What are multiplexing and demultiplexing?**
 
-19. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
+   In the context of a communication network, this idea of transmitting multiple signals over a single channel is known as multiplexing, with demultiplexing being the reverse process. Takes place through the use of network ports.
 
-20. **What does it mean that network reliability is engineered?**
+   
 
-21. **Give an overview of the Application Layer.**
+8. **What is flow control? How does it work and why do we need it?**
 
-22. **What is HTML?**
+9. **How TCP prevents from receiver's buffer to get overloaded with data?**
 
-23. **What is a URL and what components does it have?**
+10. **What is congestion avoidance?**
 
-24. **What is a Query string? What it is used for?**
+11. **What is network congestion?**
 
-25. **What URL encoding is and when it might be used for?**
+12. **How do transport layer protocols enable communication between processes?**
 
-26. **Which characters have to be encoded in the URL? Why?**
+13. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
 
-27. **What is www in the URL?**
+    1. TCP- A TCP Segment header contains a number of different fields. As we saw earlier in this Lesson, two of these fields -- Source Port and Destination Port -- provide the multiplexing capability of the protocol. Most of the other header fields are related to the way that TCP implements reliable data transfer.
 
-28. **What is URI?**
+![transport-layer-tcp-segment](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-layer-tcp-segment.png)
 
-29. **What is the difference between scheme and protocol in URL?**
 
-30. **What is HTTP?**
 
-31. **What is the role of HTTP?**
+Some of the more important fields in the header in terms of implementing reliability are:
 
-32. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
+- CHECKSUM: The Checksum provides the Error Detection aspect of TCP reliability. It is an error checking value generated by the sender using an algorithm. The receiver generates a value using the same algorithm and if it doesn't match, it drops the Segment. We've encountered Checksums already in this course, in other PDUs at other network layers such as IP Packets. Having a Checksum at the Transport Layer does render Checksums at lower layers redundant to a certain extent. IPv6 headers don't include a Checksum for this reason, based on the assumption that checksums are implemented at either the Transport or Link/ Data Link layers (or both).
+- SEQUENCE NUMBER and ACKNOWLEDGEMENT NUMBER: these two fields are used together to provide for the other elements of TCP reliability such as In-order Delivery, Handling Data Loss, and Handling Duplication. The precise way in which TCP uses these fields is beyond the scope of this course, but it is essentially a more complex version of the simplified example of the Reliable Protocol we constructed in the previous assignment.
 
-33. **What are HTTP requests and responses? What are the components of each?**
+Other fields of interest in a typical header are the WINDOW SIZE field and the various Flag fields. The WINDOW SIZE field is related to Flow Control, which we will look at a bit later on. The Flag fields are one-bit boolean fields. A couple of these fields, `URG` and `PSH`, are related to how the data contained in the Segment should be treated in terms of its importance or urgency; we aren't going to go into exactly how these particular flags are used. The `SYN`, `ACK`, `FIN`, and `RST` flags are used to establish and end a TCP connection, as well as manage the state of that connection; we'll look at these in some more detail below.
 
-34. **Describe the HTTP request/response cycle.**
 
-35. **What is a** s**tate in the context of the 'web'?**
 
-36. **What is** s**tatelessness?**
-
-37. **What is a stateful Web Application?**
-
-38. **How can we mimic a stateful application?**
-
-39. **What is the difference between stateful and stateless applications?**
-
-40. **What does it mean that HTTP is a 'stateless protocol?**
-
-41. **Why HTTP makes it difficult to build a stateful application?**
-
-42. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
-
-43. **What is a `GET` request and how does it work?**
-
-44. **How is `GET` request initiated?**
-
-45. **What is the HTTP response body and what do we use it for?**
-
-46. **What are the obligatory components of HTTP requests?**
-
-47. **What are the obligatory components of HTTP response?**
-
-48. **Which HTTP method would you use to send sensitive information to a server? Why?**
-
-49. **Compare `GET` and `POST` methods.**
-
-50. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
-
-51. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
-
-52. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
-
-53. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
-
-54. **How do modern web applications 'remember' state for each client?**
-
-55. **What role does AJAX play in displaying dynamic content in web applications?**
-
-56. **Describe some of the security threats and what can be done to minimize them?**
-
-57. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
-
-58. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
-
-59. **What is the relationship between a scheme and a protocol in the context of a URL?**
-
-60. **In what ways can we pass information to the application server via the URL?**
-
-61. **How insecure HTTP message transfer looks like?**
-
-62. **What services does HTTP provide and what are the particular problems each of them aims to address?**
-
-63. **What is TLS Handshake?**
-
-64. **What is symmetric key encryption? What is it used for?**
-
-65. **What is asymmetric key encryption? What is it used for?**
-
-66. **Describe SSL/TLS encryption process.**
-
-67. **Describe the pros and cons of TLS Handshake**
-
-68. **Why do we need digital TLS/SSL certificates?**
-
-69. **What is it CA hierarchy and what is its role in providing secure message transfer?**
-
-70. **What is Cipher Suites and what do we need it for?**
-
-71. **How does TLS add a security layer to HTTP?**
-
-72. **Compare HTTP and HTTPS.**
-
-73. **Does HTTPS use other protocols?**
-
-74. **How do you know a website uses HTTPS?**
-
-75. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
-
-76. **What is server-side infrastructure? What are its basic components?**
-
-77. **What is a server? What is its role?**
-
-78. **What are optimizations that developers can do in order to improve performance and minimize latency?**
+1. **What does it mean that network reliability is engineered?**
+2. **Give an overview of the Application Layer.**
+3. **What is HTML?**
+4. **What is a URL and what components does it have?**
+5. **What is a Query string? What it is used for?**
+6. **What URL encoding is and when it might be used for?**
+7. **Which characters have to be encoded in the URL? Why?**
+8. **What is www in the URL?**
+9. **What is URI?**
+10. **What is the difference between scheme and protocol in URL?**
+11. **What is HTTP?**
+12. **What is the role of HTTP?**
+13. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
+14. **What are HTTP requests and responses? What are the components of each?**
+15. **Describe the HTTP request/response cycle.**
+16. **What is a** s**tate in the context of the 'web'?**
+17. **What is** s**tatelessness?**
+18. **What is a stateful Web Application?**
+19. **How can we mimic a stateful application?**
+20. **What is the difference between stateful and stateless applications?**
+21. **What does it mean that HTTP is a 'stateless protocol?**
+22. **Why HTTP makes it difficult to build a stateful application?**
+23. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
+24. **What is a `GET` request and how does it work?**
+25. **How is `GET` request initiated?**
+26. **What is the HTTP response body and what do we use it for?**
+27. **What are the obligatory components of HTTP requests?**
+28. **What are the obligatory components of HTTP response?**
+29. **Which HTTP method would you use to send sensitive information to a server? Why?**
+30. **Compare `GET` and `POST` methods.**
+31. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
+32. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
+33. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
+34. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
+35. **How do modern web applications 'remember' state for each client?**
+36. **What role does AJAX play in displaying dynamic content in web applications?**
+37. **Describe some of the security threats and what can be done to minimize them?**
+38. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
+39. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
+40. **What is the relationship between a scheme and a protocol in the context of a URL?**
+41. **In what ways can we pass information to the application server via the URL?**
+42. **How insecure HTTP message transfer looks like?**
+43. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+44. **What is TLS Handshake?**
+45. **What is symmetric key encryption? What is it used for?**
+46. **What is asymmetric key encryption? What is it used for?**
+47. **Describe SSL/TLS encryption process.**
+48. **Describe the pros and cons of TLS Handshake**
+49. **Why do we need digital TLS/SSL certificates?**
+50. **What is it CA hierarchy and what is its role in providing secure message transfer?**
+51. **What is Cipher Suites and what do we need it for?**
+52. **How does TLS add a security layer to HTTP?**
+53. **Compare HTTP and HTTPS.**
+54. **Does HTTPS use other protocols?**
+55. **How do you know a website uses HTTPS?**
+56. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
+57. **What is server-side infrastructure? What are its basic components?**
+58. **What is a server? What is its role?**
+59. **What are optimizations that developers can do in order to improve performance and minimize latency?**
 
 
 
