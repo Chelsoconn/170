@@ -502,34 +502,61 @@ Finding a balance between reliability and performance is a major part of the imp
 
 6. **What is a three-way handshake? What is it used for?**
 
-   In the TCP (Transmission Control Protocol) protocol. Establishing a connection with the server. 
+   In the TCP (Transmission Control Protocol) protocol. Establishing a connection with the server. This is why TCP is a connection oriented communication. It doesn't start sending data until a connection has been established between app. processes.
 
-   1) Client sends SYN (synchronized) packet to the server - 'Hey server I want to establish a connection with you'. 
-   2) Server recieves it and sends back SYN ACK (synchronized acknowledgement)- "hey I'm ready to accept the connection"
+   1) Client sends SYN (synchronized) packet to the server - 'Hey server I want to establish a connection with you': a TCP Segment with the `SYN` flag set to `1`
+   2) Server recieves it and sends back SYN ACK (synchronized acknowledgement)- "hey I'm ready to accept the connection" : a TCP Segment with the `SYN` and `ACK` flags set to `1`
    3) Client recieves and sends back ACK (acknowledgement)- connection established! 
-      1) Packet Transmission can start
+      1) Packet Transmission can start: a TCP Segment with the `ACK` flag set to `1`
 
-   
+   * the`FIN` flag is used in different process, the Four-way Handshake, used for terminating connections.
 
-7. **What are multiplexing and demultiplexing?**
+   * Upon sending the ACK, the sender can immediately start sending application data. The receiver must wait until it has received the ACK before it can send any data back to the sender. One of the main reasons for this process is to synchronise (`SYN`) the sequence numbers that will be used during the connection.
+   * We want to maintain a connection state- According to RFC793
+     * A connection progresses through a series of states during its lifetime. The states are: LISTEN, SYN-SENT, SYN-RECEIVED, ESTABLISHED, FIN-WAIT-1, FIN-WAIT-2, CLOSE-WAIT, CLOSING, LAST-ACK, TIME-WAIT, and the fictional state CLOSED. CLOSED is fictional because it represents the state when there is no TCB, and therefore, no connection.  Most of the time the state we are most concerned with is `ESTABLISHED`, and also `LISTEN` on the server side. The other states are related to the establishment and termination of connections.
+
+| Client Start State | Client Action                                                | Client End State | Server Start State | Server Action                                                | Server End State |
+| :----------------- | :----------------------------------------------------------- | :--------------- | :----------------- | :----------------------------------------------------------- | :--------------- |
+| `CLOSED`           | Sends a `SYN` Segment                                        | `SYN-SENT`       | `LISTEN`           | Waits for a connection request                               | -                |
+| `SYN-SENT`         | Waits to receive an ACK to the SYN it sent, as well as the server's `SYN` | `SYN-SENT`       | `LISTEN`           | Sends a SYN ACK Segment which serves as both it's SYN and an ACK for the client's SYN | `SYN-RECEIVED`   |
+| `SYN-SENT`         | Receives the SYN ACK Segment sent by the server, and sends an ACK in response. The client is now finished with the connection establishment process | `ESTABLISHED`    | `SYN-RECEIVED`     | Waits for an ACK for the SYN it just sent                    | -                |
+| `ESTABLISHED`      | Ready for data transfer. Can start sending application data. | `ESTABLISHED`    | `SYN-RECEIVED`     | Receives the ACK sent in response to its SYN. The server is now finished with the connection establishment process. | `ESTABLISHED`    |
+
+there is an entire round-trip of latency before any application data can be exchanged. Since this hand-shake process occurs every time a TCP connection is made, this clearly has an impact on any application which uses TCP at the transport layer.  In order to help facilitate efficient data transfer once a connection is established, TCP provides mechanisms for flow control and congestion avoidance.
+
+1. **What are multiplexing and demultiplexing?**
 
    In the context of a communication network, this idea of transmitting multiple signals over a single channel is known as multiplexing, with demultiplexing being the reverse process. Takes place through the use of network ports.
 
    
 
-8. **What is flow control? How does it work and why do we need it?**
+2. **What is flow control? How does it work and why do we need it?**
 
-9. **How TCP prevents from receiver's buffer to get overloaded with data?**
+   In order to help facilitate efficient data transfer once a connection is established, TCP provides mechanisms for flow control and congestion avoidance.  Flow control is a mechanism to prevent the sender from overwhelming the receiver with too much data at once. The receiver will only be able to process a certain amount of data in a particular time-frame. Data awaiting processing is stored in a 'buffer'. The buffer size will depend on the amount of memory allocated according to the configuration of the OS and the physical resources available.  Each side of a connection can let the other side know the amount of data that it is willing to accept via the WINDOW field of the TCP header. This number is dynamic, and can change during the course of a connection. If the receiver's buffer is getting full it can set a lower amount in the WINDOW field of a Segment it sends to the sender, the sender can then reduce the amount of data it sends accordingly. It doesn't prevent either the sender or receiver from overwhelming the underlying network. For that task we need a different mechanism: Congestion Avoidance.
 
-10. **What is congestion avoidance?**
+3. **How TCP prevents from receiver's buffer to get overloaded with data?**
 
-11. **What is network congestion?**
+   Flow Control and Congestion Avoidance
 
-12. **How do transport layer protocols enable communication between processes?**
+4. **What is congestion avoidance?**
 
-13. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
+   Network Congestion is a situation that occurs when there is more data being transmitted on the network than there is network capacity to process and transmit the data. You can perhaps think of it as similar to a gridlock of vehicles on a road network. Instead of things coming to a standstill however, the 'excess vehicles' are simply lost.  In the [last lesson](https://launchschool.com/lessons/4af196b9/assignments/b222ecfb) we looked at IP packets moving across the networks in a series of 'hops'. At each hop, the packet needs to be processed: the router at that hop runs a checksum on the packet data; it also needs to check the destination address and work out how to route the packet to the next hop on its journey to that destination. All of this processing takes time, and a router can only process so much data at once. Routers use a 'buffer' to store data that is awaiting processing, but if there is more data to be processed than can fit in the buffer, the buffer over-flows and those data packets are dropped.  As we've already seen, TCP retransmits lost data. If lots of data is lost that means lots of retransmitted data, which is inefficient. Ideally we want to keep retransmission to a minimum. TCP actually uses data loss as a feedback mechanism to detect, and avoid, network congestion; if lots of retransmissions are occurring, TCP takes this as a sign that the network is congested and reduces the size of the transmission window.
 
-    1. TCP- A TCP Segment header contains a number of different fields. As we saw earlier in this Lesson, two of these fields -- Source Port and Destination Port -- provide the multiplexing capability of the protocol. Most of the other header fields are related to the way that TCP implements reliable data transfer.
+5. **What is network congestion?**
+
+   Network Congestion is a situation that occurs when there is more data being transmitted on the network than there is network capacity to process and transmit the data. You can perhaps think of it as similar to a gridlock of vehicles on a road network. Instead of things coming to a standstill however, the 'excess vehicles' are simply lost.
+
+6. **How do transport layer protocols enable communication between processes?**
+
+7. **Disadvantages of TCP**
+
+   Head-of-line blocking is a general networking concept, and isn't specific to TCP. In general terms it relates to how issues in delivering or processing one message in a sequence of messages can delay or 'block' the delivery or processing of the subsequent messages in the sequence.
+
+   With TCP, HOL blocking can occur as a result of the fact that TCP provides for in-order delivery of segments. Although this in order delivery is one aspect of TCP's reliability, if one of the segments goes missing and needs to be retransmitted, the segments that come after it in the sequence can't be processed, and need to be buffered until the retransmission has occurred. This can lead to increased queuing delay which, as we saw in an [earlier assignment](https://launchschool.com/lessons/4af196b9/assignments/097d7577), is one of the elements of latency.
+
+8. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
+
+   1. TCP- A TCP Segment header contains a number of different fields. As we saw earlier in this Lesson, two of these fields -- Source Port and Destination Port -- provide the multiplexing capability of the protocol. Most of the other header fields are related to the way that TCP implements reliable data transfer.
 
 ![transport-layer-tcp-segment](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-layer-tcp-segment.png)
 
@@ -544,65 +571,212 @@ Other fields of interest in a typical header are the WINDOW SIZE field and the v
 
 
 
+UDP - 
+
+In the previous assignment, we saw how TCP implements reliable data transfer through sequencing and retransmission of lost data, as well as providing mechanisms for flow control and congestion avoidance. So how does UDP implement all of those things? Well, basically, it doesn't. It does provide error detection.
+
+The Protocol Data Unit (PDU) of UDP is known as a Datagram. Like all the PDUs we've looked at so far it encapsulates data from the layer above into a payload and then adds header information. If we examine the header of a UDP Datagram, we can see that it's really quite simple.
+
+![transport-udp-datagram-header](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-udp-datagram-header.png)
+
+Through the use of the Source and Destination Port numbers, UDP provides multiplexing in the same way that TCP does. Unlike TCP however, it doesn't do anything to resolve the inherent unreliability of the layers below it. In fact, it's probably easier to define UDP by what it *doesn't* do (particularly in comparison with TCP) than by what it *does* do.
+
+- It provides no guarantee of message delivery
+- It provides no guarantee of message delivery order
+- It provides no built-in congestion avoidance or flow-control mechanisms
+- It provides no connection state tracking, since it is a connectionless protocol
+
+his simplicity provides two things to a software engineer: speed and flexibility.
+
+UDP is a connectionless protocol. Applications using UDP at the Transport layer can just start sending data without having to wait for a connection to be established with the application process of the receiver. In addition to this, the lack of acknowledgements and retransmissions means that the actual data delivery itself is faster; once a datagram is sent it doesn't have to be sent again. Latency is less of an issue since without acknowledgements data essentially just flows one way: from sender to receiver. The lack of in-order delivery also removes the issue of Head-of-line blocking (at least at the Transport layer).  It's likely that someone building a UDP-based application will want to implement some of the services that UDP doesn't natively provide. Which services those would be, and the way they're implemented, would be up to whoever was building the application though. For example, you might want your application to have in-order delivery, but at the same time not be worried about the occasional piece of lost data. You could implement sequencing, but choose not to implement data retransmission. It is left to the software engineer to decide which services to include. These services can then be implemented at the application lever, effectively using UDP as a 'base template' to build on.  Ex/ video calls, gaming 
+
+While UDP provides a lot of flexibility and freedom, with that freedom comes a certain amount of responsibility. There are various best practices that should be adhered to. For example, it would be expected that your UDP-based application implements some form of congestion avoidance in order to prevent it overwhelming the network.
+
+
+
+***SUMMARY*** 
+
+- *Multiplexing* and *demultiplexing* provide for the transmission of *multiple signals over a single channel*
+- Multiplexing is enabled through the use of *network ports*
+- Network sockets can be thought of as a *combination of IP address and port number*
+- At the *implementation level*, sockets can also be *socket objects*
+- The underlying network is *inherently unreliable*. If we want reliable data transport we need to implement a system of rules to enable it.
+- *TCP* is a *connection-oriented* protocol. It establishes a connection using the *Three-way-handshake*
+- TCP provides reliability through *message acknowledgement* and *retransmission*, and *in-order delivery*.
+- TCP also provides *Flow Control* and *Congestion Avoidance*
+- The main *downsides of TCP* are the *latency overhead of establishing a connection*, and the potential *Head-of-line blocking* as a result of in-order delivery.
+- *UDP* is a very simple protocol compared to TCP. It provides *multiplexing*, but no reliability, no in-order delivery, and no congestion or flow control.
+- *UDP* is *connectionless*, and so doesn't need to establish a connection before it starts sending data
+- Although it is unreliable, the *advantage of UDP* is *speed* and *flexibility*.
+
+
+
 1. **What does it mean that network reliability is engineered?**
+
 2. **Give an overview of the Application Layer.**
+
+   Both the TCP/IP model and the OSI model define an Application layer as the topmost layer in their respective layered systems (the Session layer and the Presentation layer also in OSI). Something to be clear about here is that the application layer is not the *application itself*, but rather a set of protocols which provide communication services to applications.
+
+   One thing both models have in common however is that the protocols which exist at the Application layer are the ones with which the application most directly interacts. That's not to say that networked applications are limited to interacting with only Application layer protocols. You can see many applications interacting with Transport layer protocols by, for example, opening a TCP socket. However, it is much less common to build applications which interact directly with protocols below the Transport layer.
+
+   Application layer protocols rely on the protocols at the layers below them to ensure that a message gets to where it is supposed to, and focus instead on the structure of that message and the data that it should contain.
+
+   We can perhaps think of Application layer protocols as being the rules for how applications talk to each other at a syntactical level. Different types of applications have different requirements with regards to how they communicate at a syntactical level, and so as a result there are many different protocols which exist at the application layer. For example, the rules for how an email client communicates with an email server will be different from the rules for how a web browser communicates with a web server, because emails and web pages are fundamentally different things serving different purposes.
+
 3. **What is HTML?**
-4. **What is a URL and what components does it have?**
-5. **What is a Query string? What it is used for?**
-6. **What URL encoding is and when it might be used for?**
-7. **Which characters have to be encoded in the URL? Why?**
-8. **What is www in the URL?**
-9. **What is URI?**
-10. **What is the difference between scheme and protocol in URL?**
-11. **What is HTTP?**
-12. **What is the role of HTTP?**
-13. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
-14. **What are HTTP requests and responses? What are the components of each?**
-15. **Describe the HTTP request/response cycle.**
-16. **What is a** s**tate in the context of the 'web'?**
-17. **What is** s**tatelessness?**
-18. **What is a stateful Web Application?**
-19. **How can we mimic a stateful application?**
-20. **What is the difference between stateful and stateless applications?**
-21. **What does it mean that HTTP is a 'stateless protocol?**
-22. **Why HTTP makes it difficult to build a stateful application?**
-23. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
-24. **What is a `GET` request and how does it work?**
-25. **How is `GET` request initiated?**
-26. **What is the HTTP response body and what do we use it for?**
-27. **What are the obligatory components of HTTP requests?**
-28. **What are the obligatory components of HTTP response?**
-29. **Which HTTP method would you use to send sensitive information to a server? Why?**
-30. **Compare `GET` and `POST` methods.**
-31. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
-32. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
-33. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
-34. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
-35. **How do modern web applications 'remember' state for each client?**
-36. **What role does AJAX play in displaying dynamic content in web applications?**
-37. **Describe some of the security threats and what can be done to minimize them?**
-38. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
-39. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
-40. **What is the relationship between a scheme and a protocol in the context of a URL?**
-41. **In what ways can we pass information to the application server via the URL?**
-42. **How insecure HTTP message transfer looks like?**
-43. **What services does HTTP provide and what are the particular problems each of them aims to address?**
-44. **What is TLS Handshake?**
-45. **What is symmetric key encryption? What is it used for?**
-46. **What is asymmetric key encryption? What is it used for?**
-47. **Describe SSL/TLS encryption process.**
-48. **Describe the pros and cons of TLS Handshake**
-49. **Why do we need digital TLS/SSL certificates?**
-50. **What is it CA hierarchy and what is its role in providing secure message transfer?**
-51. **What is Cipher Suites and what do we need it for?**
-52. **How does TLS add a security layer to HTTP?**
-53. **Compare HTTP and HTTPS.**
-54. **Does HTTPS use other protocols?**
-55. **How do you know a website uses HTTPS?**
-56. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
-57. **What is server-side infrastructure? What are its basic components?**
-58. **What is a server? What is its role?**
-59. **What are optimizations that developers can do in order to improve performance and minimize latency?**
+
+   - Primary protocol used for communication on the Web. 
+     - Internet is a network of networks (infrastructure that enables inter-network communication, both in terms of the physical network and the lower-level protocols that control its use) while the web is a service that can be accessed via the internet.
+     - In simple terms it is a vast information system comprised of resources which are navigable by means of a URL (Uniform Resource Locator). HTTP is closely tied, both historically and functionally, to the web as we know it. It is the primary means by which applications interact with the resources which make up the web.
+     - The means of providing that uniformity in the earliest incarnation of the Web was essentially a combination of three technologies or concepts: HTML, URIs, and HTTP.
+     - **Hypertext Markup Language** (HTML) was the means by which the resources in this system should be uniformly structured. This early version of HTML was intended for structuring text documents using headings, paragraphs, and lists. It was very basic, containing only 18 elements. The most revolutionary of these elements was the anchor elements `<A>`, which uses a `href` attribute to provide a link from one resource to another. We'll explore HTML in a lot more detail in a later course.
+
+4. **DNS**
+
+   Mapping from URL to IP address is handled by the Domain Name System or **DNS**. DNS is a distributed database which translates domain names like `www.google.com` to an IP address, so that the IP address can then be used to make a request to the server. Stated differently, it keeps track of domain names and their corresponding IP addresses on the Internet. So an address like `www.google.com` might be resolved to an IP address `197.251.230.45`.  Stored on computers called **DNS servers**.
+
+5. **What is a URL and what components does it have?**
+
+   * It is the mechanism used by [browsers](https://developer.mozilla.org/en-US/docs/Glossary/Browser) to retrieve any published resource on the web.
+   * **URL** stands for *Uniform Resource Locator*. A URL is nothing more than the address of a given unique resource on the Web. In theory, each valid URL points to a unique resource. Such resources can be an HTML page, a CSS document, an image, etc. In practice, there are some exceptions, the most common being a URL pointing to a resource that no longer exists or that has moved. As the resource represented by the URL and the URL itself are handled by the Web server, it is up to the owner of the web server to carefully manage that resource and its associated URL.
+   * Enter a URL like [http://www.google.com](http://www.google.com/) into your web browser's address bar.
+   * The browser creates an HTTP request, which is packaged up and sent to your device's network interface.
+   * If your device already has a record of the IP address for the domain name in its DNS cache, it will use this cached address. If the IP address isn't cached, a DNS request will be made to the Domain Name System to obtain the IP address for the domain.
+   * The packaged-up HTTP request then goes over the Internet where it is directed to the server with the matching IP address.
+   * The remote server accepts the request and sends a response over the Internet back to your network interface which hands it to your browser.
+   * Finally, the browser displays the response in the form of a web page.
+
+![mdn-url-all](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL/mdn-url-all.png)
+
+		1) The first part of the URL is the *scheme*, which indicates the protocol that the browser must use to request the resource (a protocol is a set method for exchanging or transferring data around a computer network). Usually for websites the protocol is HTTPS or HTTP (its unsecured version). Addressing web pages requires one of these two, but browsers also know how to handle other schemes such as `mailto:` (to open a mail client), so don't be surprised if you see other protocols.
+  		2) Next follows the *authority*, which is separated from the scheme by the character pattern `://`. If present the authority includes both the *domain* (e.g. `www.example.com`) and the *port* (`80`), separated by a colon:
+       - The domain indicates which Web server is being requested. Usually this is a domain name, but an [IP address](https://developer.mozilla.org/en-US/docs/Glossary/IP_Address) may also be used (but this is rare as it is much less convenient).
+       - The port indicates the technical "gate" used to access the resources on the web server. It is usually omitted if the web server uses the standard ports of the HTTP protocol (80 for HTTP and 443 for HTTPS) to grant access to its resources. Otherwise it is mandatory.
+		1) `/path/to/myfile.html` is the path to the resource on the Web server. In the early days of the Web, a path like this represented a physical file location on the Web server. Nowadays, it is mostly an abstraction handled by Web servers without any physical reality.
+		1) `?key1=value1&key2=value2` are extra parameters provided to the Web server. Those parameters are a list of key/value pairs separated with the `&` symbol. The Web server can use those parameters to do extra stuff before returning the resource. Each Web server has its own rules regarding parameters, and the only reliable way to know if a specific Web server is handling parameters is by asking the Web server owner.
+		1) `#SomewhereInTheDocument` is an anchor to another part of the resource itself. An anchor represents a sort of "bookmark" inside the resource, giving the browser the directions to show the content located at that "bookmarked" spot. On an HTML document, for example, the browser will scroll to the point where the anchor is defined; on a video or audio document, the browser will try to go to the time the anchor represents. It is worth noting that the part after the **#**, also known as the **fragment identifier**, is never sent to the server with the request.
+
+1. **What is a Query string? What it is used for?**
+
+2. **What URL encoding is and when it might be used for?**
+
+3. **Which characters have to be encoded in the URL? Why?**
+
+4. **What is www in the URL?**
+
+5. **What is URI?**
+
+   A **Uniform Resource Identifier** (URI), is a string of characters which identifies a particular resource. It is part of a system by which resources should be uniformly **addressed** on the Web. On the [W3C website](https://www.w3.org/Addressing/), the purpose of a URI is described in the following way:
+
+   > The Web is an information space. Human beings have a lot of mental machinery for manipulating, imagining, and finding their way in spaces. URIs are the points in that space.
+
+   The terms URI and URL (Uniform Resource Locator) are often used interchangeably. We'll discuss the distinctions in a later assignment.
+
+6. **What is the difference between scheme and protocol in URL?**
+
+7. **What is HTTP?**
+
+   * HTTP is at the core of what the web is about, and also at the core of dynamic web applications. Understanding HTTP is central to understanding how modern web applications work and how they're built.
+
+   **Hypertext Transfer Protocol** (HTTP) is the set of rules which provide uniformity to the way resources on the web are transferred between applications. It is a system of rules, a protocol, that serve as a link between applications and the transfer of [hypertext](http://en.wikipedia.org/wiki/Hypertext) documents. Stated differently, it's an agreement, or message format, of how machines communicate with each other. HTTP follows a simple model where a client makes a **request** to a server and waits for a **response**. Hence, it's referred to as a **request response protocol**. 
+
+   * Under your browser's hood lies a collection of files -- CSS, HTML, Javascript, videos, images, etc. -- that makes displaying the page possible. All these files were sent from a **server** to your browser, the **client**, by an application protocol called HTTP (yes, this is why URLs in your browser address bar start with "http://").
+
+8. **What is the role of HTTP?**
+
+9. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
+
+10. **What are HTTP requests and responses? What are the components of each?**
+
+11. **Describe the HTTP request/response cycle.**
+
+12. **What is a** s**tate in the context of the 'web'?**
+
+13. **What is** s**tatelessness?**
+
+14. **What is a stateful Web Application?**
+
+15. **How can we mimic a stateful application?**
+
+16. **What is the difference between stateful and stateless applications?**
+
+17. **What does it mean that HTTP is a 'stateless protocol?**
+
+18. **Why HTTP makes it difficult to build a stateful application?**
+
+19. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
+
+20. **What is a `GET` request and how does it work?**
+
+21. **How is `GET` request initiated?**
+
+22. **What is the HTTP response body and what do we use it for?**
+
+23. **What are the obligatory components of HTTP requests?**
+
+24. **What are the obligatory components of HTTP response?**
+
+25. **Which HTTP method would you use to send sensitive information to a server? Why?**
+
+26. **Compare `GET` and `POST` methods.**
+
+27. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
+
+28. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
+
+29. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
+
+30. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
+
+31. **How do modern web applications 'remember' state for each client?**
+
+32. **What role does AJAX play in displaying dynamic content in web applications?**
+
+33. **Describe some of the security threats and what can be done to minimize them?**
+
+34. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
+
+35. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
+
+36. **What is the relationship between a scheme and a protocol in the context of a URL?**
+
+37. **In what ways can we pass information to the application server via the URL?**
+
+38. **How insecure HTTP message transfer looks like?**
+
+39. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+
+40. **What is TLS Handshake?**
+
+41. **What is symmetric key encryption? What is it used for?**
+
+42. **What is asymmetric key encryption? What is it used for?**
+
+43. **Describe SSL/TLS encryption process.**
+
+44. **Describe the pros and cons of TLS Handshake**
+
+45. **Why do we need digital TLS/SSL certificates?**
+
+46. **What is it CA hierarchy and what is its role in providing secure message transfer?**
+
+47. **What is Cipher Suites and what do we need it for?**
+
+48. **How does TLS add a security layer to HTTP?**
+
+49. **Compare HTTP and HTTPS.**
+
+50. **Does HTTPS use other protocols?**
+
+51. **How do you know a website uses HTTPS?**
+
+52. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
+
+53. **What is server-side infrastructure? What are its basic components?**
+
+54. **What is a server? What is its role?**
+
+55. **What are optimizations that developers can do in order to improve performance and minimize latency?**
 
 
 
