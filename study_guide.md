@@ -648,23 +648,56 @@ While UDP provides a lot of flexibility and freedom, with that freedom comes a c
 
 ![mdn-url-all](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL/mdn-url-all.png)
 
-		1) The first part of the URL is the *scheme*, which indicates the protocol that the browser must use to request the resource (a protocol is a set method for exchanging or transferring data around a computer network). Usually for websites the protocol is HTTPS or HTTP (its unsecured version). Addressing web pages requires one of these two, but browsers also know how to handle other schemes such as `mailto:` (to open a mail client), so don't be surprised if you see other protocols.
-  		2) Next follows the *authority*, which is separated from the scheme by the character pattern `://`. If present the authority includes both the *domain* (e.g. `www.example.com`) and the *port* (`80`), separated by a colon:
-       - The domain indicates which Web server is being requested. Usually this is a domain name, but an [IP address](https://developer.mozilla.org/en-US/docs/Glossary/IP_Address) may also be used (but this is rare as it is much less convenient).
-       - The port indicates the technical "gate" used to access the resources on the web server. It is usually omitted if the web server uses the standard ports of the HTTP protocol (80 for HTTP and 443 for HTTPS) to grant access to its resources. Otherwise it is mandatory.
-		1) `/path/to/myfile.html` is the path to the resource on the Web server. In the early days of the Web, a path like this represented a physical file location on the Web server. Nowadays, it is mostly an abstraction handled by Web servers without any physical reality.
-		1) `?key1=value1&key2=value2` are extra parameters provided to the Web server. Those parameters are a list of key/value pairs separated with the `&` symbol. The Web server can use those parameters to do extra stuff before returning the resource. Each Web server has its own rules regarding parameters, and the only reliable way to know if a specific Web server is handling parameters is by asking the Web server owner.
-		1) `#SomewhereInTheDocument` is an anchor to another part of the resource itself. An anchor represents a sort of "bookmark" inside the resource, giving the browser the directions to show the content located at that "bookmarked" spot. On an HTML document, for example, the browser will scroll to the point where the anchor is defined; on a video or audio document, the browser will try to go to the time the anchor represents. It is worth noting that the part after the **#**, also known as the **fragment identifier**, is never sent to the server with the request.
+	1) http: The scheme. It always comes before the colon and two forward slashes and tells the web client how to access the resource. In this case it tells the web client to use the Hypertext Transfer Protocol or HTTP to make a request. Other popular URL schemes are ftp, mailto or git. You may sometimes see this part of the URL referred to as the protocol, and there is a connection between the two things in that the scheme can indicate which protocol (or system of rules) should be used to access the resource; in the context of of a URL however, the correct term for this component is the scheme.
+	
+	2)  The host. It tells the client where the resource is hosted or located.
+	
+	3) The port or port number. It is only required if you want to use a port other than the default.  Unless a different port number is specified, port 80 will be used by default in normal HTTP requests. To use anything other than the default, one has to specify it in the URL.
+	
+	4)  The path. It shows what local resource is being requested. This part of the URL is optional.
+	
+	5) The query string, which is made up of query parameters. It is used to send data to the server. This part of the URL is also optional.
 
 1. **What is a Query string? What it is used for?**
 
-2. **What URL encoding is and when it might be used for?**
+![Query String Components](https://d186loudes4jlv.cloudfront.net/http/images/query_string_components.png)
 
-3. **Which characters have to be encoded in the URL? Why?**
+| Query String Component | Description                                                  |
+| :--------------------- | :----------------------------------------------------------- |
+| ?                      | This is a reserved character that marks the start of the query string |
+| search=ruby            | This is a parameter name/value pair.                         |
+| &                      | This is a reserved character, used when adding more parameters to the query string. |
+| results=10             | This is also a parameter name/value pair.                    |
 
-4. **What is www in the URL?**
+In the above example, name/value pairs in the form of `product=iphone`, `size=32gb` and `color=white`are passed to the server from the URL. This is asking the `www.phoneshop.com` server to narrow down on a product `iphone`, size `32gb` and color `white`. How the server uses these parameters is up to the server side application.  **Because query strings are passed in through the URL, they are only used in HTTP GET requests**
 
-5. **What is URI?**
+Query strings are great to pass in additional information to the server, however, there are some limits to the use of query strings:
+
+- Query strings have a maximum length. Therefore, if you have a lot of data to pass on, you will not be able to do so with query strings.
+
+- The name/value pairs used in query strings are visible in the URL. For this reason, passing sensitive information like username or password to the server in this manner is not recommended.
+
+- Space and special characters like `&` cannot be used with query strings. They must be URL encoded, which we'll talk about next.
+
+  
+
+  1. **What URL encoding is and when it might be used for?**
+
+     URLs are designed to accept only certain characters in the standard 128-character [ASCII character set](http://en.wikipedia.org/wiki/ASCII). Reserved or unsafe ASCII characters which are not being used for their intended purpose, as well as characters not in this set, have to be encoded. URL encoding serves the purpose of replacing these non-conforming characters with a `%` symbol followed by two hexadecimal digits that represent the [ASCII code](http://www.asciitable.com/) of the character.
+
+     Characters must be encoded if:
+
+     1. They have no corresponding character within the standard [ASCII character set](http://www.asciitable.com/).
+     2. The use of the character is unsafe because it may be misinterpreted, or even possibly modified by some systems. For example `%` is unsafe because it can be used for encoding other characters. Other unsafe characters include spaces, quotation marks, the `#` character, `<` and `>`, `{` and `}`, `[` and `]`, and `~`, among others.
+     3. The character is reserved for special use within the URL scheme. Some characters are reserved for a special meaning; their presence in a URL serve a specific purpose. Characters such as `/`, `?`, `:`, `@`, and `&` are all reserved and must be encoded. For example `&` is reserved for use as a query string delimiter. `:` is also reserved to delimit host/port components and user/password.
+
+     So what characters can be used safely within a URL? Only alphanumeric and special characters `$-_.+!'()",` and reserved characters when used for their reserved purposes can be used unencoded within a URL. As long as a character is not being used for its reserved purpose, it has to be encoded.
+
+1. **What is www in the URL?**
+
+   What you put into your browser to make an HTTP request.  The server sends back a raw response.
+
+2. **What is URI?**
 
    A **Uniform Resource Identifier** (URI), is a string of characters which identifies a particular resource. It is part of a system by which resources should be uniformly **addressed** on the Web. On the [W3C website](https://www.w3.org/Addressing/), the purpose of a URI is described in the following way:
 
@@ -672,111 +705,127 @@ While UDP provides a lot of flexibility and freedom, with that freedom comes a c
 
    The terms URI and URL (Uniform Resource Locator) are often used interchangeably. We'll discuss the distinctions in a later assignment.
 
-6. **What is the difference between scheme and protocol in URL?**
+3. **What is the difference between scheme and protocol in URL?**
 
-7. **What is HTTP?**
+4. **What is HTTP?**
 
-   * HTTP is at the core of what the web is about, and also at the core of dynamic web applications. Understanding HTTP is central to understanding how modern web applications work and how they're built.
+   1. The most common client is an application you interact with on a daily basis called a **Web Browser**. Examples of web browsers include Internet Explorer, Firefox, Safari and Chrome, including mobile versions. Web browsers are responsible for issuing HTTP requests and processing the HTTP response in a user-friendly manner onto your screen. Web browsers aren't the only clients around, as there are many tools and applications that can also issue HTTP requests.
+   2. HTTP is at the core of what the web is about, and also at the core of dynamic web applications. Understanding HTTP is central to understanding how modern web applications work and how they're built.
 
    **Hypertext Transfer Protocol** (HTTP) is the set of rules which provide uniformity to the way resources on the web are transferred between applications. It is a system of rules, a protocol, that serve as a link between applications and the transfer of [hypertext](http://en.wikipedia.org/wiki/Hypertext) documents. Stated differently, it's an agreement, or message format, of how machines communicate with each other. HTTP follows a simple model where a client makes a **request** to a server and waits for a **response**. Hence, it's referred to as a **request response protocol**. 
 
    * Under your browser's hood lies a collection of files -- CSS, HTML, Javascript, videos, images, etc. -- that makes displaying the page possible. All these files were sent from a **server** to your browser, the **client**, by an application protocol called HTTP (yes, this is why URLs in your browser address bar start with "http://").
 
-8. **What is the role of HTTP?**
+5. **What is the role of HTTP?**
 
-9. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
+6. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
 
-10. **What are HTTP requests and responses? What are the components of each?**
+7. **What are HTTP requests and responses? What are the components of each?**
 
-11. **Describe the HTTP request/response cycle.**
+8. **Describe the HTTP request/response cycle.**
 
-12. **What is a** s**tate in the context of the 'web'?**
+9. **What is a** s**tate in the context of the 'web'?**
 
-13. **What is** s**tatelessness?**
+10. **What is** s**tatelessness?**
 
-14. **What is a stateful Web Application?**
+    A protocol is said to be **stateless** when it's designed in such a way that each request/response pair is completely independent of the previous one. It is important to be aware of HTTP as a stateless protocol and the impact it has on server resources and ease of use. In the context of HTTP, it means that the server does not need to hang on to information, or state, between requests. As a result, when a request breaks en route to the server, no part of the system has to do any cleanup. Both these reasons make HTTP a resilient protocol, as well as a difficult protocol for building stateful applications. Since HTTP, the protocol of the internet, is inherently stateless that means web developers have to work hard to simulate a stateful experience in web applications.
 
-15. **How can we mimic a stateful application?**
+11. **What is a stateful Web Application?**
 
-16. **What is the difference between stateful and stateless applications?**
+    When you go to Facebook, for example, and log in, you expect to see the internal Facebook page. That was one complete request/response cycle. You then click on the picture -- another request/response cycle -- but you do not expect to be logged out after that action. If HTTP is stateless, how did the application maintain state and remember that you already input your username and password? In fact, if HTTP is stateless, how does Facebook even know this request came from *you*, and how does it differentiate data from you vs. any other user? There are tricks web developers and frameworks employ to make it seem like the application is stateful, but those tricks are beyond the scope of this book. The key concept to remember is that even though you may feel the application is stateful, underneath the hood, the web is built on HTTP, a stateless protocol. It's what makes the web so resilient, distributed, and hard to control. It's also what makes it so difficult to secure and build on top of.
 
-17. **What does it mean that HTTP is a 'stateless protocol?**
+12. **How can we mimic a stateful application?**
 
-18. **Why HTTP makes it difficult to build a stateful application?**
+13. **Why HTTP makes it difficult to build a stateful application?**
 
-19. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
+14. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
 
-20. **What is a `GET` request and how does it work?**
+15. **What is a `GET` request and how does it work?**
 
-21. **How is `GET` request initiated?**
+    Found in method section of chrome developer tools.  **HTTP Request Method**. You can think of this as the verb that tells the server what action to perform on a resource. The two most common HTTP request methods you'll see are `GET` and `POST`.  When you think about retrieving information, think `GET`, which is the most used HTTP request method. In the above diagram, you'll notice almost all of the requests use `GET` to retrieve the resources needed to display the web page.
 
-22. **What is the HTTP response body and what do we use it for?**
+    - GET requests are used to retrieve a resource, and most links are GETs.
+    - The response from a GET request can be anything, but if it's HTML and that HTML references other resources, your browser will automatically request those referenced resources. A pure HTTP tool will not.
 
-23. **What are the obligatory components of HTTP requests?**
+16. **How is `GET` request initiated?**
 
-24. **What are the obligatory components of HTTP response?**
+    `GET` requests are initiated by clicking a link or via the address bar of a browser. When you type an address like `https://www.reddit.com` into the address bar of your browser, you're making a `GET` request. You're asking the web browser to go retrieve the resource at that address, which means we've been making `GET` requests throughout this book. The same goes for interacting with links on web applications. The default behavior of a link is to issue a `GET` request to a URL. 
 
-25. **Which HTTP method would you use to send sensitive information to a server? Why?**
+17. **What is the HTTP response body and what do we use it for?**
 
-26. **Compare `GET` and `POST` methods.**
+     The body contains the data that is being transmitted in an HTTP message and is optional. In other words, an HTTP message can be sent with an empty body. When used, the body can contain HTML, images, audio and so on. You can think of the body as the letter enclosed in an envelope, to be posted.
 
-27. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
+18. **What are the obligatory components of HTTP requests?**
 
-28. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
+19. **What are the obligatory components of HTTP response?**
 
-29. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
+20. **Which HTTP method would you use to send sensitive information to a server? Why?**
 
-30. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
+    Post
 
-31. **How do modern web applications 'remember' state for each client?**
+21. **Describe how would you send a `GET` request to a server and what would happen at each stage.**
 
-32. **What role does AJAX play in displaying dynamic content in web applications?**
+    - GET requests are used to retrieve a resource, and most links are GETs.
+    - The response from a GET request can be anything, but if it's HTML and that HTML references other resources, your browser will automatically request those referenced resources. A pure HTTP tool will not.
+    - `GET` requests are initiated by clicking a link or via the address bar of a browser. When you type an address like `https://www.reddit.com` into the address bar of your browser, you're making a `GET` request. You're asking the web browser to go retrieve the resource at that address, which means we've been making `GET` requests throughout this book. The same goes for interacting with links on web applications. The default behavior of a link is to issue a `GET` request to a URL
 
-33. **Describe some of the security threats and what can be done to minimize them?**
+22. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
 
-34. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
+    `POST` is used when you want to initiate some action on the server, or send data to a server. Let's see an example with our HTTP tool: Typically from within a browser, you use `POST` when submitting a form. `POST`requests allow us to send much larger and sensitive data to the server, such as images or videos. For example, say we need to send our username and password to the server for authentication. We could use a `GET` request and send it through query strings. The flaw with this approach is obvious: our credentials become exposed instantly in the URL; that isn't what we want. Using a `POST` request in a form fixes this problem. `POST` requests also help sidestep the query string size limitation that you have with `GET` requests. With `POST` requests, we can send significantly larger forms of information to the server.
 
-35. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
+23. **What is a status code? What are some of the status codes types? What is the purpose of status codes?**
 
-36. **What is the relationship between a scheme and a protocol in the context of a URL?**
+24. **Imagine you are using an HTTP tool and you received a status code `302`. What does this status code mean and what happens if you receive a status code like that?**
 
-37. **In what ways can we pass information to the application server via the URL?**
+25. **How do modern web applications 'remember' state for each client?**
 
-38. **How insecure HTTP message transfer looks like?**
+26. **What role does AJAX play in displaying dynamic content in web applications?**
 
-39. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+27. **Describe some of the security threats and what can be done to minimize them?**
 
-40. **What is TLS Handshake?**
+28. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
 
-41. **What is symmetric key encryption? What is it used for?**
+29. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
 
-42. **What is asymmetric key encryption? What is it used for?**
+30. **What is the relationship between a scheme and a protocol in the context of a URL?**
 
-43. **Describe SSL/TLS encryption process.**
+31. **In what ways can we pass information to the application server via the URL?**
 
-44. **Describe the pros and cons of TLS Handshake**
+32. **How insecure HTTP message transfer looks like?**
 
-45. **Why do we need digital TLS/SSL certificates?**
+33. **What services does HTTP provide and what are the particular problems each of them aims to address?**
 
-46. **What is it CA hierarchy and what is its role in providing secure message transfer?**
+34. **What is TLS Handshake?**
 
-47. **What is Cipher Suites and what do we need it for?**
+35. **What is symmetric key encryption? What is it used for?**
 
-48. **How does TLS add a security layer to HTTP?**
+36. **What is asymmetric key encryption? What is it used for?**
 
-49. **Compare HTTP and HTTPS.**
+37. **Describe SSL/TLS encryption process.**
 
-50. **Does HTTPS use other protocols?**
+38. **Describe the pros and cons of TLS Handshake**
 
-51. **How do you know a website uses HTTPS?**
+39. **Why do we need digital TLS/SSL certificates?**
 
-52. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
+40. **What is it CA hierarchy and what is its role in providing secure message transfer?**
 
-53. **What is server-side infrastructure? What are its basic components?**
+41. **What is Cipher Suites and what do we need it for?**
 
-54. **What is a server? What is its role?**
+42. **How does TLS add a security layer to HTTP?**
 
-55. **What are optimizations that developers can do in order to improve performance and minimize latency?**
+43. **Compare HTTP and HTTPS.**
+
+44. **Does HTTPS use other protocols?**
+
+45. **How do you know a website uses HTTPS?**
+
+46. **Give examples of some protocols that would be used when a user interacts with a banking website. What would be the role of those protocols?**
+
+47. **What is server-side infrastructure? What are its basic components?**
+
+48. **What is a server? What is its role?**
+
+49. **What are optimizations that developers can do in order to improve performance and minimize latency?**
 
 
 
