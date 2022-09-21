@@ -29,21 +29,33 @@
 2) **OSI_TCP_Protocols**
 
    1) What is a protocol?
-
    2) What is the role of protocols?
-
    3) Why are there different types of protocols?
-
    4) What does it mean that a protocol is stateless?
-
-   5) OSI/TCP..What and Why?
-
+   5) OSI/TCP..What and Why?      <u>*DO I NEED MORE HERE?*</u>
    6) PDU
-
    7) Data Payload
-
    8) How lower level protocols work?
-
    9) Encapsulation
+
+   
+
+3. **DataLink_Ethernet**
+   		1. DataLink Layer
+   		1. Ethernet Frame
+
+
+
+4. **Internet_Network_IP**
+
+   1. Internet_Network Layer
+
+   2. What is IP/ headers?
+
+   3. DNS
+
+   4. Port Numbers + IP Addresses = Socket
+
+   5. Checksum
 
       
