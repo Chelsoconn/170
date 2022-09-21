@@ -1,231 +1,6 @@
-1. **What is a network?**
 
-   1. 2 or more computers that are linked in order to share resources or exchange data.  They may be linked through cables, telephone lines, radio waves, satellites, or infrared light beams. 
 
-      1. Local Area Network (LAN)- confined to a small area limited to a geographic region 	
-
-         1. Computers connected to a network are called servers or workstations 
-
-            1. Servers generally don't have a human user and provide services like printing, faxing, software hosting, file storage and sharing, complete access control for the networks resources, etc. Tend to be more powerful than workstations. A group of servers might be located in a secure area away from humans and only accessed through the network.
-            2. Workstations generally have a human userwhich interacts with the network through them. Desktops for example.
-
-            * May be connected through wires and cables (fastest) or wireless through **WAPS** or wireless access points. WAP devices provide a bridge between computers and networks.  Can connect hundreds or thousands of wireless users to a network.  The `hub` or `switch` is the network bridging device that the computers are linked to. Wireless local- area Network (WLAN) connect local computers wirelessly.
-
-      2. Internetwork Communication - Switch connects to router, router from other LAN connects to that LAN's router to enable communication between networks.
-
-      3. Network of networks- adds another group of routers in between communicating routers to direct network traffic.
-
-      4. connect networks in larger geographic areas. Transoceanic cabling or satellite uplinks may be used to connect this type of global network. 
-
-         1. Uses multiplexers, bridges, and routers to connect local and metropolitan networks to global communications networks like the Internet. 
-         2. ex/ Wi-Fi
-
-2. **What is the Internet?**
-
-   1. A global network of billions of computers and other electonic devices.  You can access information by going online. 
-   2. Relies on physical cables. Even wireless connections like Wi-Fi and 3G/4G rely on physical cables to access the internet. 
-   3. When you visit a website, your computer sends a request over these wires to a  server. A server is where websites are stored, and works a lot like your computers hard drive. 
-
-3. **Is the Internet the same thing as a network?**
-
-   | S.NO | Network                                                      | Internet                                                     |
-   | :--- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-   | 1.   | Network is defined as the group of two or more computer systems. | Whereas internet is the interrelationship of a few networks. |
-   | 2.   | The coverage of network is limited in comparison of internet. | While it covers large geographical area.                     |
-   | 3.   | It provides the link between many computers and network-enabled devices. | While it provide connection among many networks.             |
-   | 4.   | The types of network are: LAN, MAN, WAN, CAN and HAM.        | Whereas the types of internet is world wide web.             |
-   | 5.   | Through network, hundreds or a few thousands of computer system can linked simultaneously. | While through internet, millions of computer system can linked simultaneously. |
-   | 6.   | It requires less number of hardware devices.                 | While it requires various hardware devices.                  |
-
-4. **What is WEB (world wide web)**
-
-   1. A collection of different websites you can access through the internet. 
-   2. An information system enabling documents and other web resources to be accessed over the internet.
-
-5. **What is a protocol?**
-
-   ​			- IP = Internet Protocol
-
-   1. a set of rules governing the exchange or transmission of data.
-   2. Groups of protocols work in a layered system. Protocols at one layer provide services to the layer above.
-   3. Data is encapsulated into a Protocol Data Unit, creating separation between protocols operating at different layers.
-   4. The computers within a network may use vastly different software and hardware; however the use of protocols enables them to communicate with eachother regardless.
-   5. ex/ Ethernet, HTTP, Wifi, Bluetooth, IP, DNS
-
-6. **What is the role of protocols?**
-
-   In order for computers to exchange information, there must be a preexisting agreement as to how the information will be structured and how each side will send and recieve it.  The main goal is to enable systems to communicate with each other.
-
-7. **Why there are many different types of protocols?**
-
-   - Different protocols weer developed to address different aspects of network communication ex communicating messages through talking TCP, UDP
-     - Syntactical- order of words
-     - Message transfer rules- who talks first 
-   - Different protocols were developed to address the same aspect of network communication, but in a way different way or for a specific use-case ex/ talking to friends vs teachers vs presenter HTTP
-     - Rules for hiearchical communication vs casual 
-
-   Different needs:
-
-   1) Need to move around and still stay connected- enhanced mobility
-   2) Need for higher speeds of data exchange
-   3) Need for secured exchange of info
-   4) Need to reduce power consumption in data exchange
-   5) Need to improve the usability of the connectors, in other words, make our life simpler. 
-
-​		- Group protocols as functioning within layers of an overall system of communication. 
-
-1. **What does it mean that a protocol is stateless?**
-
-   A protocol in which each particular communication is handled as an independant event, unrelated to other similar communications.  
-
-   1) ex/ HTTP, DNS
-
-2. **Explain briefly what are OCI and TCP/IP (internet protocol suite) models? What is the purpose of having models like that?**
-
-   1. Modularizing and structuring computer network communication models. 
-      1. OSI 1-3 ~ IP 1 
-      2. 4 ~ 2
-      3. 5 ~ 3 
-      4. 6-7 ~ 4
-
-
-
-So Application were giving URL, Transport TCP we have ports, Internet we have IP, Link we have MAC addresses 
-
-![Diagram comparing OSI model layers with TCP/IP layers](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-osi-tcp-ip-comparison.png)Each model takes a different approach. IP divides the laters in terms of the scope of communication within each layer (within local netwrok, between networks, etc.).  OSI divides the layers in terms of the function that each layer provides (physical addressing, logical addressing and routing, encryption, compression, etc. )	
-
-- Useful for gaining a broad- brush view of how a system works as a whole, and for modularizing different levels of responsibility within that system. 
-- Developing a clear idea of how a particular protocol works and how to use it at the implementation detail is more important than trying to strictly adhere to the model. 
-
-3. **What is PDU? What is its role?**
-
-Protocol Data Units (PDU) - an amount or block of data transferred over a network. Referred to as different names in different layers.
-
-1. Consists of a header, a data payload, and in some cases a trailer/ footer
-   1. Headers and footers provide protocol-specific metadata about the PDU.  Ex/ an Internet Protocol (IP) packet header would include fields for the Source IP Address and the Destination IP Address, which would be used to correctly route the packet.
-   2. Data Payload- The data we want to transport over the network using a specific protocol at a particular network later
-
-4. **What is Data Payload?**
-
-The data we want to transport over the network using a specific protocol at a particular network later 
-
-The key to the way encapsulation is implemented. The entire PDU from a protocol at one layer is set as the data payload for a protocol at the layer below. For example, a HTTP Request at the Application layer could be set as the payload for a TCP segment at the transport layer.
-
-
-
-![Diagram demonstrating concept of encapsulation i the context of PDUs at different network layers ](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-encapsulation.png)
-
-
-
-Separation created between protocols at different layers. A protocol at one layer doesn't need to know anything about how a protocol at another layer is implemented in order for those protocols to interact. 
-
-1. **Explain How lower-level protocols work in general?**
-
-   It can independently complete its specific communication task without information from other layers. It creates a system whereby a lower layer effectively provides a 'service' to the layer above it. In other words, a TCP segment isn't really concerned whether its data payload is an HTTP request, an SMTP command, or some other sort of Application layer data. It just knows it needs to encapsulate *some data* from the layer above and provide the result of this encapsulation to the layer below. This separation of layers provides a certain level of abstraction, which allows us to use different protocols at a certain layer without having to worry about the layers below. This is especially apparent at the Application layer, where many different protocols are used depending on the application and use case. For example, an email client would use SMTP, and web browser HTTP, and a file transfer program FTP, but all three of these programs could use TCP at the Transport layer to transfer the application layer data.
-
-2. **What is encapsulation in the context of networking?**
-
-   1. Hiding data from one layer by encapsulating it within a data unit of the layer below. 
-      1. Protocol Data Units (PDU) - an amount or block of data transferred over a network. Referred to as different names in different layers.
-         1. Consists of a header, a data payload, and in some cases a trailer/ footer
-            1. Headers and footers provide protocol-specific metadata about the PDU.  Ex/ an Internet Protocol (IP) packet header would include fields for the Source IP Address and the Destination IP Address, which would be used to correctly route the packet.
-            2. Data Payload- The data we want to transport over the network using a specific protocol at a particular network later 
-
-![Simple image of a PDU consisting of header and payload](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-pdu.png)
-
-1. **What are the characteristics of a physical network?**
-
-   1. Latency
-   2. Bandwidth
-
-2. **How can we as developers deals with the limitations of physical network?**
-
-   As developers and software engineers, there's really not a lot we can do about the limitations of the physical network itself. If we want to improve the performance of the applications we build, then 
-
-   *our influence is limited to the implementation of the application in terms of how we use the higher-level protocols*.
-
-    As we'll see later in the course, however, an understanding of these physical limitations can impact the way we think about those higher-level protocols, and therefore the decisions we make about how we use them within our applications.
-
-3. **What is Latency?**
-
-   1. Measure of the time it takes for some data to get from one point in a network to another point in a network.
-   2. measure of delay.  
-   3. There are different types of delay that fo together to determine the overall latency of a network connection. All these combined are the total latency in milliseconds (ml).
-      1. Propagation delay- amount of time for a message to travel from the sender to the reciever 
-         1. Ratio between distance and speed.
-      2. Transmission delay- amount of time it takes to push data onto the "link"= Each of the elements in a network can be thought of as an induvidual link which are all interconnected by switches, routers, and other network devices
-         1. Explore `traceroute` - 
-            1. a utility for displaying the route and latency of the path across a network. Running the command should return a list of hops taken for the test data to get from your PC or laptop to the Google server. The values indicated here are the Round Trip Time for each hop.
-      3. Processing delay- Data taveling across a physical network doesn't directly cross one link to another, but is processed in various ways 
-      4. Queuing Delay- Network devices such as routers can only process a certain amount of data at one time before it needs to queue or buffer the data. The amount of time in 'traffic' is the queuing delay.
-   4. Last-mile Latency- A lot of the delays can take place within the parts of the network which are closest to the end points. Relates to the delays involoved in getting the network signal from your ISP's network to your home or office network.
-   5. Round-trip Time(RTT)- A latency calculation often used in networking is Round Trip Time.  This is the length of time for a seignal to be sent, added to the length of time for an acknowledgement or response to be recieved. 
-
-4. **What is** **Bandwidth?**
-
-   1. The amount of data that can be sent in a particular unit of time (typically a second)
-   2. Increasing badwidth only lets you increase the amount of data sent, not the speed, or latency.
-   3. Varies across the network and isnt at a constant level between the start point and the end point of our data's journey. The capacity of the core network is much higher than the part of the network infrastructure that ultimately connects to your home or office building. 
-   4. The bandwidth that a connection receives is the lowest amount at a particular point in the overall connection. A point at which bandwidth changes from relatively high to relatively low is generally referred to as a bandwidth bottleneck.
-   5. Low bandwidth can be an issue when dealing with large amounts of data. As we'll see later in the course, however, in many situations latency can be a much more serious limitation on the performance of a networked application.
-
-5. **What are** **Network 'Hops'?**
-
-   This is related to Last Mile latency seen in `Latency`.  The hops within the core part of the network signal from your ISP's network to your home or office network, processing, or queuing.  At the network edge, there are more frequent and shorter hops as the data is directed down the network hierarchy to the appropriate sub-network.  You can think of the network edge as the entry point into a network like a home or corporate LAN.
-
-   - The journey of a piece of data on a network isnt direct from a start point to a finsh but is a journey of "hops" between nodes on the network. Think of nodes as routers that process the data and forward it to the next node on the path.
-     - Run `traceroute google.com` in terminal
-       - Utility for displaying the route and latency of a path across a network. Running the command should return a list of hops taken for the test data to get from your PC or laptop to the Google server. The values indicated here are the Round-Trip Time (RTT) for each hop.
-
-   
-
-   **What is a switch and what is it used for?**
-
-   ​	A switch is a piece of hardware to which you connext devices to create a network.  Unlike a hub, a switch uses the destination address in order to direct a frame only to the device it is intended for. A switch keeps and updates a record of MAC addresses of the devices connected to it on a MAC Address Table, and assiciates each address with the Ethernet port to which the device is connected on the switch.
-
-| Switch Port | MAC Address       |
-| :---------- | :---------------- |
-| 1           | 00:40:96:9d:68:0a |
-| 2           | 00:A0:C9:14:C8:29 |
-| 3           | D8:D3:85:EB:12:E3 |
-| 4           | 00:1B:44:11:3A:B7 |
-
-
-
-1. **What is a hub and what is it used for?**
-
-   A basic piece of network hardware that replicates a message and forwards it to all the devices on the network.
-
-   This is fine if you want to send a particular message and forward it to the entire network, but usually you want to specify which specific device the message is intended for.
-
-2. **What is a modem and what it is used for?**
-
-3. **What is a router and what is it used for?**
-
-   1. All routers on a network store a local routing table.  When an IP packet is recieved by a router, the router examines the destination IP address and matches it with a list of network addresses in its routing table.  These network addresses define a range of addresses within a particular subnet.  The matching network address will determine where in the network hierachy the subnet exists.  This will then be used to select the best route for the IP packet to travel.
-
-4. **How does the Internet works?**
-
-   - The internet is a vast *network of networks*. It is comprised of both the *network infrastructure* itself (devices, routers, switches, cables, etc) and the *protocols* that enable that infrastructure to function.
-   - Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
-
-5. **What is a MAC address and what is its role in network communication?**
-
-   MAC = Media Access Control Device 
-
-   Every Network-Enabled-Device has a NIC (network interface card) and is assigned a specific MAC address (physical or burned in address) when manufactured.
-
-   Ex/ `00:40:96:9d:68:0a`
-
-   - In our hub scenario, each receiving device would check its MAC Address against the Destination MAC Address in the Frame to check if it was the intended recipient. If it wasn't, then it would just ignore the frame. Hubs are inefficient bc you're sending the frame to every computer, so switch's are used.
-   - We cant scale the use of MAC addresses to a huge scale:
-     - They are physical rather than logical. Each MAC Address is tied (burned in) to a specific physical device
-     - They are flat rather than hierarchical. The entire address is a single sequence of values and can't be broken down into sub-divisions.
-     - THE IP is the set of rules that makes this scalable 
-
-   
-
-6. **Give an overview of the Link/Data Layer**
+1. **Give an overview of the Link/Data Layer**
 
    In the OSI model, the Data Link Layer is Layer 2 and comes in between the Physical Layer(1) and the Network Layer(3).  In the Internet Protocol Suite, the Link Layer is 1.	
 
@@ -239,14 +14,14 @@ Separation created between protocols at different layers. A protocol at one laye
 
         Two of the most important aspects of Ethernet are `*framing and addressing.*`
 
-7. **What is included in an Ethernet frame?**
+2. **What is included in an Ethernet frame?**
 
-   		- DATA PAYLOAD field is used as an encapsulation mechanism for the layer 
-   		- An Ethernet Frame is structured data. 
-   		- Important parts are Destination MAC address, Source MAC address and Data Payload 
-   		- Interframe Gaps (IFG)- brief pause between transmission of each frame, which permits the reciever to prepare for the next frame. Contributes to the latency Transmission Delay
-   		- IEEE 802.3 Ethernet Standard- describes structure of frame 
-   		- The main elements to focus on are the Data Payload field being used as an encapsulation mechanism for the layer above, and the MAC Address fields being used to direct the frame between network devices. These particular fields exist across all the different Ethernet standards.
+    	- DATA PAYLOAD field is used as an encapsulation mechanism for the layer 
+    		- An Ethernet Frame is structured data. 
+    		- Important parts are Destination MAC address, Source MAC address and Data Payload 
+    		- Interframe Gaps (IFG)- brief pause between transmission of each frame, which permits the reciever to prepare for the next frame. Contributes to the latency Transmission Delay
+    		- IEEE 802.3 Ethernet Standard- describes structure of frame 
+    		- The main elements to focus on are the Data Payload field being used as an encapsulation mechanism for the layer above, and the MAC Address fields being used to direct the frame between network devices. These particular fields exist across all the different Ethernet standards.
 
 ![Graphic showing structure of an Ethernet Frame](https://da77jsbdz4r05.cloudfront.net/images/ls170/data-link-layer-frame-structure.png)
 
@@ -296,28 +71,7 @@ We won't describe every field in the header, but some of the more important ones
 
   
 
-1. **What is IP address?**
-
-   1. Unlike MAC addresses, IP addresses are logical- they are not tied to a specific device, but can be assigned as required to devices as they join a network.
-   2. The IP address that the device is assigned must fall within a range of addresses available to the local network that the device is connected to.
-      1. Range is defined by a network hierarchy- the overall network is split into logical subnetworks, with each defined by the range of IP addresses available to it 
-
-2. **What are the components of IP addresses?**
-
-   32 bits adn divided into 4 sections of eight bits each.  
-
-3. **Why do we need both MAC addresses and IP addresses?**
-
-   MAC addresses - Who you are (physical)- Who lives there?- DATA LINK 
-
-   IP- Where you are (logical)- like a home address- changes each time- NETWORK
-
-   Need both working in different ways.
-
-   	1) MAC used to identify a device while IP is used to locate a device
-   	1) MAC is resposible for local identification, IP for global
-
-   The routers send out ARP broadcast to get MAC address of next router. IP address lets you know final address.
+1. 
 
 4. **What is DNS and how does it work?**
 
@@ -335,14 +89,13 @@ We won't describe every field in the header, but some of the more important ones
 
 #  Summary
 
-- The internet is a vast *network of networks*. It is comprised of both the *network infrastructure* itself (devices, routers, switches, cables, etc) and the *protocols* that enable that infrastructure to function.
-- Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
-- Different types of protocol are concerned with different aspects of network communication. It can be useful to think of these different protocols as operating at particular 'layers' of the network.
-- *Encapsulation* is a means by which protocols at different network layers can work together.
-- Encapsulation is implemented through the use of *Protocol Data Units* (PDUs). The PDU of a protocol at one layer, becomes the data payload of the PDU of a protocol at a lower layer.
-- The *physical network* is the tangible infrastructure that transmits the electrical signals, light, and radio waves which carry network communications.
-- *Latency is a measure of delay*. It indicates the amount of time it takes for data to travel from one point to another.
-- *Bandwidth is a measure of capacity*. It indicates the amount of data that can be transmitted in a set period of time.
+- 
+- 
+- 
+- 
+- 
+- 
+- 
 - *Ethernet* is a set of standards and protocols that enables *communication between devices on a local network*.
 - Ethernet uses a Protocol Data Unit called a Frame.
 - Ethernet uses *MAC addressing* to identify devices connected to the local network.
@@ -616,6 +369,8 @@ While UDP provides a lot of flexibility and freedom, with that freedom comes a c
 
 
 1. **What does it mean that network reliability is engineered?**
+
+   rely on protocols that make up the layers 
 
 2. **Give an overview of the Application Layer.**
 
