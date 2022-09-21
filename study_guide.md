@@ -71,15 +71,21 @@ We won't describe every field in the header, but some of the more important ones
 
   
 
-1. 
+1. **What is DNS and how does it work?**
 
-4. **What is DNS and how does it work?**
+   [**Domain name system**](https://www.techtarget.com/searchnetworking/definition/domain-name-system)**.** DNS is a database that includes a website's domain name, which people  use to access the website, and its corresponding IP addresses, which  devices use to locate the website. DNS translates the domain name into  IP addresses, and these translations are included within the DNS.  Servers can [cache DNS data](https://www.computerweekly.com/news/252464579/DNS-a-security-opportunity-not-to-be-overlooked-says-Nominet), which is required to access the websites. DNS also includes the DNS  protocol, which is within the IP suite and details the specifications  DNS uses to translate and communicate.
 
-   1. DOMAIN SPECIFIC
+   DNS is important because it can quickly provide users with  information, as well as access to remote hosts and resources across the  internet.
 
-5. **How do port numbers and IP addresses work together?**
+   
 
-6. **What is a checksum and what is it used for? How is it used?**
+2. **How do port numbers and IP addresses work together?**
+
+   An IP address along with a port number create a socket.  A socket is a communications connection point (endpoint) that you can name and address in a network. Socket programming shows how to use socket APIs (application programming interface) to establish communication links between remote and local processes.  A socket is bound to a port number so that the TCP layer can identify the application that  data is destined to be sent to. An endpoint is a combination of an IP  address and a port number.
+
+   
+
+3. **What is a checksum and what is it used for? How is it used?**
 
    An error checking value generated via an algorithm. The destination device generates a value using the same algorithm and if it doesn't match, it drops the packet. IP doesn't manage retransmission of dropped packets. This is left to the layers above to implement.
 
@@ -89,13 +95,6 @@ We won't describe every field in the header, but some of the more important ones
 
 #  Summary
 
-- 
-- 
-- 
-- 
-- 
-- 
-- 
 - *Ethernet* is a set of standards and protocols that enables *communication between devices on a local network*.
 - Ethernet uses a Protocol Data Unit called a Frame.
 - Ethernet uses *MAC addressing* to identify devices connected to the local network.

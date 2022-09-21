@@ -26,7 +26,7 @@
 
 
 
-2) OSI_TCP_Protocols
+2) **OSI_TCP_Protocols**
 
    1) What is a protocol?
 
@@ -36,7 +36,7 @@
 
    4) What does it mean that a protocol is stateless?
 
-   5) OCI/TCP..What and Why?
+   5) OSI/TCP..What and Why?
 
    6) PDU
 

@@ -4,30 +4,33 @@
 
    * Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
 
-   ​			- IP = Internet Protocol
+   1. Groups of protocols work in a layered system. Protocols at one layer provide services to the layer above.
 
-   1. a set of rules governing the exchange or transmission of data.
-   2. Groups of protocols work in a layered system. Protocols at one layer provide services to the layer above.
-   3. Data is encapsulated into a Protocol Data Unit, creating separation between protocols operating at different layers.
-   4. The computers within a network may use vastly different software and hardware; however the use of protocols enables them to communicate with eachother regardless.
-   5. ex/ Ethernet, HTTP, Wifi, Bluetooth, IP, DNS
-   6. 
+   2. Data is encapsulated into a Protocol Data Unit, creating separation between protocols operating at different layers.
+
+   3. The computers within a network may use vastly different software and hardware; however the use of protocols enables them to communicate with eachother regardless.
+
+   4. ex/ Ethernet, HTTP, IP (Internet Protocol)
+
+      
 
 2. **What is the role of protocols?**
 
    In order for computers to exchange information, there must be a preexisting agreement as to how the information will be structured and how each side will send and recieve it.  The main goal is to enable systems to communicate with each other.
 
-   
+   Essentially, it allows connected devices to communicate with each other, regardless of any differences in their internal processes, structure or design.  Network protocols are the reason you can easily communicate with people  all over the world, and thus play a critical role in modern digital  communications.
+
+   *If we didn't have protocols?*
+
+   Network protocols were created to allow computers to communicate in an  organized manner without any room for misinterpretation. Clients that do not follow the rules oftentimes are disconnected by the server, or vice versa, depending on what the protocol specifications state.
+
+   Without a common set of protocols that all machines connected to the Internet must follow, communication between devices couldn't happen. The various machines would be unable to understand one another or even send information in a meaningful way.
 
 3. **Why there are many different types of protocols?**
 
    * Different types of protocol are concerned with different aspects of network communication. It can be useful to think of these different protocols as operating at particular 'layers' of the network.
 
-   1. Different protocols weer developed to address different aspects of network communication ex communicating messages through talking TCP, UDP
-      - Syntactical- order of words
-      - Message transfer rules- who talks first 
-   2. Different protocols were developed to address the same aspect of network communication, but in a way different way or for a specific use-case ex/ talking to friends vs teachers vs presenter HTTP
-      - Rules for hiearchical communication vs casual 
+   1. Different protocols were developed to address different aspects of network communication ex/ HTTP,TCP/UDP, IP, Ethernet
 
    Different needs:
 
@@ -37,7 +40,6 @@
    4) Need to reduce power consumption in data exchange
    5) Need to improve the usability of the connectors, in other words, make our life simpler. 
 
-
   - Group protocols as functioning within layers of an overall system of communication. 
 
     
@@ -46,11 +48,35 @@
 
 A protocol in which each particular communication is handled as an independant event, unrelated to other similar communications.  
 
-1. ex/ HTTP, DNS
+A Stateless Protocol is a type of network protocol in which their clients send a server request  after which the server responds based on the current state. A  Stateless Protocol doesn't require a server to retain the information of a session or the status of every communicating partner in multiple  requests.
 
-   
+Ex/  Domain Name System (DNS),  User Datagram Protocol (UDP), Hypertext Transfer Protocol (HTTP), etc., IP
 
-5. **Explain briefly what are OCI and TCP/IP (internet protocol suite) models? What is the purpose of having models like that?**
+*Benefits?*
+
+- They simplify the overall design of a given server.
+- It requires a very small number of resources. It is mainly because  the system doesn’t require keeping track of communication on multiple  links along with its session details.
+- Every individual communication in the case of a Stateless Protocol is unrelated and discrete to the ones that follow or precede.
+- Every package of information in a Stateless Protocol travels on its own. These packets require no reference to another packet.
+
+*Difference between stateful protocol*
+
+- This protocol keeps track of the connection information.
+- Since it keeps a continuous track of information, it also provides better performance to its concerned clients.
+- A Stateful Application always requires backing storage.
+- The requests from a Stateful Protocol always depend on the state of the server’s side.
+- The TCP sessions follow a Stateful type of network protocol because  both the systems in it maintain the session info during its life.
+- Ex/ File Transfer Protocol, TCP
+
+*STATEFUL WITH STATELESS*
+
+You can't assume that any stacked protocol is stateful or stateless  just looking at the other protocols on the stack. Stateful protocols can be built on top of stateless protocols and stateless protocols can be  built on top of stateful protocols. One of the points of a layered  network model is that the kind of relationship you're looking for  (statefulness of any given protocol in function of the protocols it's  used in conjunction with) does not exist.
+
+The TCP protocol is a stateful protocol because of what it is, not  because it is used over IP or because HTTP is built on top of it. TCP  maintains state in the form of a window size (endpoints tell each other  how much data they're ready to receive) and packet order (endpoints must confirm to each other when they receive a packet from the other). This *state* (how much bytes the other guy can receive, and whether or not he did  receive the last packet) allows TCP to be reliable even over inherently  non-reliable protocols. Therefore, TCP is a stateful protocol because it needs state to be useful.
+
+
+
+5. **Explain briefly what are OSI and TCP/IP (internet protocol suite) models? What is the purpose of having models like that?**
 
  * theoretical models used to describe the networking stack.
 
@@ -68,18 +94,20 @@ A protocol in which each particular communication is handled as an independant e
 
 So Application were giving URL, Transport TCP we have ports, Internet we have IP, Link we have MAC addresses 
 
-![Diagram comparing OSI model layers with TCP/IP layers](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-osi-tcp-ip-comparison.png)Each model takes a different approach. IP divides the laters in terms of the scope of communication within each layer (within local netwrok, between networks, etc.).  OSI divides the layers in terms of the function that each layer provides (physical addressing, logical addressing and routing, encryption, compression, etc. )	
+![Diagram comparing OSI model layers with TCP/IP layers](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-osi-tcp-ip-comparison.png)Each model takes a different approach. IP divides the layers in terms of the scope of communication within each layer (within local network, between networks, etc.).  OSI divides the layers in terms of the function that each layer provides (physical addressing, logical addressing and routing, encryption, compression, etc. )	
 
 - Useful for gaining a broad- brush view of how a system works as a whole, and for modularizing different levels of responsibility within that system. 
 - Developing a clear idea of how a particular protocol works and how to use it at the implementation detail is more important than trying to strictly adhere to the model. 
 
 
 
-
-
 6. **What is PDU? What is its role?**
 
 Protocol Data Units (PDU) - an amount or block of data transferred over a network. Referred to as different names in different layers.
+
+In networking, a protocol data unit (PDU) is **the basic unit of exchange between entities that communicate using a specified networking protocol**
+
+Each layer in the model uses the PDU to communicate and exchange  information, which can only be read by the peer layer on the receiving  device and is then handed over to next upper layer after stripping.
 
 1. Consists of a header, a data payload, and in some cases a trailer/ footer
 
