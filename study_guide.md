@@ -944,6 +944,7 @@ MINIMIZE THREAT -
  
 
 
+
 1. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
 
    The same-origin policy is an important concept that permits unrestricted interaction between resources originating from the same origin, but  restricts certain interactions between resources originating from  different origins. What we mean by *origin* here is the combination of a url's scheme, hostname, and port. So `http://mysite.com/doc1` would be considered to have the same origin as `http://mysite.com/doc2`, but a different origin to `https://mysite.com/doc2` (different scheme), `http://mysite.com:4000/doc2` (different port), and `http://anothersite.com/doc2` (different host).
@@ -1166,3 +1167,16 @@ MINIMIZE THREAT -
 - For certain use cases a peer-to-peer architecture may be more appropriate than a client-server architecture.
 
 HTTP and GUI need to be installed locally. Otherwise use AWS Cloud9
+
+
+
+
+
+
+
+The top layer of the Internet Protocol Suite (Application) mostly maps to the top three layers of the OSI Model (Application, Presentation, Session).
+The second layer of the Internet Protocol Suite (Transport) mostly maps to the fourth layer of the OSI model (Transport)
+The third layer of the Internet Protocol Suite (Internet) mostly maps to the fifth layer of the OSI model (Network)
+The fourth layer of the Internet Protocol Suite (Link) mostly maps to the bottom two layers of the OSI model (Data Link and Physical)
+
+https://launchschool.com/lessons/4af196b9/assignments/21ef33af
