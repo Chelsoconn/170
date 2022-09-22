@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1. **What is a network?**
 
    1. 2 or more computers that are linked in order to share resources or exchange data.  They may be linked through cables, telephone lines, radio waves, satellites, or infrared light beams. 
@@ -353,6 +354,8 @@ We won't describe every field in the header, but some of the more important ones
 
 
 
+=======
+>>>>>>> 70f5f03fb161aac152874ed51c67ef9621610cba
 1. **Give an overview of the Transport Layer.**
 
    running multiple apps at once- We can perhaps think of these different applications or processes as distinct *channels* for communication on a host machine.
@@ -616,6 +619,8 @@ While UDP provides a lot of flexibility and freedom, with that freedom comes a c
 
 
 1. **What does it mean that network reliability is engineered?**
+
+   rely on protocols that make up the layers 
 
 2. **Give an overview of the Application Layer.**
 
