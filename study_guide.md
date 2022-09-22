@@ -6,7 +6,7 @@
 
          1. Computers connected to a network are called servers or workstations 
 
-            1. Servers generally don't have a human user and provide services like printing, faxing, software hosting, file storage and sharing, complete access control for the networks resources, etc. Tend to be more powerful than workstations. A group of servers might be located in a secure area away from humans and only accessed through the network.
+            1. Servers generally don't have a human user and provide services like printing, faxing, software hosting, file storage and sharing, complete access control for the network's resources, etc. Tend to be more powerful than workstations. A group of servers might be located in a secure area away from humans and only accessed through the network.
             2. Workstations generally have a human userwhich interacts with the network through them. Desktops for example.
 
             * May be connected through wires and cables (fastest) or wireless through **WAPS** or wireless access points. WAP devices provide a bridge between computers and networks.  Can connect hundreds or thousands of wireless users to a network.  The `hub` or `switch` is the network bridging device that the computers are linked to. Wireless local- area Network (WLAN) connect local computers wirelessly.
@@ -938,6 +938,7 @@ MINIMIZE THREAT -
 
  
 
+
 1. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
 
    The same-origin policy is an important concept that permits unrestricted interaction between resources originating from the same origin, but  restricts certain interactions between resources originating from  different origins. What we mean by *origin* here is the combination of a url's scheme, hostname, and port. So `http://mysite.com/doc1` would be considered to have the same origin as `http://mysite.com/doc2`, but a different origin to `https://mysite.com/doc2` (different scheme), `http://mysite.com:4000/doc2` (different port), and `http://anothersite.com/doc2` (different host).
@@ -959,6 +960,8 @@ MINIMIZE THREAT -
 5. **How insecure HTTP message transfer looks like?**
 
 6. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+
+   framework for comm over internet fast, extensible(build on top), web frameworks interact with HTTP
 
 7. **TLS HANDSHAKE STEPS**
 
