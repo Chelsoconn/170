@@ -2,23 +2,28 @@
 
 	* OSI- network layer 3 between Data Link and Transport 
 
-* TCP/ IP- Internet later is 2 between Link and Transport- PREDOMINANTLY used 
+* TCP/ IP- Internet layer is 2 between Link and Transport- PREDOMINANTLY used 
 
 - The *Internet Protocol* (IP) is the predominant protocol used for *inter-network communication*.
+
 - There are two versions of IP currently in use: IPv4 and IPv6.
+
 - The *Internet Protocol* uses a system of addressing (IP Addressing) to *direct data between one device and another across networks*.
+
 - IP uses a Protocol Data Unit called a Packet.
 
-1. **What is IP?**
+  
 
-   Internet Protocol is the predominant protocol used for Internet/Network Layer.
+2. **What is IP?**
 
-   Two versions - 
+Internet Protocol is the predominant protocol used for Internet/Network Layer.
 
-   1) *IPv4*, IPv6
-    	1) Routing capabilities via IP addressing 
-    	2) Encapsulation of data into packets
-    	3) PDU within the IP protocol is a `packet`- comprised of a data payload and a header. Data payload is the PDU from Transport. Data is in bits like in Ethernet frame. Logical separation is determined by the set size of each field in bits and the order within the packet. 
+Two versions - 
+
+1) *IPv4*, IPv6
+ 	1) Routing capabilities via IP addressing 
+ 	2) Encapsulation of data into packets
+ 	3) PDU within the IP protocol is a `packet`- comprised of a data payload and a header. Data payload is the PDU from Transport. Data is in bits like in Ethernet frame. Logical separation is determined by the set size of each field in bits and the order within the packet. 
 
 We won't describe every field in the header, but some of the more important ones to be aware of are:
 
