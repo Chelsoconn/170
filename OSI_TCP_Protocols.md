@@ -16,7 +16,7 @@
 
 2. **What is the role of protocols?**
 
-   In order for computers to exchange information, there must be a preexisting agreement as to how the information will be structured and how each side will send and recieve it.  The main goal is to enable systems to communicate with each other.
+   In order for computers to exchange information, there must be a preexisting agreement as to how the information will be structured and how each side will send and recieve it.  The main goal is to enable systems to communicate with each other. Standardized way of communication. 
 
    Essentially, it allows connected devices to communicate with each other, regardless of any differences in their internal processes, structure or design.  Network protocols are the reason you can easily communicate with people  all over the world, and thus play a critical role in modern digital  communications.
 

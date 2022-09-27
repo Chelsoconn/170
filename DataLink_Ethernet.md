@@ -6,11 +6,11 @@
 
     * The layer is an interface between the workings of the physical network and the more logical layers above.
 
-    * *Ethernet* is a set of standards and protocols that enables *communication between devices on a local network*.
+    * *Ethernet* is a set of standards and protocols that enables the *communication between devices on a local network*.
 
    * Ethernet uses a Protocol Data Unit called a Frame.
 
-   * Ethernet uses *MAC addressing* to identify devices connected to the local network.
+   * Ethernet uses *MAC addresses* to identify devices connected to the local network.
 
     * The most commonly used protocol at this layer is the `Ethernet` protocol
 

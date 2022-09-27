@@ -1,621 +1,3 @@
-<<<<<<< HEAD
-1. **What is a network?**
-
-   1. 2 or more computers that are linked in order to share resources or exchange data.  They may be linked through cables, telephone lines, radio waves, satellites, or infrared light beams. 
-
-      1. Local Area Network (LAN)- confined to a small area limited to a geographic region 	
-
-         1. Computers connected to a network are called servers or workstations 
-
-            1. Servers generally don't have a human user and provide services like printing, faxing, software hosting, file storage and sharing, complete access control for the network's resources, etc. Tend to be more powerful than workstations. A group of servers might be located in a secure area away from humans and only accessed through the network.
-            2. Workstations generally have a human userwhich interacts with the network through them. Desktops for example.
-
-            * May be connected through wires and cables (fastest) or wireless through **WAPS** or wireless access points. WAP devices provide a bridge between computers and networks.  Can connect hundreds or thousands of wireless users to a network.  The `hub` or `switch` is the network bridging device that the computers are linked to. Wireless local- area Network (WLAN) connect local computers wirelessly.
-
-      2. Internetwork Communication - Switch connects to router, router from other LAN connects to that LAN's router to enable communication between networks.
-
-      3. Network of networks- adds another group of routers in between communicating routers to direct network traffic.
-
-      4. connect networks in larger geographic areas. Transoceanic cabling or satellite uplinks may be used to connect this type of global network. 
-
-         1. Uses multiplexers, bridges, and routers to connect local and metropolitan networks to global communications networks like the Internet. 
-         2. ex/ Wi-Fi
-
-2. **What is the Internet?**
-
-   1. A global network of billions of computers and other electonic devices.  You can access information by going online. 
-   2. Relies on physical cables. Even wireless connections like Wi-Fi and 3G/4G rely on physical cables to access the internet. 
-   3. When you visit a website, your computer sends a request over these wires to a  server. A server is where websites are stored, and works a lot like your computers hard drive. 
-
-3. **Is the Internet the same thing as a network?**
-
-   | S.NO | Network                                                      | Internet                                                     |
-   | :--- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-   | 1.   | Network is defined as the group of two or more computer systems. | Whereas internet is the interrelationship of a few networks. |
-   | 2.   | The coverage of network is limited in comparison of internet. | While it covers large geographical area.                     |
-   | 3.   | It provides the link between many computers and network-enabled devices. | While it provide connection among many networks.             |
-   | 4.   | The types of network are: LAN, MAN, WAN, CAN and HAM.        | Whereas the types of internet is world wide web.             |
-   | 5.   | Through network, hundreds or a few thousands of computer system can linked simultaneously. | While through internet, millions of computer system can linked simultaneously. |
-   | 6.   | It requires less number of hardware devices.                 | While it requires various hardware devices.                  |
-
-4. **What is WEB (world wide web)**
-
-   1. A collection of different websites you can access through the internet. 
-   2. An information system enabling documents and other web resources to be accessed over the internet.
-
-5. **What is a protocol?**
-
-   ​			- IP = Internet Protocol
-
-   1. a set of rules governing the exchange or transmission of data.
-   2. Groups of protocols work in a layered system. Protocols at one layer provide services to the layer above.
-   3. Data is encapsulated into a Protocol Data Unit, creating separation between protocols operating at different layers.
-   4. The computers within a network may use vastly different software and hardware; however the use of protocols enables them to communicate with eachother regardless.
-   5. ex/ Ethernet, HTTP, Wifi, Bluetooth, IP, DNS
-
-6. **What is the role of protocols?**
-
-   In order for computers to exchange information, there must be a preexisting agreement as to how the information will be structured and how each side will send and recieve it.  The main goal is to enable systems to communicate with each other.
-
-7. **Why there are many different types of protocols?**
-
-   - Different protocols weer developed to address different aspects of network communication ex communicating messages through talking TCP, UDP
-     - Syntactical- order of words
-     - Message transfer rules- who talks first 
-   - Different protocols were developed to address the same aspect of network communication, but in a way different way or for a specific use-case ex/ talking to friends vs teachers vs presenter HTTP
-     - Rules for hiearchical communication vs casual 
-
-   Different needs:
-
-   1) Need to move around and still stay connected- enhanced mobility
-   2) Need for higher speeds of data exchange
-   3) Need for secured exchange of info
-   4) Need to reduce power consumption in data exchange
-   5) Need to improve the usability of the connectors, in other words, make our life simpler. 
-
-​		- Group protocols as functioning within layers of an overall system of communication. 
-
-1. **What does it mean that a protocol is stateless?**
-
-   A protocol in which each particular communication is handled as an independant event, unrelated to other similar communications.  
-
-   1) ex/ HTTP, DNS
-
-2. **Explain briefly what are OCI and TCP/IP (internet protocol suite) models? What is the purpose of having models like that?**
-
-   1. Modularizing and structuring computer network communication models. 
-      1. OSI 1-3 ~ IP 1 
-      2. 4 ~ 2
-      3. 5 ~ 3 
-      4. 6-7 ~ 4
-
-
-
-So Application were giving URL, Transport TCP we have ports, Internet we have IP, Link we have MAC addresses 
-
-![Diagram comparing OSI model layers with TCP/IP layers](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-osi-tcp-ip-comparison.png)Each model takes a different approach. IP divides the laters in terms of the scope of communication within each layer (within local netwrok, between networks, etc.).  OSI divides the layers in terms of the function that each layer provides (physical addressing, logical addressing and routing, encryption, compression, etc. )	
-
-- Useful for gaining a broad- brush view of how a system works as a whole, and for modularizing different levels of responsibility within that system. 
-- Developing a clear idea of how a particular protocol works and how to use it at the implementation detail is more important than trying to strictly adhere to the model. 
-
-3. **What is PDU? What is its role?**
-
-Protocol Data Units (PDU) - an amount or block of data transferred over a network. Referred to as different names in different layers.
-
-1. Consists of a header, a data payload, and in some cases a trailer/ footer
-   1. Headers and footers provide protocol-specific metadata about the PDU.  Ex/ an Internet Protocol (IP) packet header would include fields for the Source IP Address and the Destination IP Address, which would be used to correctly route the packet.
-   2. Data Payload- The data we want to transport over the network using a specific protocol at a particular network later
-
-4. **What is Data Payload?**
-
-The data we want to transport over the network using a specific protocol at a particular network later 
-
-The key to the way encapsulation is implemented. The entire PDU from a protocol at one layer is set as the data payload for a protocol at the layer below. For example, a HTTP Request at the Application layer could be set as the payload for a TCP segment at the transport layer.
-
-
-
-![Diagram demonstrating concept of encapsulation i the context of PDUs at different network layers ](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-encapsulation.png)
-
-
-
-Separation created between protocols at different layers. A protocol at one layer doesn't need to know anything about how a protocol at another layer is implemented in order for those protocols to interact. 
-
-1. **Explain How lower-level protocols work in general?**
-
-   It can independently complete its specific communication task without information from other layers. It creates a system whereby a lower layer effectively provides a 'service' to the layer above it. In other words, a TCP segment isn't really concerned whether its data payload is an HTTP request, an SMTP command, or some other sort of Application layer data. It just knows it needs to encapsulate *some data* from the layer above and provide the result of this encapsulation to the layer below. This separation of layers provides a certain level of abstraction, which allows us to use different protocols at a certain layer without having to worry about the layers below. This is especially apparent at the Application layer, where many different protocols are used depending on the application and use case. For example, an email client would use SMTP, and web browser HTTP, and a file transfer program FTP, but all three of these programs could use TCP at the Transport layer to transfer the application layer data.
-
-2. **What is encapsulation in the context of networking?**
-
-   1. Hiding data from one layer by encapsulating it within a data unit of the layer below. 
-      1. Protocol Data Units (PDU) - an amount or block of data transferred over a network. Referred to as different names in different layers.
-         1. Consists of a header, a data payload, and in some cases a trailer/ footer
-            1. Headers and footers provide protocol-specific metadata about the PDU.  Ex/ an Internet Protocol (IP) packet header would include fields for the Source IP Address and the Destination IP Address, which would be used to correctly route the packet.
-            2. Data Payload- The data we want to transport over the network using a specific protocol at a particular network later 
-
-![Simple image of a PDU consisting of header and payload](https://da77jsbdz4r05.cloudfront.net/images/ls170/layered-system-pdu.png)
-
-1. **What are the characteristics of a physical network?**
-
-   1. Latency
-   2. Bandwidth
-
-2. **How can we as developers deals with the limitations of physical network?**
-
-   As developers and software engineers, there's really not a lot we can do about the limitations of the physical network itself. If we want to improve the performance of the applications we build, then 
-
-   *our influence is limited to the implementation of the application in terms of how we use the higher-level protocols*.
-
-    As we'll see later in the course, however, an understanding of these physical limitations can impact the way we think about those higher-level protocols, and therefore the decisions we make about how we use them within our applications.
-
-3. **What is Latency?**
-
-   1. Measure of the time it takes for some data to get from one point in a network to another point in a network.
-   2. measure of delay.  
-   3. There are different types of delay that fo together to determine the overall latency of a network connection. All these combined are the total latency in milliseconds (ml).
-      1. Propagation delay- amount of time for a message to travel from the sender to the reciever 
-         1. Ratio between distance and speed.
-      2. Transmission delay- amount of time it takes to push data onto the "link"= Each of the elements in a network can be thought of as an induvidual link which are all interconnected by switches, routers, and other network devices
-         1. Explore `traceroute` - 
-            1. a utility for displaying the route and latency of the path across a network. Running the command should return a list of hops taken for the test data to get from your PC or laptop to the Google server. The values indicated here are the Round Trip Time for each hop.
-      3. Processing delay- Data taveling across a physical network doesn't directly cross one link to another, but is processed in various ways 
-      4. Queuing Delay- Network devices such as routers can only process a certain amount of data at one time before it needs to queue or buffer the data. The amount of time in 'traffic' is the queuing delay.
-   4. Last-mile Latency- A lot of the delays can take place within the parts of the network which are closest to the end points. Relates to the delays involoved in getting the network signal from your ISP's network to your home or office network.
-   5. Round-trip Time(RTT)- A latency calculation often used in networking is Round Trip Time.  This is the length of time for a seignal to be sent, added to the length of time for an acknowledgement or response to be recieved. 
-
-4. **What is** **Bandwidth?**
-
-   1. The amount of data that can be sent in a particular unit of time (typically a second)
-   2. Increasing badwidth only lets you increase the amount of data sent, not the speed, or latency.
-   3. Varies across the network and isnt at a constant level between the start point and the end point of our data's journey. The capacity of the core network is much higher than the part of the network infrastructure that ultimately connects to your home or office building. 
-   4. The bandwidth that a connection receives is the lowest amount at a particular point in the overall connection. A point at which bandwidth changes from relatively high to relatively low is generally referred to as a bandwidth bottleneck.
-   5. Low bandwidth can be an issue when dealing with large amounts of data. As we'll see later in the course, however, in many situations latency can be a much more serious limitation on the performance of a networked application.
-
-5. **What are** **Network 'Hops'?**
-
-   This is related to Last Mile latency seen in `Latency`.  The hops within the core part of the network signal from your ISP's network to your home or office network, processing, or queuing.  At the network edge, there are more frequent and shorter hops as the data is directed down the network hierarchy to the appropriate sub-network.  You can think of the network edge as the entry point into a network like a home or corporate LAN.
-
-   - The journey of a piece of data on a network isnt direct from a start point to a finsh but is a journey of "hops" between nodes on the network. Think of nodes as routers that process the data and forward it to the next node on the path.
-     - Run `traceroute google.com` in terminal
-       - Utility for displaying the route and latency of a path across a network. Running the command should return a list of hops taken for the test data to get from your PC or laptop to the Google server. The values indicated here are the Round-Trip Time (RTT) for each hop.
-
-   
-
-   **What is a switch and what is it used for?**
-
-   ​	A switch is a piece of hardware to which you connext devices to create a network.  Unlike a hub, a switch uses the destination address in order to direct a frame only to the device it is intended for. A switch keeps and updates a record of MAC addresses of the devices connected to it on a MAC Address Table, and assiciates each address with the Ethernet port to which the device is connected on the switch.
-
-| Switch Port | MAC Address       |
-| :---------- | :---------------- |
-| 1           | 00:40:96:9d:68:0a |
-| 2           | 00:A0:C9:14:C8:29 |
-| 3           | D8:D3:85:EB:12:E3 |
-| 4           | 00:1B:44:11:3A:B7 |
-
-
-
-1. **What is a hub and what is it used for?**
-
-   A basic piece of network hardware that replicates a message and forwards it to all the devices on the network.
-
-   This is fine if you want to send a particular message and forward it to the entire network, but usually you want to specify which specific device the message is intended for.
-
-2. **What is a modem and what it is used for?**
-
-3. **What is a router and what is it used for?**
-
-   1. All routers on a network store a local routing table.  When an IP packet is recieved by a router, the router examines the destination IP address and matches it with a list of network addresses in its routing table.  These network addresses define a range of addresses within a particular subnet.  The matching network address will determine where in the network hierachy the subnet exists.  This will then be used to select the best route for the IP packet to travel.
-
-4. **How does the Internet works?**
-
-   - The internet is a vast *network of networks*. It is comprised of both the *network infrastructure* itself (devices, routers, switches, cables, etc) and the *protocols* that enable that infrastructure to function.
-   - Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
-
-5. **What is a MAC address and what is its role in network communication?**
-
-   MAC = Media Access Control Device 
-
-   Every Network-Enabled-Device has a NIC (network interface card) and is assigned a specific MAC address (physical or burned in address) when manufactured.
-
-   Ex/ `00:40:96:9d:68:0a`
-
-   - In our hub scenario, each receiving device would check its MAC Address against the Destination MAC Address in the Frame to check if it was the intended recipient. If it wasn't, then it would just ignore the frame. Hubs are inefficient bc you're sending the frame to every computer, so switch's are used.
-   - We cant scale the use of MAC addresses to a huge scale:
-     - They are physical rather than logical. Each MAC Address is tied (burned in) to a specific physical device
-     - They are flat rather than hierarchical. The entire address is a single sequence of values and can't be broken down into sub-divisions.
-     - THE IP is the set of rules that makes this scalable 
-
-   
-
-6. **Give an overview of the Link/Data Layer**
-
-   In the OSI model, the Data Link Layer is Layer 2 and comes in between the Physical Layer(1) and the Network Layer(3).  In the Internet Protocol Suite, the Link Layer is 1.	
-
-    * The layer is an interface between the workings of the physical network and the more logical layers above.
-
-    * The most commonly used protocol at this later is the `Ethernet` protocol
-
-      * Ethernet cables connect devices on the network such as computers, switches, and routers.
-
-      * The technical specification of these cables is governed by the same [IEEE standards](https://standards.ieee.org/standard/802_3-2018.html) that include the Ethernet communication protocols that operate at this layer of the network.
-
-        Two of the most important aspects of Ethernet are `*framing and addressing.*`
-
-7. **What is included in an Ethernet frame?**
-
-   		- DATA PAYLOAD field is used as an encapsulation mechanism for the layer 
-   		- An Ethernet Frame is structured data. 
-   		- Important parts are Destination MAC address, Source MAC address and Data Payload 
-   		- Interframe Gaps (IFG)- brief pause between transmission of each frame, which permits the reciever to prepare for the next frame. Contributes to the latency Transmission Delay
-   		- IEEE 802.3 Ethernet Standard- describes structure of frame 
-   		- The main elements to focus on are the Data Payload field being used as an encapsulation mechanism for the layer above, and the MAC Address fields being used to direct the frame between network devices. These particular fields exist across all the different Ethernet standards.
-
-![Graphic showing structure of an Ethernet Frame](https://da77jsbdz4r05.cloudfront.net/images/ls170/data-link-layer-frame-structure.png)
-
-Ethernet frames are a Protocol Data Unit, and encapsulate data from the Internet/ Network layer above. This is the lowest level of encapsulation.Ethernet Frame adds logical structure to the physical binary data. Data in this frame are still in bits, but the structure defines shich bits are actually the data payload, which are the metadata to be used in the process of transporting the frame. An ethernet- compliant network device is able to identify the different parts of the frame due to the fact that different 'fields' of data have specific lengths in bytes and appear in a set order.
-
-- **Preamble and SFD:** The Preamble and Start of Frame Delimiter (SFD/ SOF) generally aren't considered part of the actual frame but are sent just prior to the frame as a synchronization measure which notifies the receiving device to expect frame data and then identify the start point of that data. The preamble is seven bytes (56 bits) long and the SFD is one byte (eight bits). Both use a repeated pattern that can be recognised by the receiving device, which then knows that the data following after is the frame data.
-- **Source and Destination MAC address:** The next two fields, each six bytes (48 bits) long, are the source and destination MAC addresses. The source address is the address of the device which created the frame (as we'll see later on in this assignment, this can change at various points along the data's journey). The destination MAC address is the address of the device for which the data is ultimately intended. MAC Addresses are a key part of the Ethernet protocol; we'll look at them in more detail shortly.
-- **Length:** the next field is two bytes (16 bits) in length. It is used to indicate the size of the Data Payload.
-- **DSAP, SSAP, Control:** The next three fields are all one byte (8 bits) in length. The DSAP and SSAP fields identify the Network Protocol used for the Data Payload. The Control field provides information about the specific communication mode for the frame, which helps facilitate flow control.
-- **Data Payload:** the data payload field can be between 42 and 1497 bytes in length. It contains the data for the entire Protocol Data Unit (PDU) from the layer above, an IP Packet for example.
-- **Frame Check Sequence (FCS):** The final four bytes (32 bits) of an Ethernet Frame is the Frame Check Sequence. This is a checksum generated by the device which creates the frame. It is calculated from the frame data using an algorithm such as a cyclic redundancy check. The receiving device uses the same algorithm to generate a FCS and then compares this to the FCS in the sent frame. If the two don't match, then the frame is dropped. Ethernet doesn't implement any kind of retransmission functionality for dropped frames; it is the responsibility of higher level protocols to manage retransmission of lost data if this is a requirement of the protocol.
-
-1. **Give an overview of the Internet/Network Layer and it's role.**
-
-   OSI- network layer 3 between Data Link and Transport 
-
-   TCP/ IP- Internet later is 2 between Link and Transport- PREDOMINANTLY used 
-
-   - primary function of protocols at this layer is to facilitate communication between hosts (e.g. computers) on different networks.- internetwork comm.
-
-2. **What is IP?**
-
-   Internet Protocol is the predominant protocol used for Internet/Network Layer.
-
-   Two versions - 
-
-    	1) *IPv4*, IPv6
-    	 	1) Routing capabilities via IP addressing 
-    	 	2) Encapsulation of data into packets
-    	 	3) PDU within the IP protocol is a `packet`- comprised of a data payload and a header. Data payload is the PDU from Transport. Data is in bits like in Ethernet frame. Logical separation is determined by the set size of each field in bits and the order within the packet. 
-
-We won't describe every field in the header, but some of the more important ones to be aware of are:
-
-- **Version:** this indicates the version of the Internet Protocol used, e.g. IPv4
-
-- **ID, Flags, Fragment Offset:** these fields are related to fragmentation. If the Transport layer PDU is too large to be sent as a single packet, it can be fragmented, sent as multiple packets, and then reassembled by the recipient.
-
-- **TTL:** every packet has a Time to Live (TTL) value. This is to ensure that any packets which don't reach their destination for some reason aren't left to endlessly bounce around the network. The TTL indicates the maximum number of network 'hops' a packet can take before being dropped. At each hop, the router which processes and forwards the packet will decrement the TTL value by one.
-
-- **Protocol:** this indicates the protocol used for the Data Payload, e.g. TCP, UDP, etc.
-
-- **Checksum:** this is an error checking value generated via an algorithm. The destination device generates a value using the same algorithm and if it doesn't match, it drops the packet. IP doesn't manage retransmission of dropped packets. This is left to the layers above to implement.
-
-- **Source Address:** the 32-bit IP address of the source (sender) of the packet
-
-- **Destination Address:** the 32-bit IP address of the destination (intended recipient) of the packet
-
-  
-
-1. **What is IP address?**
-
-   1. Unlike MAC addresses, IP addresses are logical- they are not tied to a specific device, but can be assigned as required to devices as they join a network.
-   2. The IP address that the device is assigned must fall within a range of addresses available to the local network that the device is connected to.
-      1. Range is defined by a network hierarchy- the overall network is split into logical subnetworks, with each defined by the range of IP addresses available to it 
-
-2. **What are the components of IP addresses?**
-
-   32 bits adn divided into 4 sections of eight bits each.  
-
-3. **Why do we need both MAC addresses and IP addresses?**
-
-   MAC addresses - Who you are (physical)- Who lives there?- DATA LINK 
-
-   IP- Where you are (logical)- like a home address- changes each time- NETWORK
-
-   Need both working in different ways.
-
-   	1) MAC used to identify a device while IP is used to locate a device
-   	1) MAC is resposible for local identification, IP for global
-
-   The routers send out ARP broadcast to get MAC address of next router. IP address lets you know final address.
-
-4. **What is DNS and how does it work?**
-
-   1. DOMAIN SPECIFIC
-
-5. **How do port numbers and IP addresses work together?**
-
-6. **What is a checksum and what is it used for? How is it used?**
-
-   An error checking value generated via an algorithm. The destination device generates a value using the same algorithm and if it doesn't match, it drops the packet. IP doesn't manage retransmission of dropped packets. This is left to the layers above to implement.
-
-
-
-***LESSON 1 SUMMARY***
-
-#  Summary
-
-- The internet is a vast *network of networks*. It is comprised of both the *network infrastructure* itself (devices, routers, switches, cables, etc) and the *protocols* that enable that infrastructure to function.
-- Protocols are *systems of rules*. Network protocols are systems of rules governing the exchange or transmission of data over a network.
-- Different types of protocol are concerned with different aspects of network communication. It can be useful to think of these different protocols as operating at particular 'layers' of the network.
-- *Encapsulation* is a means by which protocols at different network layers can work together.
-- Encapsulation is implemented through the use of *Protocol Data Units* (PDUs). The PDU of a protocol at one layer, becomes the data payload of the PDU of a protocol at a lower layer.
-- The *physical network* is the tangible infrastructure that transmits the electrical signals, light, and radio waves which carry network communications.
-- *Latency is a measure of delay*. It indicates the amount of time it takes for data to travel from one point to another.
-- *Bandwidth is a measure of capacity*. It indicates the amount of data that can be transmitted in a set period of time.
-- *Ethernet* is a set of standards and protocols that enables *communication between devices on a local network*.
-- Ethernet uses a Protocol Data Unit called a Frame.
-- Ethernet uses *MAC addressing* to identify devices connected to the local network.
-- The *Internet Protocol* (IP) is the predominant protocol used for *inter-network communication*.
-- There are two versions of IP currently in use: IPv4 and IPv6.
-- The *Internet Protocol* uses a system of addressing (IP Addressing) to *direct data between one device and another across networks*.
-- IP uses a Protocol Data Unit called a Packet.
-
-
-
-=======
->>>>>>> 70f5f03fb161aac152874ed51c67ef9621610cba
-1. **Give an overview of the Transport Layer.**
-
-   running multiple apps at once- We can perhaps think of these different applications or processes as distinct *channels* for communication on a host machine.
-
-   So, although we have multiple communication channels *on* a host, with IP addresses we only have a single channel *between* hosts. What we need is a way to transmit these multiple data inputs over this single host-to-host channel and then somehow separate them out at the other end.
-
-   Getting data from Application layer and breaking it into packets, and attaching meta-info (source dest. ports) 
-
-   Destination port numbers are included in the PDU (Protocol Data Unit) for the Transport Layer.  The name, and exact structure, of these PDUs varies according to the Transport Protocol used, but what they have in common is that they include these two pieces of information.
-
-![Simple graphic of a transport layer PDU showing source and destination ports](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-comms-between-processes-simple-pdu.png)
-
-* Data from the application layer is encapsulated as the data payload in this PDU, and the source and destination port numbers within the PDU can be used to direct that data to specfic processes on a host. The entire PDU is then encapsulated as the data payload in an IP packet.
-*  The IP address and the port number *together* are what enables end-to-end communication between specific applications on different machines. The combination of IP address and port number information can be thought of as defining a *communication end-point*. This communication end-point is generally referred to as a *socket*.
-* **TCP protocol** - 
-
-  * The Transmission Control Protocol (TCP) is one of the corner-stones of the Internet. One of the key characteristics of this protocol is the fact that it provides reliable data transfer. In fact, reliability is listed as a key element of TCP operation as defined in [RFC793](https://www.ietf.org/rfc/rfc793.txt).
-
-  > The TCP must recover from data that is damaged, lost, duplicated, or delivered out of order by the internet communication system.
-
-  - What TCP essentially provides is the abstraction of reliable network communication on top of an unreliable channel. What this abstraction does is to hide much of the complexity of reliable network communication from the application layer: data integrity, de-duplication, in-order delivery, and retransmission of lost data.
-  - Reliability isn't the only thing that TCP provides. It also provides data encapsulation and multiplexing through the use of TCP Segments.
-
-
-
-1. **What are the fundamental elements of reliable protocol?**
-
-   * The possibility of losing data and it not being replaced means that the network up to and including the Internet Protocol is effectively an *unreliable communication channel*.  What we need to do is develop a system of rules, or a protocol, to ensure that all the data that is sent is received at the other end and in the correct order. What would such a system of rules look like?
-
-   * Problem: Messages can become corrupt or lost, how do you ensure the message has been successfully received?
-
-      * Solution: Use an acknowledgement message
-        * Rules:
-          - Sender sends one message at a time
-          - If message received, receiver sends an acknowledgement
-          - When acknowledgement is received, sender sends next message
-        * This seems like a pretty good solution, but there's a major flaw with it. There are certain situations in which the sender will never receive an acknowledgement:
-          - The recipient never receives the message and so doesn't send an acknowledgement
-          - The recipient receives the message and sends an acknowledgement, but the acknowledgement becomes corrupt or lost
-
-   * Problem: what if the acknowledgement is not received?
-
-      * Solution: re-send the message if acknowledgement not received within a certain time-frame.
-        * Rules:
-          - Sender sends one message at a time, and sets a timeout
-          - If message received, receiver sends an acknowledgement
-          - When acknowledgement is received, sender sends next message
-          - If acknowledgement not received before the timeout expires, sender assumes either the message or the acknowledgement went missing and sends the same message again
-        * Solving this problem has however introduced a separate problem into our system: duplication. Imagine the following scenarios:
-          - The receiver receives the message and sends an acknowledgement, but the acknowledgement becomes corrupt or lost
-          - The receiver receives the message and sends an acknowledgement, but the acknowledgement is delayed and the sender doesn't receive it before the timeout expires
-
-   * Problem: the message is received but acknowledgement is not received (or not in time), resulting in a duplicate message.
-
-      * Solution: add sequence numbers to the messages.
-
-        * Rules:
-          - Sender sends one message at a time, with a sequence number, and sets a timeout
-          - If message received, receiver sends an acknowledgement which uses the sequence number of the message to indicate which message was received
-          - When acknowledgement is received, sender sends next message in the sequence
-          - If acknowledgement is not received before the timeout expires, sender assumes either the message or the acknowledgement went missing and sends the same message again with the same sequence number
-          - If the recipient receives a message with a duplicate sequence number it assumes the sender never received the acknowledgement and so sends another acknowledgement for that sequence number and discards the duplicate
-
-      * In order delivery: data is received in the order that it was sent
-
-     * Error detection: corrupt data is identified using a checksum
-
-     * Handling data loss: missing data is retransmitted based on acknowledgements and timeouts
-
-     * Handling duplication: duplicate data is eliminated through the use of sequence numbers
-
-       **Our protocol as it stands is reliable. Unfortunately, it's not very efficient. ** It's a "stop and wait" system and is not an efficient use of bandwidth.
-
-       
-
-2. **What is pipe-lining protocols? What are the benefits of it?**
-
-   In computer networking, pipelining is the method of sending multiple data units without waiting for an acknowledgment for the first frame sent. Pipelining ensures better utilization of network resources and also increases the speed of delivery, particularly in situations where a large number of data units make up a message to be sent.
-
-   - To improve the throughput of our protocol, we send multiple messages on after the other without waiting for acknowledgements.Reliability is still there bc we are still recieving these acknowledgments, we are just sending multiple messages at one time. 
-
-![transport-reliability-stop-and-wait-vs-pipelining](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-reliability-stop-and-wait-vs-pipelining.png)
-
-Both Go-back-N and Selective Repeat both use a 'window' which is the max number of messages that can be in the pipeline at any one time, and once it recieves all the acknowledgments, it moves to the next window.
-
-![transport-reliability-windowing](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-reliability-windowing.png)
-
-BENEFITS - The advantage of this pipelined approach is its more efficient use of available bandwidth. Instead of wasting lots of time just waiting for acknowledgements, more time is spent actually transmitting data.
-
-Finding a balance between reliability and performance is a major part of the implementation of the Transmission Control Protocol (TCP). We'll look at this protocol in more detail in the next assignment.
-
-
-
-1. **What is a network port?**
-
-   A port is an identifier for a specific process running on a host. This identifier is an integer in the range 0-65535. 
-
-   A port is NOT a physical connection. Its a logical connection thats used by programs and services to exchange info.
-
-   Its specifically determines which program or service on a computer or server that is going to be used.
-
-   Always associated with an IP address- work together to exchange data on a network 
-
-2. **What is a port number?**
-
-   - Unique number that identifies them. 
-
-   1. 0-1023 are well-known ports. These are assigned to processes that provide commonly used network services. For example HTTP is port 80, FTP is port 20 and 21, SMTP is port 25, and so on.
-   2. 1024-49151 are registered ports. They are assigned as requested by private entities. For example, companies such as Microsoft, IBM, and Cisco have ports assigned that they use to provide specific services. On some operating systems, ports in this range are also used for allocation as *ephemeral ports* on the client side.
-   3. 49152-65535 are dynamic ports (sometimes known as private ports). Ports in this range cannot be registered for a specific use. They can be used for customized services or for allocation as *ephemeral ports*.
-
-3. **What is a network socket?**
-
-   The IP address and the port number together are what enables end-to-end communication between specific applications on different machines.  The combination of IP address and port number info can be thought of as defining a `communication end-point`- generally referred to as the socket. Ex/ 216.3.128.12:8080
-
-   - An abstraction for an endpoint used for inter-process communication
-   - At an implementation level, it can be used to refer to different specific things:
-     - UNIX socket: a mechanism for communication between local processes running on the same machine.
-     - Internet sockets (such as a TCP/IP socket): a mechanism for inter-process communication between networked processes (usually on different machines).
-     - There *is* a distinction between the concept of a network socket and its implementation in code.
-
-4. **Is TCP connectionless? Why?**
-
-   Transmission Control Protocol- Connection Oritented Protocol
-
-   Establishes connection with server after the data is broken down into packets from the application layer.
-
-   - Check connections by running `netstat -ap TCP` in terminal
-   - `TCP is an example of a connection-oriented protocol`. It requires a logical connection to be established between the two processes before data is exchanged. The connection must be maintained during the entire time that communication is taking place, then released afterwards.
-
-5. **How do sockets on the implementation level relate to the idea of protocols being connectionless or connection-oriented?**
-
-   -In socket programming or network programming terms though, the implementation of this concept involves instantiating *socket objects*. While implementations vary, many follow the Berkeley sockets API model. Implementations which follow this model define specific functions such as `bind()`, `listen()`, `accept()`, and `connect()`, among others.
-
-   -The reason for this is that having a mental model of sockets being implemented as objects helps to understand how they can be used to create *connections* between applications. Some understanding of connections is necessary to comprehend the difference between connection-oriented communication and connectionless communication. 
-
-   -By instantiating multiple socket objects, we can implement connection-oriented network communication between applications.
-
-   ![transport-comms-between-processes-connectionless](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-comms-between-processes-connectionless.png)
-
-   * Connectionless - In a connectionless system we could have one socket object defined by the IP address of the host machine and the port assigned to a particular process running on that machine. That object could call a `listen()` method which would allow it to wait for incoming messages directed to that particular IP/port pair. Such messages could potentially come from any source, at any time, and in any order, but that isn't a concern in a connectionless system -- it would simply process any incoming messages as they arrived and send any responses as necessary.
-
-   
-
-   ![transport-comms-between-processes-connection-oriented](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-comms-between-processes-connection-oriented.png)
-
-   * Connection- Oriented - A connection-oriented system would work differently. You could have a socket object defined by the host IP and process port, just as in the connectionless system, also using a `listen()` method to wait for incoming messages; the difference in implementation would be in what happens when a message arrives. At this point we could instantiate a *new* socket object; this new socket object wouldn't just be defined by the local IP and port number, but also by the IP and port of the process/host which sent the message. This new socket object would then listen specifically for messages where all four pieces of information matched (source port, source IP, destination port, destination IP). The combination of these four pieces of information is commonly referred to as a four-tuple.  Any messages not matching this four-tuple would still be picked up by the original socket, which would then instantiate another socket object for the new connection.
-     * Implementing communication in this way effectively creates a dedicated virtual connection for communication between a specific process running on one host and a specific process running on another host. The advantage of having a dedicated connection like this is that it more easily allows you to put in place rules for managing the communication such as the order of messages, acknowledgements that messages had been received, retransmission of messages that weren't received, and so on. The purpose of these types of additional communication rules is to add more reliability to the communication.
-
-   
-
-6. **What is a three-way handshake? What is it used for?**
-
-   In the TCP (Transmission Control Protocol) protocol. Establishing a connection with the server. This is why TCP is a connection oriented communication. It doesn't start sending data until a connection has been established between app. processes.
-
-   1) Client sends SYN (synchronized) packet to the server - 'Hey server I want to establish a connection with you': a TCP Segment with the `SYN` flag set to `1`
-   2) Server recieves it and sends back SYN ACK (synchronized acknowledgement)- "hey I'm ready to accept the connection" : a TCP Segment with the `SYN` and `ACK` flags set to `1`
-   3) Client recieves and sends back ACK (acknowledgement)- connection established! 
-      1) Packet Transmission can start: a TCP Segment with the `ACK` flag set to `1`
-
-   * the`FIN` flag is used in different process, the Four-way Handshake, used for terminating connections.
-
-   * Upon sending the ACK, the sender can immediately start sending application data. The receiver must wait until it has received the ACK before it can send any data back to the sender. One of the main reasons for this process is to synchronise (`SYN`) the sequence numbers that will be used during the connection.
-   * We want to maintain a connection state- According to RFC793
-     * A connection progresses through a series of states during its lifetime. The states are: LISTEN, SYN-SENT, SYN-RECEIVED, ESTABLISHED, FIN-WAIT-1, FIN-WAIT-2, CLOSE-WAIT, CLOSING, LAST-ACK, TIME-WAIT, and the fictional state CLOSED. CLOSED is fictional because it represents the state when there is no TCB, and therefore, no connection.  Most of the time the state we are most concerned with is `ESTABLISHED`, and also `LISTEN` on the server side. The other states are related to the establishment and termination of connections.
-
-| Client Start State | Client Action                                                | Client End State | Server Start State | Server Action                                                | Server End State |
-| :----------------- | :----------------------------------------------------------- | :--------------- | :----------------- | :----------------------------------------------------------- | :--------------- |
-| `CLOSED`           | Sends a `SYN` Segment                                        | `SYN-SENT`       | `LISTEN`           | Waits for a connection request                               | -                |
-| `SYN-SENT`         | Waits to receive an ACK to the SYN it sent, as well as the server's `SYN` | `SYN-SENT`       | `LISTEN`           | Sends a SYN ACK Segment which serves as both it's SYN and an ACK for the client's SYN | `SYN-RECEIVED`   |
-| `SYN-SENT`         | Receives the SYN ACK Segment sent by the server, and sends an ACK in response. The client is now finished with the connection establishment process | `ESTABLISHED`    | `SYN-RECEIVED`     | Waits for an ACK for the SYN it just sent                    | -                |
-| `ESTABLISHED`      | Ready for data transfer. Can start sending application data. | `ESTABLISHED`    | `SYN-RECEIVED`     | Receives the ACK sent in response to its SYN. The server is now finished with the connection establishment process. | `ESTABLISHED`    |
-
-there is an entire round-trip of latency before any application data can be exchanged. Since this hand-shake process occurs every time a TCP connection is made, this clearly has an impact on any application which uses TCP at the transport layer.  In order to help facilitate efficient data transfer once a connection is established, TCP provides mechanisms for flow control and congestion avoidance.
-
-1. **What are multiplexing and demultiplexing?**
-
-   In the context of a communication network, this idea of transmitting multiple signals over a single channel is known as multiplexing, with demultiplexing being the reverse process. Takes place through the use of network ports.
-
-   
-
-2. **What is flow control? How does it work and why do we need it?**
-
-   In order to help facilitate efficient data transfer once a connection is established, TCP provides mechanisms for flow control and congestion avoidance.  Flow control is a mechanism to prevent the sender from overwhelming the receiver with too much data at once. The receiver will only be able to process a certain amount of data in a particular time-frame. Data awaiting processing is stored in a 'buffer'. The buffer size will depend on the amount of memory allocated according to the configuration of the OS and the physical resources available.  Each side of a connection can let the other side know the amount of data that it is willing to accept via the WINDOW field of the TCP header. This number is dynamic, and can change during the course of a connection. If the receiver's buffer is getting full it can set a lower amount in the WINDOW field of a Segment it sends to the sender, the sender can then reduce the amount of data it sends accordingly. It doesn't prevent either the sender or receiver from overwhelming the underlying network. For that task we need a different mechanism: Congestion Avoidance.
-
-3. **How TCP prevents from receiver's buffer to get overloaded with data?**
-
-   Flow Control and Congestion Avoidance
-
-4. **What is congestion avoidance?**
-
-   Network Congestion is a situation that occurs when there is more data being transmitted on the network than there is network capacity to process and transmit the data. You can perhaps think of it as similar to a gridlock of vehicles on a road network. Instead of things coming to a standstill however, the 'excess vehicles' are simply lost.  In the [last lesson](https://launchschool.com/lessons/4af196b9/assignments/b222ecfb) we looked at IP packets moving across the networks in a series of 'hops'. At each hop, the packet needs to be processed: the router at that hop runs a checksum on the packet data; it also needs to check the destination address and work out how to route the packet to the next hop on its journey to that destination. All of this processing takes time, and a router can only process so much data at once. Routers use a 'buffer' to store data that is awaiting processing, but if there is more data to be processed than can fit in the buffer, the buffer over-flows and those data packets are dropped.  As we've already seen, TCP retransmits lost data. If lots of data is lost that means lots of retransmitted data, which is inefficient. Ideally we want to keep retransmission to a minimum. TCP actually uses data loss as a feedback mechanism to detect, and avoid, network congestion; if lots of retransmissions are occurring, TCP takes this as a sign that the network is congested and reduces the size of the transmission window.
-
-5. **What is network congestion?**
-
-   Network Congestion is a situation that occurs when there is more data being transmitted on the network than there is network capacity to process and transmit the data. You can perhaps think of it as similar to a gridlock of vehicles on a road network. Instead of things coming to a standstill however, the 'excess vehicles' are simply lost.
-
-6. **How do transport layer protocols enable communication between processes?**
-
-7. **Disadvantages of TCP**
-
-   Head-of-line blocking is a general networking concept, and isn't specific to TCP. In general terms it relates to how issues in delivering or processing one message in a sequence of messages can delay or 'block' the delivery or processing of the subsequent messages in the sequence.
-
-   With TCP, HOL blocking can occur as a result of the fact that TCP provides for in-order delivery of segments. Although this in order delivery is one aspect of TCP's reliability, if one of the segments goes missing and needs to be retransmitted, the segments that come after it in the sequence can't be processed, and need to be buffered until the retransmission has occurred. This can lead to increased queuing delay which, as we saw in an [earlier assignment](https://launchschool.com/lessons/4af196b9/assignments/097d7577), is one of the elements of latency.
-
-8. **Compare UDP and TCP. What are similarities, what are differences? What are pros and cons of using each one?**
-
-   1. TCP- A TCP Segment header contains a number of different fields. As we saw earlier in this Lesson, two of these fields -- Source Port and Destination Port -- provide the multiplexing capability of the protocol. Most of the other header fields are related to the way that TCP implements reliable data transfer.
-
-![transport-layer-tcp-segment](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-layer-tcp-segment.png)
-
-
-
-Some of the more important fields in the header in terms of implementing reliability are:
-
-- CHECKSUM: The Checksum provides the Error Detection aspect of TCP reliability. It is an error checking value generated by the sender using an algorithm. The receiver generates a value using the same algorithm and if it doesn't match, it drops the Segment. We've encountered Checksums already in this course, in other PDUs at other network layers such as IP Packets. Having a Checksum at the Transport Layer does render Checksums at lower layers redundant to a certain extent. IPv6 headers don't include a Checksum for this reason, based on the assumption that checksums are implemented at either the Transport or Link/ Data Link layers (or both).
-- SEQUENCE NUMBER and ACKNOWLEDGEMENT NUMBER: these two fields are used together to provide for the other elements of TCP reliability such as In-order Delivery, Handling Data Loss, and Handling Duplication. The precise way in which TCP uses these fields is beyond the scope of this course, but it is essentially a more complex version of the simplified example of the Reliable Protocol we constructed in the previous assignment.
-
-Other fields of interest in a typical header are the WINDOW SIZE field and the various Flag fields. The WINDOW SIZE field is related to Flow Control, which we will look at a bit later on. The Flag fields are one-bit boolean fields. A couple of these fields, `URG` and `PSH`, are related to how the data contained in the Segment should be treated in terms of its importance or urgency; we aren't going to go into exactly how these particular flags are used. The `SYN`, `ACK`, `FIN`, and `RST` flags are used to establish and end a TCP connection, as well as manage the state of that connection; we'll look at these in some more detail below.
-
-
-
-UDP - 
-
-In the previous assignment, we saw how TCP implements reliable data transfer through sequencing and retransmission of lost data, as well as providing mechanisms for flow control and congestion avoidance. So how does UDP implement all of those things? Well, basically, it doesn't. It does provide error detection.
-
-The Protocol Data Unit (PDU) of UDP is known as a Datagram. Like all the PDUs we've looked at so far it encapsulates data from the layer above into a payload and then adds header information. If we examine the header of a UDP Datagram, we can see that it's really quite simple.
-
-![transport-udp-datagram-header](https://da77jsbdz4r05.cloudfront.net/images/ls170/transport-udp-datagram-header.png)
-
-Through the use of the Source and Destination Port numbers, UDP provides multiplexing in the same way that TCP does. Unlike TCP however, it doesn't do anything to resolve the inherent unreliability of the layers below it. In fact, it's probably easier to define UDP by what it *doesn't* do (particularly in comparison with TCP) than by what it *does* do.
-
-- It provides no guarantee of message delivery
-- It provides no guarantee of message delivery order
-- It provides no built-in congestion avoidance or flow-control mechanisms
-- It provides no connection state tracking, since it is a connectionless protocol
-
-his simplicity provides two things to a software engineer: speed and flexibility.
-
-UDP is a connectionless protocol. Applications using UDP at the Transport layer can just start sending data without having to wait for a connection to be established with the application process of the receiver. In addition to this, the lack of acknowledgements and retransmissions means that the actual data delivery itself is faster; once a datagram is sent it doesn't have to be sent again. Latency is less of an issue since without acknowledgements data essentially just flows one way: from sender to receiver. The lack of in-order delivery also removes the issue of Head-of-line blocking (at least at the Transport layer).  It's likely that someone building a UDP-based application will want to implement some of the services that UDP doesn't natively provide. Which services those would be, and the way they're implemented, would be up to whoever was building the application though. For example, you might want your application to have in-order delivery, but at the same time not be worried about the occasional piece of lost data. You could implement sequencing, but choose not to implement data retransmission. It is left to the software engineer to decide which services to include. These services can then be implemented at the application lever, effectively using UDP as a 'base template' to build on.  Ex/ video calls, gaming 
-
-While UDP provides a lot of flexibility and freedom, with that freedom comes a certain amount of responsibility. There are various best practices that should be adhered to. For example, it would be expected that your UDP-based application implements some form of congestion avoidance in order to prevent it overwhelming the network.
-
-
-
-***SUMMARY*** 
-
-- *Multiplexing* and *demultiplexing* provide for the transmission of *multiple signals over a single channel*
-- Multiplexing is enabled through the use of *network ports*
-- Network sockets can be thought of as a *combination of IP address and port number*
-- At the *implementation level*, sockets can also be *socket objects*
-- The underlying network is *inherently unreliable*. If we want reliable data transport we need to implement a system of rules to enable it.
-- *TCP* is a *connection-oriented* protocol. It establishes a connection using the *Three-way-handshake*
-- TCP provides reliability through *message acknowledgement* and *retransmission*, and *in-order delivery*.
-- TCP also provides *Flow Control* and *Congestion Avoidance*
-- The main *downsides of TCP* are the *latency overhead of establishing a connection*, and the potential *Head-of-line blocking* as a result of in-order delivery.
-- *UDP* is a very simple protocol compared to TCP. It provides *multiplexing*, but no reliability, no in-order delivery, and no congestion or flow control.
-- *UDP* is *connectionless*, and so doesn't need to establish a connection before it starts sending data
-- Although it is unreliable, the *advantage of UDP* is *speed* and *flexibility*.
-
 
 
 1. **What does it mean that network reliability is engineered?**
@@ -626,11 +8,11 @@ While UDP provides a lot of flexibility and freedom, with that freedom comes a c
 
    Both the TCP/IP model and the OSI model define an Application layer as the topmost layer in their respective layered systems (the Session layer and the Presentation layer also in OSI). Something to be clear about here is that the application layer is not the *application itself*, but rather a set of protocols which provide communication services to applications.
 
-   One thing both models have in common however is that the protocols which exist at the Application layer are the ones with which the application most directly interacts. That's not to say that networked applications are limited to interacting with only Application layer protocols. You can see many applications interacting with Transport layer protocols by, for example, opening a TCP socket. However, it is much less common to build applications which interact directly with protocols below the Transport layer.
+   One thing both models have in common however is that the protocols which exist at the Application layer are the ones with which the application most directly interacts. That's not to say that networked applications are limited to interacting with only Application layer protocols. You can see many applications interacting with Transport layer protocols by, for example, opening a TCP socket. However, it is much less common to build applications that interact directly with protocols below the Transport layer.
 
    Application layer protocols rely on the protocols at the layers below them to ensure that a message gets to where it is supposed to, and focus instead on the structure of that message and the data that it should contain.
 
-   We can perhaps think of Application layer protocols as being the rules for how applications talk to each other at a syntactical level. Different types of applications have different requirements with regards to how they communicate at a syntactical level, and so as a result there are many different protocols which exist at the application layer. For example, the rules for how an email client communicates with an email server will be different from the rules for how a web browser communicates with a web server, because emails and web pages are fundamentally different things serving different purposes.
+   We can perhaps think of Application layer protocols as being the rules for how applications talk to each other at a syntactical level. Different types of applications have different requirements with regards to how they communicate at a syntactical level, and so as a result there are many different protocols that exist at the application layer. For example, the rules for how an email client communicates with an email server will be different from the rules for how a web browser communicates with a web server because emails and web pages are fundamentally different things serving different purposes.
 
 3. **What is HTML?**
 
@@ -712,7 +94,9 @@ Query strings are great to pass in additional information to the server, however
 
    > The Web is an information space. Human beings have a lot of mental machinery for manipulating, imagining, and finding their way in spaces. URIs are the points in that space.
 
-   The terms URI and URL (Uniform Resource Locator) are often used interchangeably. We'll discuss the distinctions in a later assignment.
+   The terms URI and URL (Uniform Resource Locator) are often used interchangeably. We'll discuss the distinctions in a later assignment.  URI does not require location info 
+
+   URL is a subset of URI 
 
 3. **What is the difference between scheme and protocol in URL?**
 
@@ -738,7 +122,21 @@ Query strings are great to pass in additional information to the server, however
 
 6. **Explain the client-server model of web interactions, and the role of HTTP as a protocol within that model**
 
-7. **What are HTTP requests and responses? What are the components of each?**
+   An example of one way to do things, not the only one. Most prescribe to this model. 
+
+   The Client-server model is a distributed application structure that partitions task or workload between the providers of a resource or service, called servers, and service requesters called clients. In the client-server architecture, when the client computer sends a request for data to the server through the internet, the server accepts the requested process and deliver the data packets requested back to the client. Clients do not share any of their resources. Examples of Client-Server Model are Email, World Wide Web, etc.
+
+   **How the Client-Server Model works ?**
+   In this article we are going to take a dive into the **Client-Server** model and have a look at how the **Internet** works via, web browsers. This article will help us in having a solid foundation of the WEB and help in working with WEB technologies with ease.
+
+   - **Client:** When we talk the word **Client**, it mean to talk of a person or an organization using a particular service. Similarly in the digital world a **Client**is a computer (**Host**) i.e. capable of receiving information or using a particular service from the service providers (**Servers**).
+   - **Servers:** Similarly, when we talk the word **Servers**, It mean a person or medium that serves something. Similarly in this digital world a **Server** is a remote computer which provides information (data) or access to particular services.
+
+   So, its basically the **Client** requesting something and the **Server** serving it as long as its present in the database.
+
+
+
+1. **What are HTTP requests and responses? What are the components of each?**
 
    If you're fuzzy on the previous paragraph, read it again. It's critical to understand that when using a browser, the browser hides a lot of the underlying HTTP request/response cycle from you. Your browser issued the initial `POST` request, got a response with a `Location` header, then issued another request without any action from you, then displayed the response from that second request. Once again, if you were using a pure HTTP tool, you'd see the `Location` response header from the first `POST` request, but the tool would not automatically issue a second request for you. (Some HTTP tools have this ability, if you check the "automatically follow redirects" option.)
 
@@ -759,9 +157,13 @@ Response Header -
      - response retrieved
      - TCP connection closed
 
-2. **What is a** s**tate in the context of the 'web'?**
+2. **What is a state in the context of the 'web'?**
 
-3. **What is** s**tatelessness?**
+   Visual appearance is an effect of statefulness. Feeling of persistence of a stateful connection. Shopping cart experience. 
+
+   
+
+3. **What is statelessness?**
 
    A protocol is said to be **stateless** when it's designed in such a way that each request/response pair is completely independent of the previous one. It is important to be aware of HTTP as a stateless protocol and the impact it has on server resources and ease of use. In the context of HTTP, it means that the server does not need to hang on to information, or state, between requests. As a result, when a request breaks en route to the server, no part of the system has to do any cleanup. Both these reasons make HTTP a resilient protocol, as well as a difficult protocol for building stateful applications. Since HTTP, the protocol of the internet, is inherently stateless that means web developers have to work hard to simulate a stateful experience in web applications.
 
@@ -953,7 +355,16 @@ MINIMIZE THREAT -
 
 2. **What determines whether a request should use `GET` or `POST` as its HTTP method?**
 
-3. **What is the relationship between a scheme and a protocol in the context of a URL?**
+   1. 2 distinct behaviors 
+
+
+​		GET- accessing info from resource 
+
+​        POST- form submission/providing credentials/ modifying info server side 
+
+​		
+
+1. **What is the relationship between a scheme and a protocol in the context of a URL?**
 
    Another frequent point of confusion when discussing URLs are the terms *scheme* and *protocol*. When looking at URL Components, we described the component that  prepends the colon and two forward slashes at the start of a URL as the *scheme*.
 
@@ -961,15 +372,15 @@ MINIMIZE THREAT -
 
    One more thing to note when discussing schemes and protocols is that the canonical form of a scheme name is lowercase. The convention is to  refer to scheme names in lowercase, e.g. `http`, and protocol names in uppercase, e.g. HTTP.
 
-4. **In what ways can we pass information to the application server via the URL?**
+2. **In what ways can we pass information to the application server via the URL?**
 
-5. **How insecure HTTP message transfer looks like?**
+3. **How insecure HTTP message transfer looks like?**
 
-6. **What services does HTTP provide and what are the particular problems each of them aims to address?**
+4. **What services does HTTP provide and what are the particular problems each of them aims to address?**
 
    framework for comm over internet fast, extensible(build on top), web frameworks interact with HTTP
 
-7. **TLS HANDSHAKE STEPS**
+5. **TLS HANDSHAKE STEPS**
 
    TLS assumes TCP is being used at the Transport layer, and the TLS Handshake takes place after the TCP Handshake. A step-by-step description of the TLS Handshake process might look something like this:
 
@@ -996,33 +407,33 @@ MINIMIZE THREAT -
 
    Something you should be aware of is that one of the implications of this complexity is its impact on performance. The TLS handshake can add up to two round-trips of latency (depending on the TLS version) to the establishment of a connection between client and server prior to the point where any application data can be sent. This is on top of the initial round trip resulting from the TCP Handshake.
 
-8. **What is symmetric key encryption? What is it used for?**
+6. **What is symmetric key encryption? What is it used for?**
 
    
 
-9. **What is asymmetric key encryption? What is it used for?**
+7. **What is asymmetric key encryption? What is it used for?**
 
    Happens at TLS Handshake before messages are sent.  Encrypts keys for end to end encryption. 
 
-10. **Describe SSL/TLS encryption process.**
+8. **Describe SSL/TLS encryption process.**
 
-    HTTPS sends messages through a cryptographic protocol called [TLS](http://en.wikipedia.org/wiki/Transport_Layer_Security) for encryption. Earlier versions of HTTPS used `SSL`or Secure Sockets Layer until `TLS` was developed. These cryptographic protocols use certificates to  communicate with remote servers and exchange security keys before data  encryption happens. You can inspect these certificates by clicking on  the padlock icon that appears before the `https://`:
+   HTTPS sends messages through a cryptographic protocol called [TLS](http://en.wikipedia.org/wiki/Transport_Layer_Security) for encryption. Earlier versions of HTTPS used `SSL`or Secure Sockets Layer until `TLS` was developed. These cryptographic protocols use certificates to  communicate with remote servers and exchange security keys before data  encryption happens. You can inspect these certificates by clicking on  the padlock icon that appears before the `https://`:
 
-    To securely send messages via HTTP we want both the request *and* the response to be encrypted in a such a way that they can only be decrypted by the intended recipient. The most efficient way to do this is via symmetric key cryptography. If we want to use symmetric keys however, we also need a way to securely exchange the symmetric key.
+   To securely send messages via HTTP we want both the request *and* the response to be encrypted in a such a way that they can only be decrypted by the intended recipient. The most efficient way to do this is via symmetric key cryptography. If we want to use symmetric keys however, we also need a way to securely exchange the symmetric key.
 
-11. **Describe the pros and cons of TLS Handshake**
+9. **Describe the pros and cons of TLS Handshake**
 
-    The way in which TLS (Transport Leyer Security) sets up an encrypted connection is via a process known as the TLS Handshake.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography
+   The way in which TLS (Transport Leyer Security) sets up an encrypted connection is via a process known as the TLS Handshake.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography
 
-    ​	Why? Cryptography- techniques to secure communication
+   ​	Why? Cryptography- techniques to secure communication
 
-      - encryption keys- you can only decipher the message with an encryption key that both sides agree on and copy/ we can now encrypt and decrypt
-      - No one else can have the key! How can we exchange this key without anyone else getting it? We must encrypt the encryption key![Simple Alice and Bob graphic illustrating the mechanics of asymmetric key encryption](https://da77jsbdz4r05.cloudfront.net/images/ls170/tls-encryption-asymmetric.png)
-      - Asymmetric Key Encryption- 
-        - aka public key encyrption uses a pair of keys- a public key and a private key.
-        - Unlike the symmetric system where the same key is used to encrypt and decrypt messages, in the asymmetric system the keys in the pair are non-identical: the public key is used to encrypt and the private key to decrypt.
-        - The important thing to understand is that messages encrypted with the public key can *only* be decrypted with the private key. The public key is made openly available but the private key is kept in the sole possession of the message receiver.
-        - An important thing to note here is that this encryption is primarily intended to work in one direction. Bob can send Alice messages encrypted with the public key which she can then decrypt with the private one. The same key pair would not be used in the other direction for secure communication, since anyone with access to the public key can decrypt the message.
+     - encryption keys- you can only decipher the message with an encryption key that both sides agree on and copy/ we can now encrypt and decrypt
+     - No one else can have the key! How can we exchange this key without anyone else getting it? We must encrypt the encryption key![Simple Alice and Bob graphic illustrating the mechanics of asymmetric key encryption](https://da77jsbdz4r05.cloudfront.net/images/ls170/tls-encryption-asymmetric.png)
+     - Asymmetric Key Encryption- 
+       - aka public key encyrption uses a pair of keys- a public key and a private key.
+       - Unlike the symmetric system where the same key is used to encrypt and decrypt messages, in the asymmetric system the keys in the pair are non-identical: the public key is used to encrypt and the private key to decrypt.
+       - The important thing to understand is that messages encrypted with the public key can *only* be decrypted with the private key. The public key is made openly available but the private key is kept in the sole possession of the message receiver.
+       - An important thing to note here is that this encryption is primarily intended to work in one direction. Bob can send Alice messages encrypted with the public key which she can then decrypt with the private one. The same key pair would not be used in the other direction for secure communication, since anyone with access to the public key can decrypt the message.
 
 ![Simple Alice and Bob graphic illustrating the mechanics of asymmetric key encryption](https://da77jsbdz4r05.cloudfront.net/images/ls170/tls-encryption-asymmetric.png)
 
@@ -1085,6 +496,8 @@ MINIMIZE THREAT -
                3. Upon receipt of the message, the receiver will decrypt the data payload using the symmetric key. The receiver will then also create a digest of the payload using the same algorithm and hash value. If the two digests match, this confirms the integrity of the message.
 
 5. **Compare HTTP and HTTPS.**
+
+   
 
 6. **Does HTTPS use other protocols?**
 

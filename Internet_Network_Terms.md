@@ -152,7 +152,7 @@ The goal is always to deliver information in the shortest amount of time possibl
 
 1) Code
 
-   1) Inefficient algorithms are the most obvious sources of latency in code.  When possible, look for unnecessary loops or nested expensive operations in code—restructuring loops and caching expensive computation results  usually help.
+   1) Inefficient algorithms are the most obvious sources of latency in code.  When possible, look for unnecessary loops or nested expensive operations in code—restructuring loops and caching expensive computation results usually help.
 
       
 
