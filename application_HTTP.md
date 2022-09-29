@@ -6,7 +6,7 @@
 
    Application layer protocols rely on the protocols at the layers below them to ensure that a message gets to where it is supposed to, and focus instead on the structure of that message and the data that it should contain.
 
-   We can perhaps think of Application layer protocols as being the rules for how applications talk to each other at a syntactical level. Different types of applications have different requirements with regards to how they communicate at a syntactical level, and so as a result there are many different protocols that exist at the application layer. For example, the rules for how an email client communicates with an email server will be different from the rules for how a web browser communicates with a web server because emails and web pages are fundamentally different things serving different purposes.
+   We can perhaps think of Application layer protocols as being the rules for how applications talk to each other at a *syntactical* level. Different types of applications have different requirements with regards to how they communicate at a syntactical level, and so as a result there are many different protocols that exist at the application layer. For example, the rules for how an email client communicates with an email server will be different from the rules for how a web browser communicates with a web server because emails and web pages are fundamentally different things serving different purposes.
 
    
 
@@ -42,15 +42,15 @@
 * Framework for communication over internet- fast, extensible(build on top), web frameworks interact with HTTP
 
 1. The most common client is an application you interact with on a daily basis called a **Web Browser**. Examples of web browsers include Internet Explorer, Firefox, Safari and Chrome, including mobile versions. Web browsers are responsible for issuing HTTP requests and processing the HTTP response in a user-friendly manner onto your screen. Web browsers aren't the only clients around, as there are many tools and applications that can also issue HTTP requests.
-2. text- based protocol from client to server and back
+2. Text- based protocol from client to server and back
    1. HTTP is based on the *client-server* paradigm, in which a client (usually some kind of browser) makes a *request* through the network for a particular web resource stored on a server.
    2. The server, then, sends a *response* to this request that ideally contains the requested resource, or if not, some kind of messaging that explained what happened.
-      - The server's response provides the client with the requested  resource, informs the client that the action requested has been carried  out, or else informs the client that an error occured in the process.
+      - The server's response provides the client with the requested resource, informs the client that the action requested has been carried out, or else informs the client that an error occured in the process.
 3. HTTP is at the core of what the web is about, and also at the core of dynamic web applications. Understanding HTTP is central to understanding how modern web applications work and how they're built.
 
-**Hypertext Transfer Protocol** (HTTP) is the set of rules which provide uniformity to the way resources on the web are transferred between applications. It is a system of rules, a protocol, that serve as a link between applications and the transfer of [hypertext](http://en.wikipedia.org/wiki/Hypertext) documents. Stated differently, it's an agreement, or message format, of how machines communicate with each other. HTTP follows a simple model where a client makes a **request** to a server and waits for a **response**. Hence, it's referred to as a **request response protocol**. 
+**Hypertext Transfer Protocol** (HTTP) is the set of rules which provide uniformity to the way resources on the web are transferred between applications. It is a system of rules, a protocol, that serve as a link between applications and the transfer of [hypertext](http://en.wikipedia.org/wiki/Hypertext) documents. Stated differently, it's an agreement, or message format, of how machines communicate with each other. HTTP follows a simple model where a client makes a **request** to a server and waits for a **response**. Hence, it's referred to as a **request- response protocol**. 
 
-* Under your browser's hood lies a collection of files -- CSS, HTML, Javascript, videos, images, etc. -- that makes displaying the page possible. All these files were sent from a **server** to your browser, the **client**, by an application protocol called HTTP (yes, this is why URLs in your browser address bar start with "http://").
+* Under your browser's hood lies a collection of files -- CSS, HTML, Javascript, videos, images, etc. -- that makes displaying the page possible. All these files were sent from a **server** to your browser, the **client**, by an application protocol called HTTP
 
   
 
@@ -71,7 +71,7 @@ An example of one way to do things, not the only one. Most prescribe to this mod
 The Client-server model is a distributed application structure that partitions task or workload between the providers of a resource or service, called servers, and service requesters called clients. In the client-server architecture, when the client computer sends a request for data to the server through the internet, the server accepts the requested process and deliver the data packets requested back to the client. Clients do not share any of their resources. Examples of Client-Server Model are Email, World Wide Web, etc.
 
 **How the Client-Server Model works ?**
-In this article we are going to take a dive into the **Client-Server** model and have a look at how the **Internet** works via, web browsers. This article will help us in having a solid foundation of the WEB and help in working with WEB technologies with ease.
+In this article we are going to take a dive into the **Client-Server** model and have a look at how the **Internet** works via, web browsers.
 
 - **Client:** When we talk the word **Client**, it mean to talk of a person or an organization using a particular service. Similarly in the digital world a **Client** is a computer (**Host**) i.e. capable of receiving information or using a particular service from the service providers (**Servers**).
 - **Servers:** Similarly, when we talk the word **Servers**, It mean a person or medium that serves something. Similarly in this digital world a **Server** is a remote computer which provides information (data) or access to particular services.
@@ -84,20 +84,20 @@ So, its basically the **Client** requesting something and the **Server** serving
 
 * An *HTTP Request* consists of a *request line*, *headers*, and an optional *body*.
 
-  * An HTTP request is a text-based message sent from the client to the serve with the aim of accessing a resource on the server.
+  * An HTTP request is a text-based message sent from the client to the server with the aim of accessing a resource on the server.
 
   * Entering something into the browser address bar, clicking a link,  submitting a form, or any number of other "user interaction" with a  resources on the web can instigate the sending on an HTTP request.
 
   * **What is a `GET` request and how does it work?**
 
-    Found in method section of chrome developer tools.  **HTTP Request Method**. You can think of this as the verb that tells the server what action to perform on a resource. The two most common HTTP request methods you'll see are `GET` and `POST`.  When you think about retrieving information, think `GET`, which is the most used HTTP request method. In the above diagram, you'll notice almost all of the requests use `GET` to retrieve the resources needed to display the web page.
+    **HTTP Request Method**. You can think of this as the verb that tells the server what action to perform on a resource. The two most common HTTP request methods you'll see are `GET` and `POST`.  When you think about retrieving information, think `GET`, which is the most used HTTP request method.  Almost all of the requests use `GET` to retrieve the resources needed to display the web page.
 
     - GET requests are used to retrieve a resource, and most links are GETs.
     - The response from a GET request can be anything, but if it's HTML and that HTML references other resources, your browser will automatically request those referenced resources. A pure HTTP tool will not.
 
   * **How is `GET` request initiated?**
 
-    retrieving data-`GET` requests are initiated by clicking a link or via the address bar of a browser. When you type an address like `https://www.reddit.com` into the address bar of your browser, you're making a `GET` request. You're asking the web browser to go retrieve the resource at that address, which means we've been making `GET` requests throughout this book. The same goes for interacting with links on web applications. The default behavior of a link is to issue a `GET` request to a URL. 
+    Retrieving data-`GET` requests are initiated by clicking a link or via the address bar of a browser. When you type an address like `https://www.reddit.com` into the address bar of your browser, you're making a `GET` request. You're asking the web browser to go retrieve the resource at that address. The same goes for interacting with links on web applications. The default behavior of a link is to issue a `GET` request to a URL. 
 
 * An *HTTP Response* consists of a *status line*, optional *headers*, and an optional *body*.
 
@@ -114,7 +114,7 @@ So, its basically the **Client** requesting something and the **Server** serving
     - This might be the HTML of the webpage, or the raw data of any files being requested, such as images, videos, or audio files
     - The body contains the data that is being transmitted in an HTTP message and is optional. In other words, an HTTP message can be sent with an empty body. When used, the body can contain HTML, images, audio and so on. You can think of the body as the letter enclosed in an envelope, to be posted.
 
-It's critical to understand that when using a browser, the browser hides a lot of the underlying HTTP request/response cycle from you. Your browser issued the initial `POST` request, got a response with a `Location` header, then issued another request without any action from you, then displayed the response from that second request. Once again, if you were using a pure HTTP tool, you'd see the `Location` response header from the first `POST` request, but the tool would not automatically issue a second request for you. (Some HTTP tools have this ability, if you check the "automatically follow redirects" option.)
+It's critical to understand that when using a browser, the browser hides a lot of the underlying HTTP request/response cycle from you. 
 
 
 
@@ -140,7 +140,7 @@ It's critical to understand that when using a browser, the browser hides a lot o
 
      ​	* The HTTP method and the path are required, and form part of what is  known as the start-line or request-line. As of HTTP 1.0, the HTTP  version also forms part of the request-line. The `Host` header is a required component since HTTP 1.1. Parameters, all other headers, and message body are optional.
 
-     Technically speaking the 'path' portion of the request-line is known  as the 'request-URI', and incorporates the actual path to the resource  and the optional parameters if present. In practice, most people simply  refer to this part of the request-line as the 'path'.
+     Technically speaking the 'path' portion of the request-line is known  as the 'request-URI', and incorporates the actual path to the resource  and the optional parameters if present. In practice, most people simply refer to this part of the request-line as the 'path'.
 
      A client MUST send a Host header field in all HTTP/1.1 request messages.
 
@@ -168,7 +168,7 @@ It's critical to understand that when using a browser, the browser hides a lot o
      - HTTP headers are a way to give more information about both the client and the resource that is being requested
 
        - The host header:
-         - has bee required since HTTP 1.1
+         - has been required since HTTP 1.1
          - indicates where the resource in question is located as a server may contain many hosts
        - Other headers might include:
          - fields about what languages are accepted by the client
@@ -236,12 +236,21 @@ Visual appearance is an effect of statefulness. Feeling of persistence of a stat
 What is meant by 'state' in the context of the web?
 
 - A "stateful" web application is one that maintains knowledge of past interactions.
-  - This might include keeping track of individual user accounts and  maintain a "logged in" status accross multiple resource requests and  refreshes.
+
+  - This might include keeping track of individual user accounts and maintain a "logged in" status across multiple resource requests and  refreshes.
   - Stateful apps can also keep track of items a user has placed in an online "shopping cart", even over multiple days
   - When your e-mail client identifies you by name and displays some kind of customized greeting, this is also an aspect of "state"
+
 - HTTP is a stateless protocol, meaning that no information is kept on the server between request/response cycles.
-  - Each request/response cycle is independent, and has no effect on previous or subsequent cycles
+
+  
+
+  - *Each request/response cycle is independent, and has no effect on previous or subsequent cycles*
+
+    
+
 - Stateless protocols are resilient, fast, and flexible as the server  doesn't have to retain any information between each request/response  cycle nor does any part of the system have to perform any clean up.
+
 - However, because of the statelessness of HTTP, it can be very  difficult to simulate a stateful experience and make it seem like a  persistent connection exists as many modern web apps do.
 
 
@@ -296,9 +305,9 @@ When you go to Facebook, for example, and log in, you expect to see the internal
 
     - Modern web pages tend to be fairly complex, including dynamically generated content as well as many resource dependencies.
 
-    - Therefore, it behoves us to have a means of responding to both  server data and user actions without having to refresh and reload the  whole page.
+    - Therefore, it behoves us to have a means of responding to both server data and user actions without having to refresh and reload the  whole page.
 
-    - AJAX enabled this functionality, allowing the client to send and  retrieve information in small pieces that can be used to update the  state of an application without refreshing/reloading, making it much  easier to maintain state.
+    - AJAX enabled this functionality, allowing the client to send and retrieve information in small pieces that can be used to update the  state of an application without refreshing/reloading, making it much easier to maintain state.
 
     - AJAX requests are sent like normal HTTP requests, and the server responds to them with a normal HTTP response.
 
@@ -314,7 +323,7 @@ This *statelessness* is what makes HTTP and the internet so distributed and diff
 
 16. **How the idea that HTTP is a stateless protocol makes the web difficult to secure?**
 
-* HTTP is a *stateless* protocol. This means that each Request/  Response cycle is independent of Request and Responses that came before  or those that come after.
+* HTTP is a *stateless* protocol. This means that each Request/ Response cycle is independent of Request and Responses that came before  or those that come after.
 
 1. Connection is broken once the request/response cycle is complete
 2. This *statelessness* is what makes HTTP and the internet so distributed and difficult to control, but it's also the same ephemeral attribute that makes it difficult for web developers to build **stateful** web applications.
@@ -332,7 +341,7 @@ This *statelessness* is what makes HTTP and the internet so distributed and diff
 
     - Sessions- Actual session data is stored on the server.
 
-    - Cookies- A piece of data that's sent from the server and stored in the client during a request/ response cycle.  aka "HTTP cookie" are small files stored in the browser and contain the session info. Server sends session infoand sets it in your browser cookie on your local computer. Client side cookie is compared with the server-side session data on each request to identify the current session. When you visit the same website again, your session will be recognized bc of the stored cookie with its associated info.  After the client sends a request, the server sends a response with a cookie, the client sends another response with that cookie 
+    - Cookies- A piece of data that's sent from the server and stored in the client during a request/ response cycle.  aka "HTTP cookie" are small files stored in the browser and contain the session info. Server sends session info and sets it in your browser cookie on your local computer. Client side cookie is compared with the server-side session data on each request to identify the current session. When you visit the same website again, your session will be recognized bc of the stored cookie with its associated info.  After the client sends a request, the server sends a response with a cookie, the client sends another response with that cookie 
 
       -  This piece of data will be sent to the server each time you make a request and uniquely identifies you -- or more precisely, it identifies your client, which is your browser. The browser on your computer stores these cookies. Now, if you were to close your browser and shut down your computer, the cookie information would still persist.
       -  With the session id now being sent with every request, the server can now uniquely identify this client. When the server receives a request with a session id, the server will look for the associated data based on that id, and in that associated session data is where the server "remembers" the state for that client, or more precisely, for that session id.
@@ -371,9 +380,9 @@ Post- pushing data to the server
 
 21. **Describe how would you send `POST` requests to a server and what is happening at each stage.**
 
-1. **`GET` requests should only retrieve content from the server.** They can generally be thought of as "read only" operations, however,  there are some subtle exceptions to this rule. For example, consider a  webpage that tracks how many times it is viewed. `GET` is still appropriate since the main content of the page doesn't change.
+- **`GET` requests should only retrieve content from the server.** They can generally be thought of as "read only" operations, however,  there are some subtle exceptions to this rule. For example, consider a  webpage that tracks how many times it is viewed. `GET` is still appropriate since the main content of the page doesn't change.
 
-   **`POST` requests involve changing values that are stored on the server.** Most HTML forms that submit their values to the server will use `POST`. Search forms are a noticeable exception to this rule: they often use `GET` since they are not changing any data on the server, only viewing it
+- **`POST` requests involve changing values that are stored on the server.** Most HTML forms that submit their values to the server will use `POST`. Search forms are a noticeable exception to this rule: they often use `GET` since they are not changing any data on the server, only viewing it
 
 `POST` is used when you want to initiate some action on the server, or send data to a server. Let's see an example with our HTTP tool: Typically from within a browser, you use `POST` when submitting a form. `POST`requests allow us to send much larger and sensitive data to the server, such as images or videos. For example, say we need to send our username and password to the server for authentication. We could use a `GET` request and send it through query strings. The flaw with this approach is obvious: our credentials become exposed instantly in the URL; that isn't what we want. Using a `POST` request in a form fixes this problem. `POST` requests also help sidestep the query string size limitation that you have with `GET` requests. With `POST` requests, we can send significantly larger forms of information to the server.
 
