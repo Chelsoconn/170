@@ -79,10 +79,11 @@ The TCP protocol is a stateful protocol because of what it is, not  because it i
 5. **Explain briefly what are OSI and TCP/IP (internet protocol suite) models? What is the purpose of having models like that?**
 
  * theoretical models used to describe the networking stack.
-
  * The networking stack is how we maintain our sanity when talking about  networks. It is a theoretical layer cake of abstractions and  encapsulations that help isolate the many responsibilities and concerns  of networking. In reality, there’s a lot of sophisticated dovetailing of responsibilities and blurry boundaries between the layers. Ask a  network engineer how many layers there are in the networking stack, and  they will give you some number between 3 and 7.
-
-   
+ * The top layer of the Internet Protocol Suite (Application) mostly maps to the top three layers of the OSI Model (Application, Presentation, Session).
+   The second layer of the Internet Protocol Suite (Transport) mostly maps to the fourth layer of the OSI model (Transport)
+   The third layer of the Internet Protocol Suite (Internet) mostly maps to the fifth layer of the OSI model (Network)
+   The fourth layer of the Internet Protocol Suite (Link) mostly maps to the bottom two layers of the OSI model (Data Link and Physical)
 
 1. Modularizing and structuring computer network communication models. 
    1. OSI 1-3 ~ IP 1 

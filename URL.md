@@ -100,4 +100,10 @@ URL is a subset of URI
 
 6) **What is the difference between scheme and protocol in URL?**
 
-protocol all caps.. scheme lowercase... scheme doesn't specify which version just general protocol 
+protocol all caps.. scheme lowercase... scheme doesn't specify which version just general protocol.
+
+Another frequent point of confusion when discussing URLs are the terms *scheme* and *protocol*. When looking at URL Components, we described the component that  prepends the colon and two forward slashes at the start of a URL as the *scheme*.
+
+You'll often hear this URL component incorrectly referred to as the *protocol*. The source of this confusion is that, although referring to this  component as the protocol is technically incorrect, in the context of a  URL there *is* a relationship between the two things in that the  scheme identifies which protocol should be used to access the resource.  It should be noted that 'protocol' in this sense refers to a 'family' of protocols, rather than a specific protocol version, e.g. `HTTP` rather than `HTTP 1.0` or `HTTP 1.1`.
+
+One more thing to note when discussing schemes and protocols is that the canonical form of a scheme name is lowercase. The convention is to  refer to scheme names in lowercase, e.g. `http`, and protocol names in uppercase, e.g. HTTP.

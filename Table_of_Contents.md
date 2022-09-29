@@ -32,7 +32,7 @@
    2) What is the role of protocols?  (Also see #5/#2)
    3) Why are there different types of protocols?
    4) What does it mean that a protocol is stateless?
-   5) OSI/TCP..What and Why?      <u>*DO I NEED MORE HERE?*</u>
+   5) OSI/TCP..What and Why?     
    6) PDU
    7) Data Payload
    8) How do lower-level protocols work?
@@ -110,6 +110,35 @@
 
 
 
-7. **HTTP**
+7. **Application_HTTP**
+
+   1. Application Layer Overview
+   2. HTML
+   3. DNS
+   4. HTTP 
+   5. Role of HTTP 
+   6. Client- Server Model of Web Interactions 
+   7. HTTP Requests and Responses/ Components 
+   8. Obligatory HTTP Request Components 
+   9. Obligatory HTTP Response Components 
+   10. HTTP Request/Response Cycle
+   11. State in context of Web 
+   12. Statelessness 
+   13. Stateful Web Application
+   14. How can we mimic a Stateful Application?
+   15. Why HTTP makes is difficult to build a Stateful Application
+   16. Why Statelessness makes HTTP difficult to secure
+   17. How do modern web apps 'remember' state for each client?
+   18. AJAX
+   19. HTTP POST/GET?
+   20. GET 
+   21. POST 
+   22. GET/POST?
+   23. Status Code 
+   24. Status Code 
+
+   
+
+8. **Security**
 
    
