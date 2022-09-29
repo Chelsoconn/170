@@ -97,4 +97,19 @@
 
    17. UDP-TCP comparison
 
-       
+
+
+
+6. **URL**
+   1. What is a URL and what are the components? 
+   2. Query String 
+   3. URL Encoding 
+   4. WWW.
+   5. URI
+   6. Difference between scheme and protocol 
+
+
+
+7. **HTTP**
+
+   
