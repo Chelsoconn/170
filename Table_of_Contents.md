@@ -44,7 +44,7 @@
 **DataLink_Ethernet**
 
 	1. DataLink Layer
-     		- Ethernet Frame
+     - Ethernet Frame
 
 
 
@@ -106,7 +106,7 @@
 1. What is a URL and what are the components? 
 2. Query String 
 3. URL Encoding 
-4. WWW.
+4. www
 5. URI
 6. Difference between scheme and protocol 
 
