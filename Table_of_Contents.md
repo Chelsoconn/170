@@ -42,21 +42,20 @@
 
 3. **DataLink_Ethernet**
    		1. DataLink Layer
-         		1. Ethernet Frame
+         		- Ethernet Frame
 
 
 
 4. **Internet_Network_IP**
-
-   1. Internet_Network Layer
-
-   2. What are IP/ headers?
-
-   3. DNS
-
-   4. Port Numbers + IP Addresses = Socket
-
-   5. Checksum
+1. Internet_Network Layer
+   
+2. What are IP/ headers?
+   
+3. DNS
+   
+4. Port Numbers + IP Addresses = Socket
+   
+5. Checksum
 
 
 
@@ -142,7 +141,7 @@
 8. **Security**
 
    1. Security Threats/ TLS 
-      1. Packet Sniffing, Session Hijacking, Cross-Scripting 
+      - Packet Sniffing, Session Hijacking, Cross-Scripting 
    2. Same Origin Policy 
    3. TLS Handshake Steps 
    4. Symmertric Key 
@@ -153,7 +152,7 @@
    9. CA Hierarchy 
    10. Cipher Suites 
    11. How TLS adds security to HTTP 
-       1. Encryption, Authentification, Integrity
+       - Encryption, Authentification, Integrity
    12. Server- Side Infrastructure 
 
    13. What is a Server?
