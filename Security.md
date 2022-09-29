@@ -3,21 +3,26 @@
 1. **Describe some of the security threats and what can be done to minimize them?**
 
    * HTTP is *inherently insecure*. Security can be increased by using *HTTPS*, enforcing *Same-origin policy*, and using techniques to prevent *Session Hijacking* and *Cross-site Scripting*.
+
    * *HTTP Requests and Responses* are transferred in *plain text*; as such they are *essentially insecure*.
+
    * We can use the *Transport Layer Security* (TLS) Protocol to add security to HTTP communications.
+
    * *Packet sniffing, session hijacking, Cross Scripting* 
 
-   THREAT - If a malicious hacker was attached to the same network, they could employ **packet sniffing** techniques to read the messages being sent back and forth. As we  learned previously, requests can contain the session id, which uniquely  identifies you to the server, so if someone else copied this session id, they could craft a request to the server and pose as your client, and  thereby automatically being logged in without even having access to your username or password.
+     
 
-   MINIMIZE THREAT - This is where Secure HTTP, or HTTPS, helps. A resource that's accessed by HTTPS will start with `https://` instead of `http://`, and usually be displayed with a lock icon in most browsers: With HTTPS every request/response is encrypted before being transported  on the network. This means if a malicious hacker sniffed out the HTTP  traffic, the information would be encrypted and useless.
+   **THREAT** - If a malicious hacker was attached to the same network, they could employ **packet sniffing** techniques to read the messages being sent back and forth. As we learned previously, requests can contain the session id, which uniquely  identifies you to the server, so if someone else copied this session id, they could craft a request to the server and pose as your client, and thereby automatically being logged in without even having access to your username or password.
+
+   **MINIMIZE THREAT** - This is where Secure HTTP, or HTTPS, helps. A resource that's accessed by HTTPS will start with `https://` instead of `http://`, and usually be displayed with a lock icon in most browsers: With HTTPS every request/response is encrypted before being transported  on the network. This means if a malicious hacker sniffed out the HTTP  traffic, the information would be encrypted and useless.
 
 
 
-​		THREAT - if an attacker gets a hold of the session id, both the attacker and the  user now share the same session and both can access the web application. In **session hijacking**, the user won't even know an attacker is accessing his or her session without ever even knowing the username or password
+​		**THREAT** - if an attacker gets a hold of the session id, both the attacker and the  user now share the    same session and both can access the web application. In **session hijacking**, the user won't even know an attacker is accessing his or her session without ever even knowing the username or password
 
-​	   MINIMIZE THREAT - 
+​	   **MINIMIZE THREAT** - 
 
-		* One popular way of solving session hijacking is by resetting sessions.  With authentication systems, this means a successful login must render  an old session id invalid and create a new one. With this in place, on  the next request, the victim will be required to authenticate. At this  point, the altered session id will change, and the attacker will not be  able to have access. Most websites implement this technique by making  sure users authenticate when entering any potentially sensitive area,  such as charging a credit card or deleting the account.
+		* One popular way of solving session hijacking is by resetting sessions.  With authentication systems, this means a successful login must render an old session id invalid and create a new one. With this in place, on  the next request, the victim will be required to authenticate. At this  point, the altered session id will change, and the attacker will not be  able to have access. Most websites implement this technique by making  sure users authenticate when entering any potentially sensitive area,  such as charging a credit card or deleting the account.
 	
 	 * Same Origin Policy 
 	
@@ -26,7 +31,7 @@
 	
 	    
 
-​		THREAT- **Cross-site scripting, or XSS**. This type of attack  happens when you allow users to input HTML or JavaScript that ends up  being displayed by the site directly.  Attackers can craft ingeniously malicious HTML and JavaScript and be  very destructive to both the server as well as future visitors of this  page. For example, an attacker can use JavaScript to grab the session id of every future visitor of this site and then come back and assume  their identity. It could happen silently without the victims ever  knowing about it. Note that the malicious code would bypass the  same-origin policy because the code lives on the site.
+​		**THREAT**- **Cross-site scripting, or XSS**. This type of attack  happens when you allow users to input HTML or JavaScript that ends up  being displayed by the site directly.  Attackers can craft ingeniously malicious HTML and JavaScript and be  very destructive to both the server as well as future visitors of this  page. For example, an attacker can use JavaScript to grab the session id of every future visitor of this site and then come back and assume their identity. It could happen silently without the victims ever knowing about it. Note that the malicious code would bypass the same-origin policy because the code lives on the site.
 
 - Websites that allow some kind of input, such as allowing users to enter a comment that will be displayed, must protect against **cross site scripting** or **XSS**.
 - This is when a malicious party uses site input fields to inject HTML or JavaScipt into the site directly.
@@ -34,7 +39,7 @@
 - It's also possible to escape certain characters that indicate JavaScript or HTML code.
 - Site's can also choose to only accept a safer form of input, such as Markdown.
 
-MINIMIZE THREAT - 
+**MINIMIZE THREAT** - 
 
 * One way to prevent this kind of attack is by making sure to always  sanitize user input. Eliminate problematic input, such as <script> tags, or disallowing HTML and JavaScript input altogether in favor of a safer format, like Markdown.
 * The second way to guard against XSS is to escape all user input data  when displaying it. If you do need to allow users to input HTML and  JavaScript, then when you print it out, make sure to escape it so that  the browser does not interpret it as code.
@@ -45,9 +50,9 @@ MINIMIZE THREAT -
 
 2. **What is the Same Origin Policy? How it is used to mitigate certain security threats?**
 
-The same-origin policy is an important concept that permits unrestricted interaction between resources originating from the same origin, but  restricts certain interactions between resources originating from  different origins. What we mean by *origin* here is the combination of a url's scheme, hostname, and port. So `http://mysite.com/doc1` would be considered to have the same origin as `http://mysite.com/doc2`, but a different origin to `https://mysite.com/doc2` (different scheme), `http://mysite.com:4000/doc2` (different port), and `http://anothersite.com/doc2` (different host).
+The same-origin policy is an important concept that permits unrestricted interaction between resources originating from the same origin, but restricts certain interactions between resources originating from  different origins. What we mean by *origin* here is the combination of a url's **scheme, hostname, and port**. So `http://mysite.com/doc1` would be considered to have the same origin as `http://mysite.com/doc2`, but a different origin to `https://mysite.com/doc2` (different scheme), `http://mysite.com:4000/doc2` (different port), and `http://anothersite.com/doc2` (different host).
 
-Same-origin policy doesn't restrict *all* cross-origin requests.  Requests such as linking, redirects, or form submissions to different  origins are typically allowed. Also typically allowed is the embedding  of resources from other origins, such as scripts, css stylesheets,  images and other media, fonts, and iframes. What *is* typically restricted are cross-origin requests where resources are being accessed programmatically using APIs such as `XMLHttpRequest` or `fetch` (the details of which are beyond the scope of this book).   
+Same-origin policy doesn't restrict *all* cross-origin requests.  Requests such as linking, redirects, or form submissions to different  origins are typically allowed. Also typically allowed is the embedding of resources from other origins, such as scripts, css stylesheets, images and other media, fonts, and iframes. What *is* typically restricted are cross-origin requests where resources are being accessed programmatically using APIs such as `XMLHttpRequest` or `fetch` (the details of which are beyond the scope of this book).   
 
 
 
@@ -72,7 +77,7 @@ TLS assumes TCP is being used at the Transport layer, and the TLS Handshake take
 
 
 
-As you can see, the TLS Handshake is a fairly complicated process. We certainly don't expect you to memorize every detail of the various steps involved. Instead, try to form a high-level mental model for how it works. Note also that the exact process will vary according to which version of TLS is used. The key points to remember about the TLS Handshake process is that it is used to:
+As you can see, the TLS Handshake is a fairly complicated process.  Note that the exact process will vary according to which version of TLS is used. The key points to remember about the TLS Handshake process is that it is used to:
 
 - Agree which version of TLS to be used in establishing a secure connection.
 - Agree on the various algorithms that will be included in the cipher suite.
@@ -84,13 +89,13 @@ Something you should be aware of is that one of the implications of this complex
 
 4. **What is symmetric key encryption? What is it used for?**
 
-- Symmetric key encryption is an encrypted communication system in  which both the sender and receiver posses a shared encryption key.
+- Symmetric key encryption is an encrypted communication system in which both the sender and receiver posses a shared encryption key.
 
-- The advantages to this are that it facilitates two-way  communication. Both parties can use the shared key to encode, send, and  decode messages to and from the other.
+- The advantages to this are that it facilitates two-way communication. Both parties can use the shared key to encode, send, and decode messages to and from the other.
 
 - This disadvantage is that a symmetric system relies on the fact that no one else has access to the key in order for it to remain secure.
 
-- This means that it requires a secure way for both paries to exchange keys before symmetric encryption can be established, and this is  difficult to do on the web.
+- This means that it requires a secure way for both paries to exchange keys before symmetric encryption can be established, and this is difficult to do on the web.
 
 - For this reason, it is used in *conjunction* with asymmetric key encryption, which facilitates a secure exchange of a shared key
 
@@ -99,9 +104,9 @@ Something you should be aware of is that one of the implications of this complex
 5. **What is asymmetric key encryption? What is it used for?**
 
 - Asymmetric Key Encryption is an encrypted communications system which uses two distinct keys: a public key and a private key.
-- The public key is used to encrypt and send a secure message to the  recipient, who holds the private key, which is used to decode the  encrypted message.
+- The public key is used to encrypt and send a secure message to the recipient, who holds the private key, which is used to decode the encrypted message.
 - This only facilitates one way communication, in which only the party who holds the private key can receive and decode secure communications.
-- However, because it works only one way, we can se asymmetric key  encryption as a means for hosts to exchange symmetric encryption keys  during the TLS handshake process.
+- However, because it works only one way, we can see asymmetric key encryption as a means for hosts to exchange symmetric encryption keys during the TLS handshake process.
 
 
 
@@ -109,7 +114,7 @@ Something you should be aware of is that one of the implications of this complex
    * *TLS encryption* allows us to *encode messages* so that they can only be read by those with an authorized means of decoding the message
    * TLS encryption uses a combination of *Symmetric Key Encryption* and *Asymmetric Key Encryption*. Encryption of the initial key exchange is performed asymmetrically, and subsequent communications are symmetrically encrypted.
 
-HTTPS sends messages through a cryptographic protocol called [TLS](http://en.wikipedia.org/wiki/Transport_Layer_Security) for encryption. Earlier versions of HTTPS used `SSL`or Secure Sockets Layer until `TLS` was developed. These cryptographic protocols use certificates to  communicate with remote servers and exchange security keys before data  encryption happens. You can inspect these certificates by clicking on  the padlock icon that appears before the `https://`:
+HTTPS sends messages through a cryptographic protocol called [TLS](http://en.wikipedia.org/wiki/Transport_Layer_Security) for encryption. Earlier versions of HTTPS used `SSL`or Secure Sockets Layer until `TLS` was developed. These cryptographic protocols use certificates to  communicate with remote servers and exchange security keys before data  encryption happens. 
 
 To securely send messages via HTTP we want both the request *and* the response to be encrypted in a such a way that they can only be decrypted by the intended recipient. The most efficient way to do this is via symmetric key cryptography. If we want to use symmetric keys however, we also need a way to securely exchange the symmetric key.
 
@@ -117,7 +122,7 @@ To securely send messages via HTTP we want both the request *and* the response t
 
 7. **Describe the pros and cons of TLS Handshake**
 
-The way in which TLS (Transport Leyer Security) sets up an encrypted connection is via a process known as the TLS Handshake.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography
+The way in which TLS (Transport Leyer Security) sets up an encrypted connection is via a process known as the TLS Handshake.  The clever thing about TLS is the way that it uses a combination of symmetric and asymmetric cryptography. 
 
 ​	Why? Cryptography- techniques to secure communication
 
@@ -218,9 +223,9 @@ The algorithms for performing each of these tasks, when combined, form the *ciph
 
 12. **What is server-side infrastructure? What are its basic components?**
 
-A *web server* is typically a server that responds to requests for static assets: files, images, css, javascript, etc. These requests  don't require any data processing, so can be handled by a simple web  server.
+A *web server* is typically a server that responds to requests for static assets: files, images, css, javascript, etc. These requests don't require any data processing, so can be handled by a simple web server.
 
-An *application server*, on the other hand, is typically where application or business logic resides, and is where more complicated  requests are handled. This is where your server-side code lives when  deployed.
+An *application server*, on the other hand, is typically where application or business logic resides, and is where more complicated requests are handled. This is where your server-side code lives when deployed.
 
 The application server will often consult a persistent *data store*, like a relational database, to retrieve or create data. Data stores can also be simple files, key/value stores, document stores and many other  variations, as long as it can save data in some format for later  retrieval and processing.
 
