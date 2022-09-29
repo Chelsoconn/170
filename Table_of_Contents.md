@@ -141,4 +141,21 @@
 
 8. **Security**
 
-   
+   1. Security Threats/ TLS 
+      1. Packet Sniffing, Session Hijacking, Cross-Scripting 
+   2. Same Origin Policy 
+   3. TLS Handshake Steps 
+   4. Symmertric Key 
+   5. Assymmetric Key 
+   6. SSL/TLS Encryption
+   7. Pros/ Cons of TLS Handshake 
+   8. TLS/SSL Certificates 
+   9. CA Hierarchy 
+   10. Cipher Suites 
+   11. How TLS adds security to HTTP 
+       1. Encryption, Authentification, Integrity
+   12. Server- Side Infrastructure 
+
+   13. What is a Server?
+   14. Optimizations to improve Latency
+   15. DTLS 
