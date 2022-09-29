@@ -132,14 +132,15 @@ The way in which TLS (Transport Leyer Security) sets up an encrypted connection 
 ![Simple Alice and Bob graphic illustrating the mechanics of asymmetric key encryption](https://da77jsbdz4r05.cloudfront.net/images/ls170/tls-encryption-asymmetric.png)
 
 8. **Why do we need digital TLS/SSL certificates?**
+
    * *TLS authentication* is a means of *verifying the identity* of a participant in a message exchange.
    * TLS Authentication is implemented through the use of *Digital Certificates*.
    * Certificates are *signed* by a *Certificate Authority*, and work on the basis of a *Chain of Trust* which leads to one of a small group of highly trusted *Root CAs*.
    * The server's certificate is *sent* during the *TLS Handshake* process.
 
-1. So we don't interact with a false website.
+   1. So we don't interact with a false website.
 
-2. During the description of the TLS Handshake, we mentioned Cipher Suites a few times. So what exactly is a Cipher Suite?
+   2. During the description of the TLS Handshake, we mentioned Cipher Suites a few times. So what exactly is a Cipher Suite?
 
    A *cipher* is a cryptographic algorithm; in other words they are sets of steps for performing encryption, decryption, and other related tasks. A *cipher suite* is a suite, or set, of ciphers.
 
@@ -148,15 +149,15 @@ The way in which TLS (Transport Leyer Security) sets up an encrypted connection 
    The algorithms for performing each of these tasks, when combined, form the *cipher suite*. The suite to be used is agreed as part of the TLS Handshake. As part of the `ClientHello` message, the client sends a list of algorithms it supports for each required task, and the server chooses from these according to which algorithms it also supports.
 
    - The server sends its certificate, which includes its *public* key.
-   
+
    - The server creates a 'signature' in the form of some data encrypted with the server's *private* key.
-   
+
    - The signature is transmitted in a message along with the original data from which the signature was created.
-   
+
    - On receipt of the message, the client decrypts the signature using the server's public key and compares the decrypted data to the original version.
-   
+
    - If the two versions match then the encrypted version could only have been created by a party in possession of the private key.
-   
+
    - Following a process such as this we can identify that the server which provided the certificate during the initial part of the TLS Handshake as being in possession of the private key, and therefore the actual owner of the certificate.
      * There's still an issue here though. What's to stop a malicious third-party creating their own key pair and certificate identifying them as, say, a well-known bank? Just as it's possible to create a fake ID card in the real world, it's possible to create a fake digital certificate. How are we to know if a certificate is genuine or not? This is where Certificate Authorities come in.
      
