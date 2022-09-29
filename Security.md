@@ -187,31 +187,31 @@ The algorithms for performing each of these tasks, when combined, form the *ciph
 
 11. **How does TLS add a security layer to HTTP?**
 
-1. TLS used to be SSL 
+* TLS used to be SSL 
 
-2. 3 important security services that are provided by TLS:
+* 3 important security services that are provided by TLS:
 
-   * Each of these services are important in their own right, but when combined they provide for very secure message exchange over what is essentially an unsecure channel. Let's look a bit more closely at the nature of these services.
+* Each of these services are important in their own right, but when combined they provide for very secure message exchange over what is essentially an unsecure channel. Let's look a bit more closely at the nature of these services.
 
-   1. *Encryption*-
-      1. a process of encoding a message so that it can only be read by those with an authorized means of decoding the message
-      2. See TLS Handshake 
-   
-   2. *Authentification*-
-      1. a process to verify the identity of a particular party in the message exchange
-      2. TLS Authentication is implemented through the use of *Digital Certificates*.
-      3. Certificates are *signed* by a *Certificate Authority*, and work on the basis of a *Chain of Trust* which leads to one of a small group of highly trusted *Root CAs*
-   
-   3. *Integrity*-
-   
-      * *TLS Integrity* provides a means of *checking* whether a message has been *altered or interfered with* in transit.
-      * TLS Integrity is implemented through the use of a *Message Authentication Code* (MAC).
-   
-      1. a process to detect whether a message has been interfered with or faked
-         1. The main field that interests us in terms of providing message integrity is the `MAC` (*Message Authentication Code*- similar to checksum) field. Note that, though they use the same acronym, the Message Authentication Code is completely unrelated to the MAC Address (media access control address) discussed in an earlier lesson. The intention of the `MAC` field in a TLS record is to add a layer of security by providing a means of checking that the message hasn't been altered or tampered with in transit.
-            1. The sender will create what's called a *digest* of the data payload. This is effectively a small amount of data derived from the actual data that will be sent in the message. The digest is created using a specific hashing algorithm combined with a pre-agreed hash value. This hashing algorithm to be used and hash value will have been agreed as part of the TLS Handshake process when the Cipher Suite is negotiated.
-            2. The sender will then encrypt the data payload using the symmetric key (as described earlier in the Encryption section), encapsulate it into a TLS record, and pass this record down to the Transport layer to be sent to the other party.
-            3. Upon receipt of the message, the receiver will decrypt the data payload using the symmetric key. The receiver will then also create a digest of the payload using the same algorithm and hash value. If the two digests match, this confirms the integrity of the message.
+  1. *Encryption*-
+     1. a process of encoding a message so that it can only be read by those with an authorized means of decoding the message
+     2. See TLS Handshake 
+
+  1. *Authentification*-
+     1. a process to verify the identity of a particular party in the message exchange
+     2. TLS Authentication is implemented through the use of *Digital Certificates*.
+     3. Certificates are *signed* by a *Certificate Authority*, and work on the basis of a *Chain of Trust* which leads to one of a small group of highly trusted *Root CAs*
+
+  1. *Integrity*-
+
+     * *TLS Integrity* provides a means of *checking* whether a message has been *altered or interfered with* in transit.
+     * TLS Integrity is implemented through the use of a *Message Authentication Code* (MAC).
+
+     1. a process to detect whether a message has been interfered with or faked
+        1. The main field that interests us in terms of providing message integrity is the `MAC` (*Message Authentication Code*- similar to checksum) field. Note that, though they use the same acronym, the Message Authentication Code is completely unrelated to the MAC Address (media access control address) discussed in an earlier lesson. The intention of the `MAC` field in a TLS record is to add a layer of security by providing a means of checking that the message hasn't been altered or tampered with in transit.
+           1. The sender will create what's called a *digest* of the data payload. This is effectively a small amount of data derived from the actual data that will be sent in the message. The digest is created using a specific hashing algorithm combined with a pre-agreed hash value. This hashing algorithm to be used and hash value will have been agreed as part of the TLS Handshake process when the Cipher Suite is negotiated.
+           2. The sender will then encrypt the data payload using the symmetric key (as described earlier in the Encryption section), encapsulate it into a TLS record, and pass this record down to the Transport layer to be sent to the other party.
+           3. Upon receipt of the message, the receiver will decrypt the data payload using the symmetric key. The receiver will then also create a digest of the payload using the same algorithm and hash value. If the two digests match, this confirms the integrity of the message.
 
 
 
@@ -233,11 +233,15 @@ Yet taken together as unified concept, the server-side infrastructure in its ent
 
 14. **What are optimizations that developers can do in order to improve performance and minimize latency?**
 
-1. Cache 
-2. reduce TCP connections 
-3. Browser Optimization 
-4. Compression techniques
-5. DNS Optimizations 
+    - Cache 
+
+    - reduce TCP connections 
+
+    - Browser Optimization 
+
+    - Compression techniques
+
+    - DNS Optimizations 
 
 
 
