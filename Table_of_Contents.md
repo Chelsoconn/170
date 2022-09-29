@@ -43,10 +43,11 @@
 
 **DataLink_Ethernet**
 
-	1. DataLink Layer
-     - Ethernet Frame
+1. Data_Link_Layer
 
+   - Ethernet 
 
+     
 
 **Internet_Network_IP**
 
